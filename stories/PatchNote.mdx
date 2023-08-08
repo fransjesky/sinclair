@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title='Patch Notes' />
+
+# Patch Notes
+
+<div className='container'>
+  <div className='note-card'>
+    <h3 style={{ marginBottom: 0, fontSize: 14 }}>Version 0.1 - Project Initialized Phase</h3>
+    <span style={{ marginTop: 0, fontSize: 12, opacity: 0.5 }}>8 Aug, 2023</span>
+    <ul>
+      <li>Project initialized with <i>npx create-next-app@latest</i></li>
+      <li>Updated repository's README.md</li>
+      <li>Updated the project's package.json</li>
+      <li>Created a development branch</li>
+      <li>Installed Material UI, React Three Fiber, and Storybook dependencies</li>
+      <li>Setup the Material UI theme and initial design system</li>
+      <li>Setup initial documentation and patch notes in Storybook</li>
+      <li>Created the initial 3D scene component using R3F (React Three Fiber)</li>
+      <li>Added the MIT license to the project's root</li>
+      <li>Deployed the project's production branch to Vercel</li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  {`
+  .note-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .container .note-card:last-child {
+    border: none
+  }
+`}
+</style>
