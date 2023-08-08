@@ -1,10 +1,23 @@
-# Project Sinclair - Frans Jesky Portfolio
+<div id="top"></div>
+<br/>
+<div align="center">
+  <a href="https://github.com/fransjesky/sinclair">
+    <img src="public/Logo.png" alt="Logo" width="100" height="100">
+  </a>
+  <h1>Project Sinclair</h1>
+  <p align="center">
+  Welcome to the <strong>Project Sinclair</strong>.
+    <br />
+    <a href="https://jesky.dev">Live Website</a>
+    ·
+    <a href="https://github.com/fransjesky/sinclair/issues">Report Bug</a>
+  </p>
 
 [![Author](https://img.shields.io/badge/author-Frans%20Jesky-lightgrey.svg?style=flat&color=%23673ab7)](https://github.com/fransjesky)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat&color=%232196f3)](https://github.com/fransjesky/sinclair/LICENSE)
 [![Release](https://img.shields.io/github/v/release/fransjesky/sinclair?style=flat&color=%23009688)](https://github.com/fransjesky/sinclair/releases)
 
-Welcome to the repository of **Project Sinclair**. This is a repository for my portfolio website.
+</div>
 
 ### What is Project Sinclair?
 
@@ -13,14 +26,6 @@ I have been a gamer almost my whole life. Every time i play games, i always use 
 In 2020, i created my first portfolio website. It was quite good, but i never finished it. I was thinking of continuing or revamping it a few times. However, as my skills improved from time to time, i decided it was better to just start over from scratch.
 
 As being said, that is the story behind project sinclair. It is a project to create my new immersive and breathtaking personal portfolio website.
-
-## Contribution 🔥
-
-At first, i wanted to keep this project private. However, i changed my mind and decided to make it public. There are some reasons behind it:
-
-I never think my code is clean and perfect. It would be great if other people could help me find any bugs, errors, or even give suggestions by **opening an issue** or a **pull request**.
-
-Being able to be helpful or inspiring is one of the most wonderful feelings in life. That is why i decided to make this project public, hoping someone out there could be helped or inspired by it.
 
 ## Getting Started 🚀
 
@@ -44,6 +49,26 @@ This project is using [Storybook](https://storybook.js.org/) as its component do
 npm run storybook           # start storybook server
 ```
 
+### Contribution 🔥
+
+At first, i wanted to keep this project private. However, i changed my mind and decided to make it public. There are some reasons behind it:
+
+I never think my code is clean and perfect. It would be great if other people could help me find any bugs, errors, or even give suggestions by **opening an issue** or a **pull request**.
+
+Being able to be helpful or inspiring is one of the most wonderful feelings in life. That is why i decided to make this project public, hoping someone out there could be helped or inspired by it.
+
+### Supports ❤️
+
+If you found useful things or got some inspiration from my project and you implemented it on your own project, i would love to hear or see it. Feel free to contact me by email, Discord or mention me on Twitter [@fransjesky](https://twitter.com/fransjesky).
+
+Giving a star on github's repository takes less than a second, but it would mean a whole world to me. If you like this project, giving me a ⭐️ would be much appreciated.
+
+If you want to treat me, just a cup of cappucino with single expresso would be more than enough 😋
+
+[![buymeacoffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)](https://www.buymeacoffee.com/fransjesky26)
+
+<p align="right">( <a href="#top">back to top</a> )</p>
+
 ## License ⚖️
 
 Copyright © 2023 by [Frans Jesky](https://github.com/fransjesky)
@@ -62,8 +87,4 @@ There is a thin line between getting influenced or inspired and duplicating or p
 <br/>
 I never give permission to publish or present any of my projects as your own.
 
-## Supports ❤️
-
-If you found useful things or got some inspiration from my project and you implemented it on your own project, i would love to hear or see it. Feel free to contact me by email, Discord or mention me on Twitter [@fransjesky](https://twitter.com/fransjesky).
-
-Giving a star on github's repository takes less than a second, but it would mean a whole world to me. Please consider giving a 🌟 if you like this project.
+<p align="right">( <a href="#top">back to top</a> )</p>
