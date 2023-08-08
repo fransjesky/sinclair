@@ -1,8 +1,5 @@
-import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
+import ThemeRegistry from '@/theme/ThemeRegistry';
 
 export const metadata: Metadata = {
   title: 'Frans Jesky — Creative Developer',
@@ -17,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body>
+        <ThemeRegistry>{children}</ThemeRegistry>
+      </body>
     </html>
   );
 }
