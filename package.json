@@ -1,25 +1,50 @@
 {
   "name": "sinclair",
   "version": "0.1",
+  "license": "MIT",
+  "authors": "Frans Jesky",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.3",
+    "@react-three/drei": "^9.80.1",
+    "@react-three/fiber": "^8.13.6",
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
+    "@types/three": "^0.155.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
     "next": "13.4.13",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "three": "^0.155.0",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.2.1",
+    "@storybook/addon-interactions": "^7.2.1",
+    "@storybook/addon-links": "^7.2.1",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.2.1",
+    "@storybook/nextjs": "^7.2.1",
+    "@storybook/react": "^7.2.1",
+    "@storybook/testing-library": "^0.2.0",
+    "eslint-plugin-storybook": "^0.6.13",
+    "leva": "^0.9.35",
+    "r3f-perf": "^7.1.2",
+    "storybook": "^7.2.1"
   }
 }

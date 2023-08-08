@@ -1,3 +1,5 @@
+import Landing from '@/modules/Landing';
+
 export default function Home() {
-  return null;
+  return <Landing />;
 }
