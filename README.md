@@ -14,11 +14,11 @@ In 2020, i created my first portfolio website. It was quite good, but i never fi
 
 As being said, that is the story behind project sinclair. It is a project to create my new immersive and breathtaking personal portfolio website.
 
-### Contribution
+## Contribution 🔥
 
 At first, i wanted to keep this project private. However, i changed my mind and decided to make it public. There are some reasons behind it:
 
-I never think my code is clean and perfect. It would be great if other people could help me find any bugs, errors, or even give suggestions by opening an issue or a pull request.
+I never think my code is clean and perfect. It would be great if other people could help me find any bugs, errors, or even give suggestions by **opening an issue** or a **pull request**.
 
 Being able to be helpful or inspiring is one of the most wonderful feelings in life. That is why i decided to make this project public, hoping someone out there could be helped or inspired by it.
 
@@ -28,20 +28,20 @@ Being able to be helpful or inspiring is one of the most wonderful feelings in l
 ![Node](https://img.shields.io/badge/Node@18.17.0-logo?style=flat&logo=nodedotjs&logoColor=white&labelColor=grey&color=%23339933)
 ![NPM](https://img.shields.io/badge/NPM@9.6.7-logo?style=flat&logo=npm&logoColor=white&labelColor=grey&color=%23CB3837)
 
-This project is built on **Node ver 18.17.0**, so make sure you have Node ver 18.x or above installed on your device. As this project uses the **NPM Package Manager**, please make sure to use npm as well.
+This project is built on **Node v18**, so make sure you have Node v18.x or above installed on your device. As this project uses the **NPM Package Manager**, please make sure to use npm as well to avoid any issue.
 
 As you may already know, please run this command on your terminal after you cloned or forked the project to start the project's development server.
 
 ```sh
-cd sinclair/
-npm install
-npm run dev
+cd ~/desktop/sinclair       # if you clone the project on desktop
+npm install                 # install all dependencies
+npm run dev                 # start the development server
 ```
 
 This project is using [Storybook](https://storybook.js.org/) as its component documentation. If you want to try the components or read more detailed documentation of this project, run this command below on your terminal.
 
 ```sh
-npm run storybook
+npm run storybook           # start storybook server
 ```
 
 ## License ⚖️
@@ -50,18 +50,20 @@ Copyright © 2023 by [Frans Jesky](https://github.com/fransjesky)
 
 **Project Sinclair** is available and distributed under the [MIT License](https://github.com/fransjesky/sinclair/LICENSE).
 
-```
-You are allowed to distribute, modify the codes, or use this project for personal use.
+### Code of Conduct
 
-If you want to make it commercial, you must ask for my permission, as i'm working on this project with a non-negligible amount of effort, experiences and time.
+You are allowed to distribute, modify the codes, or use this project for personal use. However, i'd appreciate being credited as the author of the project or website.
 
-There is a thin line between getting influenced or inspired and duplicating or plagiarizing. Rather than cloning the whole project, codes, or assets, you can try to get more inspiration or ideas for your own project from some parts of this project.
-```
+If you want to make it commercial, you must ask for my permission, as i'm working on this project with a non-negligible amount of effort, experiences, knowledge and time.
 
-<p align='center'><strong>NEVER CLAIM</strong> all of my work or effort as your own!</p>
+There is a thin line between getting influenced or inspired and duplicating or plagiarizing. I want people to learn from and adapt from this project and later modify it to make it their own.
 
-### Supports
+**NEVER CLAIM** all of my work or effort as your own!
+<br/>
+I never give permission to publish or present any of my projects as your own.
+
+## Supports ❤️
 
 If you found useful things or got some inspiration from my project and you implemented it on your own project, i would love to hear or see it. Feel free to contact me by email, Discord or mention me on Twitter [@fransjesky](https://twitter.com/fransjesky).
 
-Giving a star on github's repository takes less than a second, but it would mean a whole world to me. If you like my work, please consider giving it a star 🌟.
+Giving a star on github's repository takes less than a second, but it would mean a whole world to me. Please consider giving a 🌟 if you like this project.
