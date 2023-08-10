@@ -1,5 +1,5 @@
 const BACKGROUND = {
-  default: '#121212',
+  default: '#000000',
   paper: '#ffffff',
 };
 
