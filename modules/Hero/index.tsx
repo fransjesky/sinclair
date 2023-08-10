@@ -4,11 +4,10 @@ import { useState, Suspense } from 'react';
 import { Box } from '@mui/material';
 import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Perf } from 'r3f-perf';
 
 // components
 import Floor from '@/components/Floor';
-import VideoText from '@/components/VideoText';
+import Title from '@/components/Title';
 
 function Intro() {
   const [vec] = useState(() => new Vector3());
@@ -29,12 +28,11 @@ export default function Hero() {
         camera={{ position: [0, 3, 100], fov: 15 }}
         linear
       >
-        <Perf position='top-left' />
         <color attach='background' args={['black']} />
         <fog attach='fog' args={['black', 15, 20]} />
         <Suspense fallback={null}>
-          <VideoText />
           <Floor />
+          <Title />
           <ambientLight />
           <Intro />
         </Suspense>

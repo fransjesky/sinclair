@@ -9,7 +9,7 @@ export default function Floor() {
 
   return (
     <>
-      <Sparkles size={3} scale={[8, 3, 10]} speed={0.2} count={100} />
+      <Sparkles size={3} scale={[8, 3.5, 15]} speed={0.2} count={200} />
       <mesh
         position={[0, -1, 0]}
         receiveShadow
@@ -22,7 +22,7 @@ export default function Floor() {
           resolution={1024}
           mirror={0.5}
           mixBlur={6}
-          mixStrength={15}
+          mixStrength={20}
           metalness={0.2}
           roughnessMap={floor}
           normalMap={normal}
