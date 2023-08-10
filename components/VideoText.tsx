@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useThree } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 
 function VideoText() {
+  const { viewport } = useThree();
+  const responsiveFontSize = viewport.aspect;
+
   const [video] = useState(() =>
     Object.assign(document.createElement('video'), {
-      src: '/video.mp4',
+      src: '/Kyoto.mp4',
       crossOrigin: 'Anonymous',
       loop: true,
       muted: true,
@@ -13,7 +17,7 @@ function VideoText() {
   useEffect(() => void video.play(), [video]);
 
   return (
-    <Text font='/Montserrat-Black.ttf' fontSize={2} letterSpacing={-0.02}>
+    <Text font='/Montserrat-Black.ttf' fontSize={responsiveFontSize}>
       JESKY
       <meshBasicMaterial toneMapped={false}>
         <videoTexture attach='map' args={[video]} />

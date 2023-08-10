@@ -4,7 +4,6 @@ import { useState, Suspense } from 'react';
 import { Box } from '@mui/material';
 import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import { Perf } from 'r3f-perf';
 
 // components
@@ -30,14 +29,13 @@ export default function Hero() {
         camera={{ position: [0, 3, 100], fov: 15 }}
         linear
       >
-        <OrbitControls />
         <Perf position='top-left' />
         <color attach='background' args={['black']} />
         <fog attach='fog' args={['black', 15, 20]} />
         <Suspense fallback={null}>
           <VideoText />
           <Floor />
-          <ambientLight intensity={1.5} />
+          <ambientLight />
           <Intro />
         </Suspense>
       </Canvas>
