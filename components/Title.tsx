@@ -17,17 +17,16 @@ export default function Title() {
   useEffect(() => void video.play(), [video]);
 
   return (
-    <>
+    <group>
       <Text
         color='#ffffff'
         anchorX='center'
         anchorY='middle'
         font='/NotoSansJP-ExtraLight.ttf'
         fontSize={aspect / 15}
-        position={[-aspect * 1.275, aspect * 0.45, 0]}
+        position={[-aspect * 0.975, aspect * 0.5, 0]}
       >
-        フランス・ジェスキー
-        {'\n'}
+        フランス・ジェスキー | Creative Developer
       </Text>
       <Text font='/Montserrat-Black.ttf' fontSize={aspect}>
         JESKY
@@ -35,6 +34,6 @@ export default function Title() {
           <videoTexture attach='map' args={[video]} />
         </meshBasicMaterial>
       </Text>
-    </>
+    </group>
   );
 }
