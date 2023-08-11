@@ -7,7 +7,7 @@ const montserrat = Montserrat({
 });
 
 const typography = {
-  fontFamily: `${montserrat}, serif`,
+  fontFamily: montserrat.style.fontFamily,
   fontWeightThin: 100,
   fontWeightExtraLight: 200,
   fontWeightLight: 300,
