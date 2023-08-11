@@ -12,9 +12,29 @@ export default function Title() {
       crossOrigin: 'Anonymous',
       loop: true,
       muted: true,
+      playsInline: true,
     })
   );
-  useEffect(() => void video.play(), [video]);
+  // useEffect(() => void video.play(), [video]);
+
+  // Function to handle video playback
+  const handleVideoPlay = () => {
+    if (video.paused) {
+      video.play().catch((error) => {
+        console.error('Video playback error:', error);
+      });
+    }
+  };
+
+  useEffect(() => {
+    // Add a click event listener to the document
+    document.addEventListener('click', handleVideoPlay);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('click', handleVideoPlay);
+    };
+  }, [video]);
 
   return (
     <group>
@@ -23,10 +43,20 @@ export default function Title() {
         anchorX='center'
         anchorY='middle'
         font='/NotoSansJP-ExtraLight.ttf'
-        fontSize={aspect / 15}
-        position={[-aspect * 0.975, aspect * 0.5, 0]}
+        fontSize={aspect / 12}
+        position={[-aspect * 1.175, aspect * 0.5, 0]}
       >
-        フランス・ジェスキー | Creative Developer
+        フランス・ジェスキー |
+      </Text>
+      <Text
+        color='#ffffff'
+        anchorX='center'
+        anchorY='middle'
+        font='/NotoSansJP-Bold.ttf'
+        fontSize={aspect / 12}
+        position={[-aspect * 0.325, aspect * 0.5, 0]}
+      >
+        Creative Developer
       </Text>
       <Text font='/Montserrat-Black.ttf' fontSize={aspect}>
         JESKY

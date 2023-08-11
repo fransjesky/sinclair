@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Box } from '@mui/material';
 import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -8,12 +8,13 @@ import { Canvas, useFrame } from '@react-three/fiber';
 // components
 import Floor from '@/components/Floor';
 import Title from '@/components/Title';
+import LoadingOverlay from '@/components/Loading';
 
 function Intro() {
   const [vec] = useState(() => new Vector3());
   return useFrame((state) => {
     state.camera.position.lerp(
-      vec.set(state.mouse.x * 2, 3 + state.mouse.y * 2, 14),
+      vec.set(state.mouse.x * 5, 3 + state.mouse.y * 2, 14),
       0.05
     );
     state.camera.lookAt(0, 0, 0);
@@ -21,8 +22,24 @@ function Intro() {
 }
 
 export default function HeroCanvas() {
+  const [height, setHeight] = useState(0);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    setHeight(window.innerHeight);
+  });
+
+  const handleStart = () => {
+    setStarted(true);
+  };
+
   return (
-    <Box sx={{ height: '100vh', width: '100%' }}>
+    <Box
+      sx={{
+        height: { xs: height, sm: '100vh' },
+        width: '100%',
+      }}
+    >
       <Box
         sx={{
           position: 'absolute' as 'absolute',
@@ -63,6 +80,7 @@ export default function HeroCanvas() {
           <Intro />
         </Suspense>
       </Canvas>
+      <LoadingOverlay started={started} onClick={handleStart} />
     </Box>
   );
 }

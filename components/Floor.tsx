@@ -28,12 +28,10 @@ export default function Floor() {
           resolution={1024}
           mirror={0.5}
           mixBlur={6}
-          mixStrength={20}
-          roughness={1}
-          metalness={0.2}
+          mixStrength={10}
           roughnessMap={floor}
           normalMap={normal}
-          normalScale={new Vector2(2, 2)}
+          normalScale={new Vector2(3, 3)}
         />
       </mesh>
     </>
