@@ -29,9 +29,20 @@ export default function LoadingOverlay(props: LoadingTypes) {
         zIndex: 999,
       }}
     >
-      <Box sx={{ userSelect: 'none', outline: 'none' }}>
-        <Image src='/Loader.gif' alt='loader' width={256} height={192} />
-      </Box>
+      <Image
+        priority
+        src='/Loader.gif'
+        alt='loader'
+        width={200}
+        height={150}
+        quality={100}
+        style={{
+          objectFit: 'contain',
+          border: 'none',
+          outline: 'none',
+          userSelect: 'none',
+        }}
+      />
       <Box
         sx={{
           display: 'flex',
