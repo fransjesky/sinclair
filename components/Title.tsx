@@ -27,14 +27,14 @@ export default function Title(props: TitleTypes) {
   }, [video, props.started]);
 
   return (
-    <group position={[0, 0, -0.5]}>
+    <group position={[0, -0.1, -1.5]}>
       <Text
         color='#ffffff'
         anchorX='center'
         anchorY='middle'
         font='/NotoSansJP-ExtraLight.ttf'
-        fontSize={aspect / 12}
-        position={[-aspect * 1.175, aspect * 0.5, 0]}
+        fontSize={aspect / 14}
+        position={[-aspect * 1.25, aspect * 0.45, 0]}
       >
         フランス・ジェスキー |
       </Text>
@@ -43,8 +43,8 @@ export default function Title(props: TitleTypes) {
         anchorX='center'
         anchorY='middle'
         font='/NotoSansJP-Bold.ttf'
-        fontSize={aspect / 12}
-        position={[-aspect * 0.325, aspect * 0.5, 0]}
+        fontSize={aspect / 14}
+        position={[-aspect * 0.52, aspect * 0.445, 0]}
       >
         Creative Developer
       </Text>
@@ -52,7 +52,11 @@ export default function Title(props: TitleTypes) {
         <Text font='/Montserrat-Black.ttf' fontSize={aspect}>
           JESKY
           <meshBasicMaterial toneMapped={false}>
-            <videoTexture attach='map' args={[video]} />
+            <videoTexture
+              attach='map'
+              args={[video]}
+              colorSpace='srgb-linear'
+            />
           </meshBasicMaterial>
         </Text>
       )}
