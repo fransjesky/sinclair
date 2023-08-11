@@ -12,6 +12,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
 
   return (
     <Box
+      component='div'
       sx={{
         position: 'absolute',
         top: 0,
@@ -44,6 +45,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
         }}
       />
       <Box
+        component='div'
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -58,7 +60,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
             fontWeight: 300,
           }}
         >
-          NOW LOADING
+          LOADING STATUS
         </Typography>
         <Typography
           variant='h1'
@@ -68,28 +70,30 @@ export default function LoadingOverlay(props: LoadingTypes) {
             fontWeight: 900,
           }}
         >
-          {progress}%
+          {progress < 100 ? `INITIALIZING` : 'READY'}
         </Typography>
       </Box>
-      <Box sx={{ marginTop: '2.5rem' }}>
+      <Box component='div' sx={{ marginTop: '2.5rem' }}>
         <Button
           onClick={props.onClick}
           disabled={progress === 100 ? false : true}
           sx={{
             padding: '0.5rem 3rem',
-            color: '#64ffda',
-            border: '0.125rem solid #64ffda',
+            color: '#00bfa5',
+            border: '0.125rem solid #00bfa5',
             borderRadius: '0.5rem',
             fontWeight: 900,
             letterSpacing: '0.125rem',
+            transition: 'all 0.3s ease',
             '&:hover': {
+              padding: '0.5rem 5rem',
               color: '#ffffff',
               cursor: 'pointer',
-              backgroundColor: '#64ffda',
+              backgroundColor: '#00bfa5',
             },
             '&:disabled': {
-              color: '#f44336',
-              border: '0.125rem solid #f44336',
+              color: '#ff5722',
+              border: '0.125rem solid #ff5722',
             },
           }}
         >
