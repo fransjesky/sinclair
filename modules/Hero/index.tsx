@@ -8,6 +8,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 // components
 import Floor from '@/components/Floor';
 import Title from '@/components/Title';
+import Music from '@/components/Music';
 import LoadingOverlay from '@/components/Loading';
 
 function Intro() {
@@ -40,44 +41,20 @@ export default function HeroCanvas() {
         width: '100%',
       }}
     >
-      <Box
-        sx={{
-          position: 'absolute' as 'absolute',
-          bottom: 0,
-          right: {
-            xs: '50%',
-            sm: 0,
-          },
-          transform: {
-            xs: 'translate(50%, -25%)',
-            sm: 'translate(-10%, -25%)',
-          },
-          zIndex: 1,
-          opacity: 0.25,
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            opacity: 1,
-            cursor: 'pointer',
-          },
-        }}
-      >
-        <audio controls autoPlay loop>
-          <source src='/BGM.mp3' type='audio/mpeg' />
-        </audio>
-      </Box>
       <Canvas
         dpr={[1.5, 2]}
-        gl={{ alpha: false }}
+        gl={{ antialias: true, alpha: false }}
         camera={{ position: [0, 100, 100], fov: 15 }}
         linear
       >
         <color attach='background' args={['black']} />
-        <fog attach='fog' args={['black', 15, 20]} />
+        <fog attach='fog' args={['black', 20, 30]} />
         <Suspense fallback={null}>
           <Floor />
-          <Title />
+          <Title started={started} />
+          <Music started={started} />
+          {started && <Intro />}
           <ambientLight />
-          <Intro />
         </Suspense>
       </Canvas>
       <LoadingOverlay started={started} onClick={handleStart} />

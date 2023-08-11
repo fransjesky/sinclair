@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 
-export default function Title() {
+interface TitleTypes {
+  started: boolean;
+}
+
+export default function Title(props: TitleTypes) {
   const { viewport } = useThree();
   const aspect = viewport.aspect;
 
@@ -15,29 +19,15 @@ export default function Title() {
       playsInline: true,
     })
   );
-  // useEffect(() => void video.play(), [video]);
-
-  // Function to handle video playback
-  const handleVideoPlay = () => {
-    if (video.paused) {
-      video.play().catch((error) => {
-        console.error('Video playback error:', error);
-      });
-    }
-  };
 
   useEffect(() => {
-    // Add a click event listener to the document
-    document.addEventListener('click', handleVideoPlay);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      document.removeEventListener('click', handleVideoPlay);
-    };
-  }, [video]);
+    if (props.started) {
+      void video.play();
+    }
+  }, [video, props.started]);
 
   return (
-    <group>
+    <group position={[0, 0, -0.5]}>
       <Text
         color='#ffffff'
         anchorX='center'
@@ -58,12 +48,14 @@ export default function Title() {
       >
         Creative Developer
       </Text>
-      <Text font='/Montserrat-Black.ttf' fontSize={aspect}>
-        JESKY
-        <meshBasicMaterial toneMapped={false}>
-          <videoTexture attach='map' args={[video]} />
-        </meshBasicMaterial>
-      </Text>
+      {props.started && (
+        <Text font='/Montserrat-Black.ttf' fontSize={aspect}>
+          JESKY
+          <meshBasicMaterial toneMapped={false}>
+            <videoTexture attach='map' args={[video]} />
+          </meshBasicMaterial>
+        </Text>
+      )}
     </group>
   );
 }

@@ -1,14 +1,13 @@
-import { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useProgress } from '@react-three/drei';
 import Image from 'next/image';
 
-interface LoadingProps {
+interface LoadingTypes {
   started: boolean;
   onClick: () => void;
 }
 
-export default function LoadingOverlay(props: LoadingProps) {
+export default function LoadingOverlay(props: LoadingTypes) {
   const { progress } = useProgress();
 
   return (
@@ -21,13 +20,13 @@ export default function LoadingOverlay(props: LoadingProps) {
         right: 0,
         height: '100%',
         width: '100%',
-        display: 'flex',
+        display: props.started ? 'none' : 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#000000',
         transition: 'all 0.3s ease',
-        zIndex: props.started ? -1 : 999,
+        zIndex: 999,
       }}
     >
       <Box sx={{ userSelect: 'none', outline: 'none' }}>
