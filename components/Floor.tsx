@@ -25,8 +25,7 @@ export default function Floor() {
           mirror={0.5}
           mixBlur={6}
           mixStrength={10}
-          roughness={0.8}
-          metalness={0.4}
+          metalness={0.2}
           roughnessMap={floor}
           normalMap={normal}
           normalScale={new Vector2(2, 2)}
