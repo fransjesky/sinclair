@@ -11,10 +11,10 @@ export default function Floor() {
     <>
       <Sparkles
         size={3}
-        scale={[8, 3, 10]}
-        speed={0.5}
+        scale={[10, 2, 20]}
+        speed={0.25}
         count={50}
-        position-y={1}
+        position-y={1.2}
       />
       <mesh
         position={[0, -1, 0]}
@@ -24,13 +24,13 @@ export default function Floor() {
         <planeGeometry args={[10, 10]} />
         <MeshReflectorMaterial
           color='#a0a0a0'
-          blur={[300, 100]}
+          blur={[400, 100]}
           resolution={1024}
           mirror={0.5}
           mixBlur={6}
-          mixStrength={20}
-          roughness={1}
-          metalness={0.2}
+          mixStrength={10}
+          roughness={0.8}
+          metalness={0.4}
           roughnessMap={floor}
           normalMap={normal}
           normalScale={new Vector2(2, 2)}
