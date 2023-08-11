@@ -16,11 +16,7 @@ export default function Floor() {
         count={50}
         position-y={1.2}
       />
-      <mesh
-        position={[0, -1, 0]}
-        receiveShadow
-        rotation={[-Math.PI / 2, 0, Math.PI / 2]}
-      >
+      <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
         <planeGeometry args={[10, 10]} />
         <MeshReflectorMaterial
           color='#a0a0a0'

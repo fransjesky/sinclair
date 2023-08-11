@@ -28,7 +28,7 @@ export default function HeroCanvas() {
 
   useEffect(() => {
     setHeight(window.innerHeight);
-  });
+  }, []);
 
   const handleStart = () => {
     setStarted(true);
