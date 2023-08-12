@@ -17,7 +17,7 @@ export default function Floor() {
   return (
     <group>
       {!mobile && (
-        <Sparkles size={3} scale={[8, 3, 15]} speed={0.5} position-y={1} />
+        <Sparkles size={5} scale={[8, 3, 25]} speed={0.5} position-y={1} />
       )}
       <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
         <planeGeometry args={[10, 10]} />

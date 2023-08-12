@@ -68,7 +68,7 @@ export default function HeroCanvas() {
       </Box>
       <Canvas
         dpr={[1.5, 2]}
-        gl={{ alpha: false }}
+        gl={{ antialias: true, alpha: false }}
         camera={{ position: [0, 1000, 1000], fov: 15 }}
         linear
       >
