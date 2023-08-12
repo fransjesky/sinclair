@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Typography, Button } from '@mui/material';
 import { useProgress } from '@react-three/drei';
 import Image from 'next/image';
