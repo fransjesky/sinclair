@@ -10,6 +10,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 // components
 import Floor from '@/components/Floor';
 import Title from '@/components/Title';
+import Robot from '@/components/Robot';
 import Music from '@/components/Music';
 import LoadingOverlay from '@/components/Loading';
 
@@ -67,8 +68,8 @@ export default function HeroCanvas() {
       </Box>
       <Canvas
         dpr={[1.5, 2]}
-        gl={{ alpha: false }}
-        camera={{ position: [0, 100, 100], fov: 15 }}
+        gl={{ antialias: true, alpha: false }}
+        camera={{ position: [0, 1000, 1000], fov: 15 }}
         linear
       >
         <color attach='background' args={['black']} />
@@ -76,6 +77,7 @@ export default function HeroCanvas() {
         <Suspense fallback={null}>
           <Title started={started} />
           <Music started={started} toggleMute={muted} />
+          <Robot started={started} />
           <Floor />
         </Suspense>
         <ambientLight />
