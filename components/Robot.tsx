@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
 import { Group, PointLight } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF, useAnimations } from '@react-three/drei';
@@ -14,6 +13,7 @@ export default function Robot(props: any) {
   const { actions } = useAnimations(animations, robotRef);
 
   // animation states variables
+  const [step, setStep] = useState(0);
   const [enterance, setEnterance] = useState(false);
   const [observe, setObserve] = useState(false);
   const [standby, setStandby] = useState(false);
@@ -24,6 +24,7 @@ export default function Robot(props: any) {
   const [annotationData, setAnnotationData] = useState<string>('');
 
   useEffect(() => {
+    window.innerWidth <= 600 ? setStep(0.75) : setStep(2);
     props.started && !debugMode ? setEnterance(true) : setEnterance(false);
 
     // debug mode
@@ -49,11 +50,13 @@ export default function Robot(props: any) {
     setAnnotationData("Hey there! I'm glad you are here 👋🏻");
 
     setTimeout(() => {
-      setAnnotationData("My name's Sinclair and i'm Jesky's AI assistance");
+      setAnnotationData("My name's Sinclair, and I'm Jesky's AI assistance");
     }, 10000);
 
     setTimeout(() => {
-      setAnnotationData('Please click me anytime if you need help 😋');
+      setAnnotationData(
+        'Please click on me anytime if you have any questions or need help 😋'
+      );
     }, 20000);
 
     setTimeout(() => {
@@ -62,13 +65,14 @@ export default function Robot(props: any) {
 
     setTimeout(() => {
       setAnnotationData('Oh! You are still here.. Enjoying the music?');
-    }, 40000);
+    }, 50000);
 
     setTimeout(() => {
       setAnnotationData('');
-    }, 50000);
+    }, 60000);
   };
 
+  // animation functions
   const walkAnimation = () => {
     actions['RobotArmature|Robot_Walking']?.play();
     actions['RobotArmature|Robot_Idle']?.stop();
@@ -89,27 +93,27 @@ export default function Robot(props: any) {
 
   useFrame((state, delta) => {
     // animations
-    if (enterance && robotRef.current.position.x < 2) {
+    if (enterance && robotRef.current.position.x < step) {
       robotRef.current.position.x += delta * 0.5;
       walkAnimation();
-    } else if (enterance && robotRef.current.position.x >= 2) {
+    } else if (enterance && robotRef.current.position.x >= step) {
       robotRef.current.rotation.y = -Math.PI + 0.25;
       idleAnimation();
       doObserve();
-    } else if (observe && robotRef.current.position.x > -2) {
+    } else if (observe && robotRef.current.position.x > -step) {
       robotRef.current.rotation.y = -Math.PI / 2;
       robotRef.current.position.x -= delta * 0.5;
       walkAnimation();
-    } else if (observe && robotRef.current.position.x <= -2) {
+    } else if (observe && robotRef.current.position.x <= -step) {
       robotRef.current.rotation.y = -Math.PI - 0.25;
       idleAnimation();
       doStandby();
-    } else if (standby && robotRef.current.position.x < 2) {
+    } else if (standby && robotRef.current.position.x < step) {
       robotRef.current.position.x += delta * 0.5;
       robotRef.current.position.z += delta * 0.25;
-      robotRef.current.rotation.y = Math.PI / 2.35;
+      robotRef.current.rotation.y = Math.PI / 3;
       walkAnimation();
-    } else if (standby && robotRef.current.position.x >= 2) {
+    } else if (standby && robotRef.current.position.x >= step) {
       robotRef.current.rotation.y = -Math.PI * 2;
       danceAnimation();
       !talk && doTalk();
@@ -138,7 +142,9 @@ export default function Robot(props: any) {
             position={
               robotRef.current
                 ? [
-                    robotRef.current.position.x - 8.5,
+                    step < 1
+                      ? robotRef.current.position.x - 7
+                      : robotRef.current.position.x - 8.5,
                     robotRef.current.position.y + 3.5,
                     robotRef.current.position.z + 0.1,
                   ]

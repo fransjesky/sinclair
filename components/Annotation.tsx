@@ -1,8 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Html } from '@react-three/drei';
 
 export default function Annotation(props: any) {
+  const [responsiveWidth, setResponsiveWidth] = useState('');
+
+  useEffect(() => {
+    window.innerWidth <= 600
+      ? setResponsiveWidth('18.75rem')
+      : setResponsiveWidth('20rem');
+  }, []);
+
   return (
     props.text.length > 0 && (
       <Html dispose={null} {...props} transform geometry={<planeGeometry />}>
@@ -12,8 +20,8 @@ export default function Annotation(props: any) {
             padding: '1rem',
             minHeight: '5rem',
             width: '100%',
-            maxWidth: '30rem',
-            border: '1px solid #ff5722',
+            maxWidth: responsiveWidth,
+            border: '0.125rem solid #ff5722',
             borderRadius: '0.5rem',
             backgroundColor: '#121212',
             display: 'flex',
