@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, Typography, Button } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import { useProgress } from '@react-three/drei';
 import Image from 'next/image';
 
@@ -11,6 +12,14 @@ interface LoadingTypes {
 
 export default function LoadingOverlay(props: LoadingTypes) {
   const { progress } = useProgress();
+  const [enableStart, setEnableStart] = useState(false);
+
+  useEffect(() => {
+    if (progress === 100)
+      setTimeout(() => {
+        setEnableStart(true);
+      }, 5000);
+  }, [progress]);
 
   return (
     <Box
@@ -72,18 +81,19 @@ export default function LoadingOverlay(props: LoadingTypes) {
             fontWeight: 900,
           }}
         >
-          {progress < 100 ? `INITIALIZING` : 'READY'}
+          {enableStart ? `READY` : `INITIALIZING`}
         </Typography>
       </Box>
       <Box component='div' sx={{ marginTop: '2.5rem' }}>
         <Button
           onClick={props.onClick}
-          disabled={progress === 100 ? false : true}
+          disabled={enableStart ? false : true}
           sx={{
+            minWidth: '10rem',
             padding: '0.5rem 3rem',
-            color: '#00bfa5',
-            border: '0.125rem solid #00bfa5',
+            border: '0.125rem solid #18ffff',
             borderRadius: '0.5rem',
+            color: '#18ffff',
             fontWeight: 900,
             letterSpacing: '0.125rem',
             transition: 'all 0.3s ease',
@@ -91,7 +101,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
               padding: '0.5rem 5rem',
               color: '#ffffff',
               cursor: 'pointer',
-              backgroundColor: '#00bfa5',
+              backgroundColor: '#18ffff',
             },
             '&:disabled': {
               color: '#ff5722',
@@ -99,7 +109,16 @@ export default function LoadingOverlay(props: LoadingTypes) {
             },
           }}
         >
-          START
+          {enableStart ? (
+            'START'
+          ) : (
+            <CircularProgress
+              size={25}
+              thickness={5}
+              value={100}
+              sx={{ color: '#ff5722' }}
+            />
+          )}
         </Button>
       </Box>
     </Box>
