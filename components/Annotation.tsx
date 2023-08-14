@@ -13,7 +13,13 @@ export default function Annotation(props: any) {
 
   return (
     props.text.length > 0 && (
-      <Html dispose={null} {...props} transform geometry={<planeGeometry />}>
+      <Html
+        scale={0.1}
+        dispose={null}
+        {...props}
+        transform
+        geometry={<planeGeometry />}
+      >
         <Box
           component='div'
           sx={{
@@ -21,14 +27,13 @@ export default function Annotation(props: any) {
             minHeight: '5rem',
             width: '100%',
             maxWidth: responsiveWidth,
-            border: '0.125rem solid #ff5722',
+            border: '0.25rem solid #ff5722',
             borderRadius: '0.5rem',
             backgroundColor: '#121212',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'flex-start',
-            userSelect: 'none',
             outline: 'none',
             color: '#ffffff',
           }}
