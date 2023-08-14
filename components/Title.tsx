@@ -27,7 +27,7 @@ export default function Title(props: TitleTypes) {
   }, [video, props.started]);
 
   return (
-    <group position={[0, -0.1, -1.5]}>
+    <group position={[0, -0.1, -2]}>
       <Text
         color='#ffffff'
         anchorX='center'
@@ -44,9 +44,9 @@ export default function Title(props: TitleTypes) {
         anchorY='middle'
         font='/NotoSansJP-Bold.ttf'
         fontSize={aspect / 14}
-        position={[-aspect * 0.52, aspect * 0.445, 0]}
+        position={[-aspect * 0.5, aspect * 0.445, 0]}
       >
-        Creative Developer
+        Frontend Developer
       </Text>
       {props.started && (
         <Text font='/Montserrat-Black.ttf' fontSize={aspect}>
