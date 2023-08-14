@@ -46,11 +46,9 @@ export default function Robot(props: RobotPropTypes) {
   );
   const [isJumping, setIsJumping] = useState(false);
   const [controllable, setControllable] = useState(false);
-  const [step, setStep] = useState(0);
+  const [distance, setDistance] = useState(0);
   const [hideRobot, setHideRobot] = useState(true);
   const [enterance, setEnterance] = useState(false);
-  const [observe, setObserve] = useState(false);
-  const [standby, setStandby] = useState(false);
   const [talk, setTalk] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
   const [goal, setGoal] = useState(false);
@@ -60,11 +58,9 @@ export default function Robot(props: RobotPropTypes) {
   const [annotationData, setAnnotationData] = useState<string>('');
 
   useEffect(() => {
-    window.innerWidth <= 600 ? setStep(0.75) : setStep(2);
-    setTimeout(() => {
-      props.started && !debugMode ? setEnterance(true) : setEnterance(false);
-      props.started && setHideRobot(false);
-    }, 5000);
+    window.innerWidth <= 600 ? setDistance(0.75) : setDistance(2);
+    props.started && !debugMode ? setEnterance(true) : setEnterance(false);
+    props.started && setHideRobot(false);
 
     // debug mode
     setDebugMode(false); // enable this to turn on the debug mode
@@ -85,77 +81,73 @@ export default function Robot(props: RobotPropTypes) {
     actions.Idle?.play();
     actions.Walking?.stop();
     actions.Dance?.stop();
+    actions.Wave?.stop();
+  };
+
+  const waveAnimation = () => {
+    actions.Wave?.play();
+    actions.Idle?.stop();
+    actions.Walking?.stop();
+    actions.Dance?.stop();
   };
 
   const walkAnimation = () => {
     actions.Walking?.play();
     actions.Idle?.stop();
     actions.Dance?.stop();
+    actions.Wave?.stop();
   };
 
   const danceAnimation = () => {
     actions.Dance?.play();
     actions.Walking?.stop();
     actions.Idle?.stop();
+    actions.Wave?.stop();
   };
 
-  // animation script
-  const doObserve = () => {
-    setTimeout(() => {
-      setEnterance(false);
-      setObserve(true);
-    }, 5000);
-  };
-
-  const doStandby = () => {
-    setTimeout(() => {
-      setObserve(false);
-      setStandby(true);
-    }, 5000);
+  const removeAllAnimation = () => {
+    actions.Idle?.stop();
+    actions.Walking?.stop();
+    actions.Dance?.stop();
+    actions.Wave?.stop();
   };
 
   // talk script
   const doTalk = () => {
+    setEnterance(false);
     setTalk(true);
     setAnnotationData("Hey there! I'm glad you are here 👋🏻");
+    waveAnimation();
 
     setTimeout(() => {
+      idleAnimation();
       setAnnotationData(
         'This website is under development. Please come back later'
       );
     }, 5000);
 
     setTimeout(() => {
+      danceAnimation();
       setAnnotationData(
         'My master is currently working hard to finish this website 😋'
       );
     }, 10000);
 
     setTimeout(() => {
-      actions.Dance?.stop();
-      idleAnimation();
       setAnnotationData('');
     }, 15000);
 
     setTimeout(() => {
-      setAnnotationData('Oh! You are still here.. Enjoying the music?');
-    }, 35000);
-
-    setTimeout(() => {
-      setAnnotationData('');
-    }, 40000);
-
-    setTimeout(() => {
-      actions.Dance?.stop();
       idleAnimation();
       setAnnotationData("Hey, do you want to play? Let's play football!");
-      setStandby(false);
-      setControllable(true);
-    }, 50000);
+    }, 20000);
 
     setTimeout(() => {
       setAnnotationData('');
-    }, 55000);
+      setTalk(false);
+      removeAllAnimation();
+      setControllable(true);
+    }, 25000);
   };
 
   useFrame((state, delta) => {
@@ -167,29 +159,11 @@ export default function Robot(props: RobotPropTypes) {
       let changeRotation = false;
 
       // uncontrolable animation
-      if (enterance && robot.parent!.position.x < step) {
-        robot.parent!.position.x += delta * 0.5;
-        walkAnimation();
-      } else if (enterance && robot.parent!.position.x >= step) {
-        robot.rotation.y = -Math.PI + 0.25;
-        idleAnimation();
-        doObserve();
-      } else if (observe && robot.parent!.position.x > -step) {
-        robot.rotation.y = -Math.PI / 2;
+      if (enterance && robot.parent!.position.x > distance) {
         robot.parent!.position.x -= delta * 0.5;
         walkAnimation();
-      } else if (observe && robot.parent!.position.x <= -step) {
-        robot.rotation.y = -Math.PI - 0.25;
-        idleAnimation();
-        doStandby();
-      } else if (standby && robot.parent!.position.x < step) {
-        robot.parent!.position.x += delta * 0.5;
-        robot.parent!.position.z += delta * 0.25;
-        robot.rotation.y = Math.PI / 3;
-        walkAnimation();
-      } else if (standby && robot.parent!.position.x >= step) {
-        robot.rotation.y = -Math.PI * 2;
-        danceAnimation();
+      } else if (enterance && robot.parent!.position.x <= distance) {
+        robot.rotation.y = -Math.PI * 2.075;
         !talk && doTalk();
         rigBody.setTranslation(
           {
@@ -212,31 +186,35 @@ export default function Robot(props: RobotPropTypes) {
 
       // moving
       if (MoveForward && linvel.z > -MAX_VEL && controllable) {
-        impulse.z -= delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
+        impulse.z -= delta < 0.005 ? MOV_SPEED : MOV_SPEED * 2;
         changeRotation = true;
         actions.Running?.play();
         actions.Dance?.stop();
+        actions.Idle?.stop();
       }
 
       if (MoveBackward && linvel.z < MAX_VEL && controllable) {
-        impulse.z += delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
+        impulse.z += delta < 0.005 ? MOV_SPEED : MOV_SPEED * 2;
         changeRotation = true;
         actions.Running?.play();
         actions.Dance?.stop();
+        actions.Idle?.stop();
       }
 
       if (MoveLeft && linvel.x > -MAX_VEL && controllable) {
-        impulse.x -= delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
+        impulse.x -= delta < 0.005 ? MOV_SPEED : MOV_SPEED * 2;
         changeRotation = true;
         actions.Running?.play();
         actions.Dance?.stop();
+        actions.Idle?.stop();
       }
 
       if (MoveRight && linvel.x < MAX_VEL && controllable) {
-        impulse.x += delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
+        impulse.x += delta < 0.005 ? MOV_SPEED : MOV_SPEED * 2;
         changeRotation = true;
         actions.Running?.play();
         actions.Dance?.stop();
+        actions.Idle?.stop();
       }
 
       // reset animation
@@ -267,16 +245,16 @@ export default function Robot(props: RobotPropTypes) {
 
   const resetBallPosition = () => {
     if (ballRef.current) {
-      ballRef.current.setTranslation({ x: 0, y: 0, z: 1 }, true);
-      ballRef.current.setLinvel({ x: 0, y: 0, z: 1 }, true);
+      ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
+      ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
     }
   };
 
   const goalBall = () => {
     setGoal(true);
     if (ballRef.current) {
-      ballRef.current.setTranslation({ x: 0, y: 0, z: 1 }, true);
-      ballRef.current.setLinvel({ x: 0, y: 0, z: 1 }, true);
+      ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
+      ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
     }
 
     setGoalCount(goalCount + 1);
@@ -300,9 +278,9 @@ export default function Robot(props: RobotPropTypes) {
           position={
             robotRef.current
               ? new Vector3(
-                  step < 1
+                  distance < 1
                     ? robotRef.current.parent!.position.x - 0.5
-                    : robotRef.current.parent!.position.x - 0.65,
+                    : robotRef.current.parent!.position.x - 0.75,
                   robotRef.current.parent!.position.y + 0.25,
                   robotRef.current.parent!.position.z + 0.1
                 )
@@ -333,7 +311,7 @@ export default function Robot(props: RobotPropTypes) {
       )}
       {controllable && (
         <Annotation
-          position={new Vector3(0, 1.35, 0)}
+          position={new Vector3(0, 1.4, 0)}
           title='GOAL COUNT'
           text='Goal Count'
           content={`${goalCount}`}
@@ -345,7 +323,7 @@ export default function Robot(props: RobotPropTypes) {
           width={1.5}
           intensity={1}
           color={goal ? '#69f0ae' : '#18ffff'}
-          position={[-3.5, 0, 0.75]}
+          position={[-3.525, 0, 0]}
           rotation-y={-Math.PI * 0.5}
         />
       )}
@@ -353,7 +331,7 @@ export default function Robot(props: RobotPropTypes) {
         <RigidBody
           type='fixed'
           scale={0.003}
-          position={[-3.25, -1.05, 0]}
+          position={[-3.25, -1.05, -0.75]}
           rotation-y={-Math.PI * 0.5}
           colliders='trimesh'
         >
@@ -362,7 +340,7 @@ export default function Robot(props: RobotPropTypes) {
       )}
       {controllable && (
         <RigidBody colliders={false} type='fixed' name='goal' sensor>
-          <mesh position={[-3.25, -0.75, 0.8]} rotation-y={Math.PI * 0.5}>
+          <mesh position={[-3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
             <planeGeometry args={[1.5, 0.6]} />
             <meshBasicMaterial visible={false} side={DoubleSide} />
             <CuboidCollider
@@ -378,7 +356,7 @@ export default function Robot(props: RobotPropTypes) {
         <RigidBody
           ref={rigBodyRef}
           scale={0.085}
-          position={debugMode ? [0, 0, 0] : [-4.5, 0, 0]}
+          position={debugMode ? [0, 0, 0] : [5, 0, 0]}
           colliders={false}
           lockRotations
           onCollisionEnter={() => {
@@ -394,7 +372,7 @@ export default function Robot(props: RobotPropTypes) {
           <group
             ref={robotRef}
             dispose={null}
-            rotation-y={debugMode ? 0 : Math.PI / 2}
+            rotation-y={debugMode ? 0 : -Math.PI / 2}
           >
             <CapsuleCollider args={[0.9, 1.5]} position={[0, 2.375, 0]} />
             <group

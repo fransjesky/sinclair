@@ -9,6 +9,7 @@ interface AnnotationTypes {
   content?: string;
   board?: boolean;
   position?: Vector3;
+  rotation?: Vector3;
 }
 
 export default function Annotation(props: AnnotationTypes) {
@@ -34,6 +35,7 @@ export default function Annotation(props: AnnotationTypes) {
           sx={{
             padding: '1rem',
             minHeight: '5rem',
+            minWidth: props.board ? '12.5rem' : 'inherit',
             width: '100%',
             maxWidth: responsiveWidth,
             border: '0.125rem solid #ff5722',
@@ -50,10 +52,12 @@ export default function Annotation(props: AnnotationTypes) {
           {props.board ? (
             <Typography
               sx={{
+                width: '100%',
                 color: '#ffffff',
                 fontSize: '0.8rem',
                 fontWeight: 900,
                 textAlign: 'center',
+                textTransform: 'uppercase',
               }}
             >
               {props.title}
@@ -64,7 +68,7 @@ export default function Annotation(props: AnnotationTypes) {
                 color: '#ff5722',
                 fontSize: '1.2rem',
                 fontWeight: 900,
-                textTransform: 'uppercase',
+                textTransform: 'capitalize',
               }}
             >
               Sinclair
@@ -73,6 +77,7 @@ export default function Annotation(props: AnnotationTypes) {
           {props.board ? (
             <Typography
               sx={{
+                width: '100%',
                 color: '#ff5722',
                 fontSize: '2rem',
                 fontWeight: 900,

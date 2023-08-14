@@ -10,15 +10,16 @@ export default function Title(props: TitleTypes) {
   const { viewport } = useThree();
   const aspect = viewport.aspect;
 
-  const [video] = useState(() =>
-    Object.assign(document.createElement('video'), {
-      src: '/Kyoto.mp4',
-      crossOrigin: 'Anonymous',
-      loop: true,
-      muted: true,
-      playsInline: true,
-    })
-  );
+  const [video] = useState(() => {
+    const vid = document.createElement('video');
+    vid.src = '/Kyoto.mp4';
+    vid.crossOrigin = 'Anonymous';
+    vid.loop = true;
+    vid.muted = true;
+    vid.playsInline = true;
+    vid.preload = 'auto';
+    return vid;
+  });
 
   useEffect(() => {
     if (props.started) {

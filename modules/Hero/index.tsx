@@ -28,7 +28,7 @@ function Intro() {
   const [vec] = useState(() => new Vector3());
   return useFrame((state, delta) => {
     state.camera.position.lerp(
-      vec.set(state.mouse.x * 5, 3 + state.mouse.y * 2, 14),
+      vec.set(state.mouse.x, 3 + state.mouse.y, 14),
       delta < 0.005 ? 0.01 : 0.045
     );
     if (state.camera.position.y < 1) {
