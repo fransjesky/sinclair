@@ -107,7 +107,7 @@ export default function HeroCanvas() {
               <Floor />
             </Physics>
           </Suspense>
-          <ambientLight />
+          <ambientLight intensity={1.5} />
           {started && <Intro />}
         </Canvas>
         <LoadingOverlay started={started} onClick={handleStart} />

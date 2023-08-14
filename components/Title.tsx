@@ -27,7 +27,7 @@ export default function Title(props: TitleTypes) {
   }, [video, props.started]);
 
   return (
-    <group position={[0, -0.1, -1.5]}>
+    <group position={[0, -0.1, -2]}>
       <Text
         color='#ffffff'
         anchorX='center'

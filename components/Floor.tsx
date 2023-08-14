@@ -29,7 +29,7 @@ export default function Floor() {
             resolution={1024}
             mirror={0.5}
             mixBlur={6}
-            mixStrength={3}
+            mixStrength={5}
             roughnessMap={floor}
             normalMap={normal}
             normalScale={new Vector2(10, 10)}

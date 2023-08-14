@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
+import { Vector3 } from 'three';
 import { Html } from '@react-three/drei';
 
-export default function Annotation(props: any) {
+interface AnnotationTypes {
+  title?: string;
+  text: string;
+  content?: string;
+  board?: boolean;
+  position?: Vector3;
+}
+
+export default function Annotation(props: AnnotationTypes) {
   const [responsiveWidth, setResponsiveWidth] = useState('');
 
   useEffect(() => {
@@ -14,9 +23,9 @@ export default function Annotation(props: any) {
   return (
     props.text.length > 0 && (
       <Html
+        position={props.position}
         scale={0.12}
         dispose={null}
-        {...props}
         transform
         geometry={<planeGeometry />}
       >
@@ -38,12 +47,44 @@ export default function Annotation(props: any) {
             color: '#ffffff',
           }}
         >
-          <Typography
-            sx={{ color: '#ff5722', fontSize: '1.2rem', fontWeight: 900 }}
-          >
-            Sinclair
-          </Typography>
-          <Typography>{props.text}</Typography>
+          {props.board ? (
+            <Typography
+              sx={{
+                color: '#ffffff',
+                fontSize: '0.8rem',
+                fontWeight: 900,
+                textAlign: 'center',
+              }}
+            >
+              {props.title}
+            </Typography>
+          ) : (
+            <Typography
+              sx={{
+                color: '#ff5722',
+                fontSize: '1.2rem',
+                fontWeight: 900,
+                textTransform: 'uppercase',
+              }}
+            >
+              Sinclair
+            </Typography>
+          )}
+          {props.board ? (
+            <Typography
+              sx={{
+                color: '#ff5722',
+                fontSize: '2rem',
+                fontWeight: 900,
+                textTransform: 'uppercase',
+                textAlign: 'center',
+              }}
+            >
+              {props.content}
+            </Typography>
+          ) : (
+            <Typography>{props.text}</Typography>
+          )}
         </Box>
       </Html>
     )
