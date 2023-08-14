@@ -1,7 +1,14 @@
 import { useRef, useState, useEffect } from 'react';
 import { Group, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF, useAnimations, useKeyboardControls } from '@react-three/drei';
+import {
+  useGLTF,
+  useAnimations,
+  useKeyboardControls,
+  Clone,
+} from '@react-three/drei';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { useLoader } from '@react-three/fiber';
 import {
   RigidBody,
   RapierRigidBody,
@@ -12,13 +19,14 @@ import Annotation from './Annotation';
 
 const JUMP_FORCE = 2;
 const MOV_SPEED = 0.005;
-const MAX_VEL = 1.25;
+const MAX_VEL = 1.3;
 
 interface RobotPropTypes {
   started: boolean;
 }
 
 useGLTF.preload('/Models/robot-draco.glb');
+useGLTF.preload('/Models/football.glb');
 
 export default function Robot(props: RobotPropTypes) {
   const robotRef = useRef<Group>(null!);
@@ -27,6 +35,8 @@ export default function Robot(props: RobotPropTypes) {
   const { nodes, materials, animations }: any = useGLTF(
     'Models/robot-draco.glb'
   );
+  const football = useGLTF('Models/football.glb');
+  const goalpost = useLoader(OBJLoader, 'Models/goalpost.obj');
   const { actions } = useAnimations(animations, robotRef);
 
   // state init
@@ -54,7 +64,8 @@ export default function Robot(props: RobotPropTypes) {
     }, 5000);
 
     // debug mode
-    setDebugMode(false);
+    setDebugMode(false); // enable this to turn on the debug mode
+    debugMode && setControllable(true);
   }, [props.started, debugMode, robotRef, rigBodyRef]);
 
   // movement controls
@@ -249,8 +260,8 @@ export default function Robot(props: RobotPropTypes) {
 
   const resetBallPosition = () => {
     if (ballRef.current) {
-      ballRef.current.setTranslation({ x: 0, y: 1, z: 0 }, true);
-      ballRef.current.setLinvel({ x: 0, y: 1, z: 0 }, true);
+      ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
+      ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
     }
   };
 
@@ -286,17 +297,25 @@ export default function Robot(props: RobotPropTypes) {
           colliders='ball'
           restitution={1.5}
           scale={0.1}
-          position={[0, 1, 0]}
+          position={[0, 0, 0]}
           onIntersectionEnter={({ other }) => {
             if (other.rigidBodyObject?.name === 'void') {
               resetBallPosition();
             }
           }}
         >
-          <mesh>
-            <sphereGeometry args={[1, 32, 32]} />
-            <meshStandardMaterial />
-          </mesh>
+          <Clone object={football.scene} />
+        </RigidBody>
+      )}
+      {controllable && (
+        <RigidBody
+          type='fixed'
+          scale={0.003}
+          position={[-3.25, -1.05, 0]}
+          rotation-y={-Math.PI * 0.5}
+          colliders='trimesh'
+        >
+          <Clone object={goalpost} />
         </RigidBody>
       )}
       {!hideRobot && (
