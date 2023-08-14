@@ -14,7 +14,7 @@ export default function Annotation(props: any) {
   return (
     props.text.length > 0 && (
       <Html
-        scale={0.1}
+        scale={0.12}
         dispose={null}
         {...props}
         transform
@@ -27,7 +27,7 @@ export default function Annotation(props: any) {
             minHeight: '5rem',
             width: '100%',
             maxWidth: responsiveWidth,
-            border: '0.25rem solid #ff5722',
+            border: '0.125rem solid #ff5722',
             borderRadius: '0.5rem',
             backgroundColor: '#121212',
             display: 'flex',

@@ -8,7 +8,6 @@ import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
-import { Perf } from 'r3f-perf';
 
 // components
 import Floor from '@/components/Floor';

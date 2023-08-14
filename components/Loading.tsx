@@ -18,7 +18,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
     if (progress === 100)
       setTimeout(() => {
         setEnableStart(true);
-      }, 100);
+      }, 5000);
   }, [progress]);
 
   return (

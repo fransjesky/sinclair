@@ -18,8 +18,10 @@ interface RobotPropTypes {
   started: boolean;
 }
 
+useGLTF.preload('/Models/robot-draco.glb');
+
 export default function Robot(props: RobotPropTypes) {
-  const robotRef = useRef<any>(null!);
+  const robotRef = useRef<Group>(null!);
   const rigBodyRef = useRef<RapierRigidBody>(null!);
   const ballRef = useRef<RapierRigidBody>(null!);
   const { nodes, materials, animations }: any = useGLTF(
@@ -28,10 +30,13 @@ export default function Robot(props: RobotPropTypes) {
   const { actions } = useAnimations(animations, robotRef);
 
   // state init
-  const [lightPosition, setLightPosition] = useState<Vector3>();
+  const [lightPosition, setLightPosition] = useState<Vector3>(
+    new Vector3(0, -100, 0)
+  );
   const [isJumping, setIsJumping] = useState(false);
   const [controllable, setControllable] = useState(false);
   const [step, setStep] = useState(0);
+  const [hideRobot, setHideRobot] = useState(true);
   const [enterance, setEnterance] = useState(false);
   const [observe, setObserve] = useState(false);
   const [standby, setStandby] = useState(false);
@@ -43,7 +48,10 @@ export default function Robot(props: RobotPropTypes) {
 
   useEffect(() => {
     window.innerWidth <= 600 ? setStep(0.75) : setStep(2);
-    props.started && !debugMode ? setEnterance(true) : setEnterance(false);
+    setTimeout(() => {
+      props.started && !debugMode ? setEnterance(true) : setEnterance(false);
+      props.started && setHideRobot(false);
+    }, 5000);
 
     // debug mode
     setDebugMode(false);
@@ -54,7 +62,6 @@ export default function Robot(props: RobotPropTypes) {
   const MoveBackward = useKeyboardControls((state) => state[Controls.backward]);
   const MoveLeft = useKeyboardControls((state) => state[Controls.left]);
   const MoveRight = useKeyboardControls((state) => state[Controls.right]);
-  // const Jump = useKeyboardControls((state) => state[Controls.jump]);
   const Jump = useKeyboardControls(
     (state) => state.jump && state[Controls.jump]
   );
@@ -100,37 +107,37 @@ export default function Robot(props: RobotPropTypes) {
 
     setTimeout(() => {
       setAnnotationData(
-        "My name's Sinclair, and I'm Jesky's AI personal assistance"
+        'This website is under development. Please come back later'
+      );
+    }, 5000);
+
+    setTimeout(() => {
+      setAnnotationData(
+        'My master is currently working hard to finish this website 😋'
       );
     }, 10000);
 
     setTimeout(() => {
-      setAnnotationData(
-        'Please click on me anytime if you have any questions or need help 😋'
-      );
-    }, 20000);
-
-    setTimeout(() => {
       setAnnotationData('');
-    }, 30000);
+    }, 15000);
 
     setTimeout(() => {
       setAnnotationData('Oh! You are still here.. Enjoying the music?');
-    }, 50000);
+    }, 35000);
 
     setTimeout(() => {
       setAnnotationData('');
-    }, 60000);
+    }, 40000);
 
     setTimeout(() => {
       setAnnotationData("Hey, do you want to play? Let's play football!");
       setStandby(false);
       setControllable(true);
-    }, 70000);
+    }, 50000);
 
     setTimeout(() => {
       setAnnotationData('');
-    }, 75000);
+    }, 55000);
   };
 
   useFrame((state, delta) => {
@@ -187,28 +194,28 @@ export default function Robot(props: RobotPropTypes) {
 
       // moving
       if (MoveForward && linvel.z > -MAX_VEL && controllable) {
-        impulse.z -= MOV_SPEED;
+        impulse.z -= delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
         changeRotation = true;
         actions.Running?.play();
         actions.Dance?.stop();
       }
 
       if (MoveBackward && linvel.z < MAX_VEL && controllable) {
-        impulse.z += MOV_SPEED;
+        impulse.z += delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
         changeRotation = true;
         actions.Running?.play();
         actions.Dance?.stop();
       }
 
       if (MoveLeft && linvel.x > -MAX_VEL && controllable) {
-        impulse.x -= MOV_SPEED;
+        impulse.x -= delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
         changeRotation = true;
         actions.Running?.play();
         actions.Dance?.stop();
       }
 
       if (MoveRight && linvel.x < MAX_VEL && controllable) {
-        impulse.x += MOV_SPEED;
+        impulse.x += delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
         changeRotation = true;
         actions.Running?.play();
         actions.Dance?.stop();
@@ -287,80 +294,82 @@ export default function Robot(props: RobotPropTypes) {
           }}
         >
           <mesh>
-            <sphereGeometry args={[1, 512, 512]} />
+            <sphereGeometry args={[1, 32, 32]} />
             <meshStandardMaterial />
           </mesh>
         </RigidBody>
       )}
-      <RigidBody
-        ref={rigBodyRef}
-        scale={0.1}
-        position={[-4.5, 0, 0]}
-        colliders={false}
-        lockRotations
-        onCollisionEnter={() => {
-          setIsJumping(false);
-          actions.Jump?.stop();
-        }}
-        onIntersectionEnter={({ other }) => {
-          if (other.rigidBodyObject?.name === 'void') {
-            resetBotPosition();
-          }
-        }}
-      >
-        <group
-          ref={robotRef}
-          dispose={null}
-          rotation-y={debugMode ? 0 : Math.PI / 2}
+      {!hideRobot && (
+        <RigidBody
+          ref={rigBodyRef}
+          scale={0.1}
+          position={debugMode ? [0, 0, 0] : [-4.5, 0, 0]}
+          colliders={false}
+          lockRotations
+          onCollisionEnter={() => {
+            setIsJumping(false);
+            actions.Jump?.stop();
+          }}
+          onIntersectionEnter={({ other }) => {
+            if (other.rigidBodyObject?.name === 'void') {
+              resetBotPosition();
+            }
+          }}
         >
-          <CapsuleCollider args={[0.9, 1.5]} position={[0, 2.375, 0]} />
           <group
-            name='RobotArmature'
-            rotation={[-Math.PI / 2, 0, 0]}
-            scale={100}
+            ref={robotRef}
+            dispose={null}
+            rotation-y={debugMode ? 0 : Math.PI / 2}
           >
-            <primitive object={nodes.Bone} />
+            <CapsuleCollider args={[0.9, 1.5]} position={[0, 2.375, 0]} />
+            <group
+              name='RobotArmature'
+              rotation={[-Math.PI / 2, 0, 0]}
+              scale={100}
+            >
+              <primitive object={nodes.Bone} />
+            </group>
+            <group
+              name='HandR'
+              position={[-0.003, 2.37, -0.021]}
+              rotation={[-Math.PI / 2, 0, 0]}
+              scale={100}
+            >
+              <skinnedMesh
+                name='HandR_1'
+                geometry={nodes.HandR_1.geometry}
+                material={materials.Main}
+                skeleton={nodes.HandR_1.skeleton}
+              />
+              <skinnedMesh
+                name='HandR_2'
+                geometry={nodes.HandR_2.geometry}
+                material={materials.Grey}
+                skeleton={nodes.HandR_2.skeleton}
+              />
+            </group>
+            <group
+              name='HandL'
+              position={[-0.003, 2.37, -0.021]}
+              rotation={[-Math.PI / 2, 0, 0]}
+              scale={100}
+            >
+              <skinnedMesh
+                name='HandL_1'
+                geometry={nodes.HandL_1.geometry}
+                material={materials.Main}
+                skeleton={nodes.HandL_1.skeleton}
+              />
+              <skinnedMesh
+                name='HandL_2'
+                geometry={nodes.HandL_2.geometry}
+                material={materials.Grey}
+                skeleton={nodes.HandL_2.skeleton}
+              />
+            </group>
           </group>
-          <group
-            name='HandR'
-            position={[-0.003, 2.37, -0.021]}
-            rotation={[-Math.PI / 2, 0, 0]}
-            scale={100}
-          >
-            <skinnedMesh
-              name='HandR_1'
-              geometry={nodes.HandR_1.geometry}
-              material={materials.Main}
-              skeleton={nodes.HandR_1.skeleton}
-            />
-            <skinnedMesh
-              name='HandR_2'
-              geometry={nodes.HandR_2.geometry}
-              material={materials.Grey}
-              skeleton={nodes.HandR_2.skeleton}
-            />
-          </group>
-          <group
-            name='HandL'
-            position={[-0.003, 2.37, -0.021]}
-            rotation={[-Math.PI / 2, 0, 0]}
-            scale={100}
-          >
-            <skinnedMesh
-              name='HandL_1'
-              geometry={nodes.HandL_1.geometry}
-              material={materials.Main}
-              skeleton={nodes.HandL_1.skeleton}
-            />
-            <skinnedMesh
-              name='HandL_2'
-              geometry={nodes.HandL_2.geometry}
-              material={materials.Grey}
-              skeleton={nodes.HandL_2.skeleton}
-            />
-          </group>
-        </group>
-      </RigidBody>
+        </RigidBody>
+      )}
     </>
   );
 }

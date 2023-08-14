@@ -18,7 +18,7 @@ export default function Floor() {
   return (
     <group>
       {!mobile && (
-        <Sparkles size={5} scale={[10, 2, 15]} speed={0.5} position-y={1} />
+        <Sparkles size={5} scale={[10, 2, 25]} speed={0.5} position-y={1} />
       )}
       <RigidBody type='fixed' friction={2}>
         <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
