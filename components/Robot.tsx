@@ -1,36 +1,105 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Group, PointLight } from 'three';
+import { useRef, useState, useEffect } from 'react';
+import { DoubleSide, Group, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF, useAnimations } from '@react-three/drei';
-
-// components
+import {
+  useGLTF,
+  useAnimations,
+  useKeyboardControls,
+  Clone,
+} from '@react-three/drei';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { useLoader } from '@react-three/fiber';
+import {
+  RigidBody,
+  RapierRigidBody,
+  CapsuleCollider,
+  CuboidCollider,
+} from '@react-three/rapier';
+import { Controls } from '@/modules/Hero';
 import Annotation from './Annotation';
 
-export default function Robot(props: any) {
+const JUMP_FORCE = 2;
+const MOV_SPEED = 0.005;
+const MAX_VEL = 1.2;
+
+interface RobotPropTypes {
+  started: boolean;
+}
+
+useGLTF.preload('/Models/robot-draco.glb');
+useGLTF.preload('/Models/football.glb');
+
+export default function Robot(props: RobotPropTypes) {
   const robotRef = useRef<Group>(null!);
-  const lightRef = useRef<PointLight>(null!);
-  const { nodes, materials, animations }: any = useGLTF('Models/robot.glb');
+  const rigBodyRef = useRef<RapierRigidBody>(null!);
+  const ballRef = useRef<RapierRigidBody>(null!);
+  const { nodes, materials, animations }: any = useGLTF(
+    'Models/robot-draco.glb'
+  );
+  const football = useGLTF('Models/football.glb');
+  const goalpost = useLoader(OBJLoader, 'Models/goalpost.obj');
   const { actions } = useAnimations(animations, robotRef);
 
-  // animation states variables
+  // state init
+  const [lightPosition, setLightPosition] = useState<Vector3>(
+    new Vector3(0, -100, 0)
+  );
+  const [isJumping, setIsJumping] = useState(false);
+  const [controllable, setControllable] = useState(false);
   const [step, setStep] = useState(0);
+  const [hideRobot, setHideRobot] = useState(true);
   const [enterance, setEnterance] = useState(false);
   const [observe, setObserve] = useState(false);
   const [standby, setStandby] = useState(false);
   const [talk, setTalk] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
+  const [goal, setGoal] = useState(false);
+  const [goalCount, setGoalCount] = useState(0);
 
   // talk content's state
   const [annotationData, setAnnotationData] = useState<string>('');
 
   useEffect(() => {
     window.innerWidth <= 600 ? setStep(0.75) : setStep(2);
-    props.started && !debugMode ? setEnterance(true) : setEnterance(false);
+    setTimeout(() => {
+      props.started && !debugMode ? setEnterance(true) : setEnterance(false);
+      props.started && setHideRobot(false);
+    }, 5000);
 
     // debug mode
-    setDebugMode(false); // enable this to debug the model
+    setDebugMode(false); // enable this to turn on the debug mode
+    debugMode && setControllable(true);
   }, [props.started, debugMode]);
 
+  // movement controls
+  const MoveForward = useKeyboardControls((state) => state[Controls.forward]);
+  const MoveBackward = useKeyboardControls((state) => state[Controls.backward]);
+  const MoveLeft = useKeyboardControls((state) => state[Controls.left]);
+  const MoveRight = useKeyboardControls((state) => state[Controls.right]);
+  const Jump = useKeyboardControls(
+    (state) => state.jump && state[Controls.jump]
+  );
+
+  // animation functions
+  const idleAnimation = () => {
+    actions.Idle?.play();
+    actions.Walking?.stop();
+    actions.Dance?.stop();
+  };
+
+  const walkAnimation = () => {
+    actions.Walking?.play();
+    actions.Idle?.stop();
+    actions.Dance?.stop();
+  };
+
+  const danceAnimation = () => {
+    actions.Dance?.play();
+    actions.Walking?.stop();
+    actions.Idle?.stop();
+  };
+
+  // animation script
   const doObserve = () => {
     setTimeout(() => {
       setEnterance(false);
@@ -45,117 +114,289 @@ export default function Robot(props: any) {
     }, 5000);
   };
 
+  // talk script
   const doTalk = () => {
     setTalk(true);
     setAnnotationData("Hey there! I'm glad you are here 👋🏻");
 
     setTimeout(() => {
-      setAnnotationData("My name's Sinclair, and I'm Jesky's AI assistance");
-    }, 10000);
+      setAnnotationData(
+        'This website is under development. Please come back later'
+      );
+    }, 5000);
 
     setTimeout(() => {
       setAnnotationData(
-        'Please click on me anytime if you have any questions or need help 😋'
+        'My master is currently working hard to finish this website 😋'
       );
-    }, 20000);
+    }, 10000);
 
     setTimeout(() => {
+      actions.Dance?.stop();
+      idleAnimation();
       setAnnotationData('');
-    }, 30000);
+    }, 15000);
 
     setTimeout(() => {
       setAnnotationData('Oh! You are still here.. Enjoying the music?');
+    }, 35000);
+
+    setTimeout(() => {
+      setAnnotationData('');
+    }, 40000);
+
+    setTimeout(() => {
+      actions.Dance?.stop();
+      idleAnimation();
+      setAnnotationData("Hey, do you want to play? Let's play football!");
+      setStandby(false);
+      setControllable(true);
     }, 50000);
 
     setTimeout(() => {
       setAnnotationData('');
-    }, 60000);
-  };
-
-  // animation functions
-  const walkAnimation = () => {
-    actions['RobotArmature|Robot_Walking']?.play();
-    actions['RobotArmature|Robot_Idle']?.stop();
-    actions['RobotArmature|Robot_Dance']?.stop();
-  };
-
-  const idleAnimation = () => {
-    actions['RobotArmature|Robot_Idle']?.play();
-    actions['RobotArmature|Robot_Walking']?.stop();
-    actions['RobotArmature|Robot_Dance']?.stop();
-  };
-
-  const danceAnimation = () => {
-    actions['RobotArmature|Robot_Dance']?.play();
-    actions['RobotArmature|Robot_Walking']?.stop();
-    actions['RobotArmature|Robot_Idle']?.stop();
+    }, 55000);
   };
 
   useFrame((state, delta) => {
-    // animations
-    if (enterance && robotRef.current.position.x < step) {
-      robotRef.current.position.x += delta * 0.5;
-      walkAnimation();
-    } else if (enterance && robotRef.current.position.x >= step) {
-      robotRef.current.rotation.y = -Math.PI + 0.25;
-      idleAnimation();
-      doObserve();
-    } else if (observe && robotRef.current.position.x > -step) {
-      robotRef.current.rotation.y = -Math.PI / 2;
-      robotRef.current.position.x -= delta * 0.5;
-      walkAnimation();
-    } else if (observe && robotRef.current.position.x <= -step) {
-      robotRef.current.rotation.y = -Math.PI - 0.25;
-      idleAnimation();
-      doStandby();
-    } else if (standby && robotRef.current.position.x < step) {
-      robotRef.current.position.x += delta * 0.5;
-      robotRef.current.position.z += delta * 0.25;
-      robotRef.current.rotation.y = Math.PI / 3;
-      walkAnimation();
-    } else if (standby && robotRef.current.position.x >= step) {
-      robotRef.current.rotation.y = -Math.PI * 2;
-      danceAnimation();
-      !talk && doTalk();
+    if (robotRef.current && rigBodyRef.current) {
+      const robot = robotRef.current;
+      const rigBody = rigBodyRef.current;
+      const impulse = { x: 0, y: 0, z: 0 };
+      const linvel = rigBody.linvel();
+      let changeRotation = false;
+
+      // uncontrolable animation
+      if (enterance && robot.parent!.position.x < step) {
+        robot.parent!.position.x += delta * 0.5;
+        walkAnimation();
+      } else if (enterance && robot.parent!.position.x >= step) {
+        robot.rotation.y = -Math.PI + 0.25;
+        idleAnimation();
+        doObserve();
+      } else if (observe && robot.parent!.position.x > -step) {
+        robot.rotation.y = -Math.PI / 2;
+        robot.parent!.position.x -= delta * 0.5;
+        walkAnimation();
+      } else if (observe && robot.parent!.position.x <= -step) {
+        robot.rotation.y = -Math.PI - 0.25;
+        idleAnimation();
+        doStandby();
+      } else if (standby && robot.parent!.position.x < step) {
+        robot.parent!.position.x += delta * 0.5;
+        robot.parent!.position.z += delta * 0.25;
+        robot.rotation.y = Math.PI / 3;
+        walkAnimation();
+      } else if (standby && robot.parent!.position.x >= step) {
+        robot.rotation.y = -Math.PI * 2;
+        danceAnimation();
+        !talk && doTalk();
+        rigBody.setTranslation(
+          {
+            x: robot.parent!.position.x,
+            y: robot.parent!.position.y,
+            z: robot.parent!.position.z,
+          },
+          true
+        );
+      }
+
+      // update light positioning
+      setLightPosition(
+        new Vector3(
+          robot.parent!.position.x,
+          robot.parent!.position.y + 0.15,
+          robot.parent!.position.z + 0.25
+        )
+      );
+
+      // moving
+      if (MoveForward && linvel.z > -MAX_VEL && controllable) {
+        impulse.z -= delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
+        changeRotation = true;
+        actions.Running?.play();
+        actions.Dance?.stop();
+      }
+
+      if (MoveBackward && linvel.z < MAX_VEL && controllable) {
+        impulse.z += delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
+        changeRotation = true;
+        actions.Running?.play();
+        actions.Dance?.stop();
+      }
+
+      if (MoveLeft && linvel.x > -MAX_VEL && controllable) {
+        impulse.x -= delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
+        changeRotation = true;
+        actions.Running?.play();
+        actions.Dance?.stop();
+      }
+
+      if (MoveRight && linvel.x < MAX_VEL && controllable) {
+        impulse.x += delta < 0.005 ? MOV_SPEED : MOV_SPEED * 5;
+        changeRotation = true;
+        actions.Running?.play();
+        actions.Dance?.stop();
+      }
+
+      // reset animation
+      if (!MoveForward && !MoveBackward && !MoveLeft && !MoveRight) {
+        actions.Running?.stop();
+      }
+
+      // jumping
+      if (
+        Jump &&
+        !isJumping &&
+        robot.parent!.position.y <= -0.99 &&
+        controllable
+      ) {
+        rigBody.setLinvel({ x: linvel.x, y: JUMP_FORCE, z: linvel.z }, true);
+        actions.Jump?.play();
+      }
+
+      // update rigid body
+      rigBody.applyImpulse(impulse, true);
+
+      if (changeRotation) {
+        const angle = Math.atan2(linvel.x, linvel.z);
+        robot.rotation.y = angle;
+      }
+    }
+  });
+
+  const resetBallPosition = () => {
+    if (ballRef.current) {
+      ballRef.current.setTranslation({ x: 0, y: 0, z: 1 }, true);
+      ballRef.current.setLinvel({ x: 0, y: 0, z: 1 }, true);
+    }
+  };
+
+  const goalBall = () => {
+    setGoal(true);
+    if (ballRef.current) {
+      ballRef.current.setTranslation({ x: 0, y: 0, z: 1 }, true);
+      ballRef.current.setLinvel({ x: 0, y: 0, z: 1 }, true);
     }
 
-    // update lighting
-    lightRef.current.position.set(
-      robotRef.current.position.x,
-      robotRef.current.position.y + 4,
-      robotRef.current.position.z + 1
-    );
-  });
+    setGoalCount(goalCount + 1);
+
+    setTimeout(() => {
+      setGoal(false);
+    }, 2000);
+  };
+
+  const resetBotPosition = () => {
+    if (rigBodyRef.current) {
+      rigBodyRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
+      rigBodyRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+    }
+  };
 
   return (
     <>
-      <group
-        ref={robotRef}
-        scale={0.1}
-        position={debugMode ? [0, -1, 0] : [-6, -1, 0]}
-        rotation-y={debugMode ? 0 : Math.PI / 2}
-        dispose={null}
-        {...props}
-      >
-        {talk && (
-          <Annotation
-            position={
-              robotRef.current
-                ? [
-                    step < 1
-                      ? robotRef.current.position.x - 7
-                      : robotRef.current.position.x - 8.5,
-                    robotRef.current.position.y + 3.5,
-                    robotRef.current.position.z + 0.1,
-                  ]
-                : [0, -10, 0]
+      {talk && (
+        <Annotation
+          position={
+            robotRef.current
+              ? new Vector3(
+                  step < 1
+                    ? robotRef.current.parent!.position.x - 0.5
+                    : robotRef.current.parent!.position.x - 0.65,
+                  robotRef.current.parent!.position.y + 0.25,
+                  robotRef.current.parent!.position.z + 0.1
+                )
+              : new Vector3(0, -1000, 0)
+          }
+          text={annotationData}
+        />
+      )}
+      <pointLight intensity={0.25} position={lightPosition} />
+      {controllable && (
+        <RigidBody
+          ref={ballRef}
+          colliders='ball'
+          restitution={1.25}
+          scale={0.1}
+          position={[0, 0, 0]}
+          onIntersectionEnter={({ other }) => {
+            if (other.rigidBodyObject?.name === 'void') {
+              resetBallPosition();
             }
-            text={annotationData}
-          />
-        )}
-        <pointLight ref={lightRef} intensity={0.5} />
-        <group name='Root_Scene'>
-          <group name='RootNode'>
+            if (other.rigidBodyObject?.name === 'goal') {
+              goalBall();
+            }
+          }}
+        >
+          <Clone object={football.scene} />
+        </RigidBody>
+      )}
+      {controllable && (
+        <Annotation
+          position={new Vector3(0, 1.35, 0)}
+          title='GOAL COUNT'
+          text='Goal Count'
+          content={`${goalCount}`}
+          board
+        />
+      )}
+      {controllable && (
+        <rectAreaLight
+          width={1.5}
+          intensity={1}
+          color={goal ? '#69f0ae' : '#18ffff'}
+          position={[-3.5, 0, 0.75]}
+          rotation-y={-Math.PI * 0.5}
+        />
+      )}
+      {controllable && (
+        <RigidBody
+          type='fixed'
+          scale={0.003}
+          position={[-3.25, -1.05, 0]}
+          rotation-y={-Math.PI * 0.5}
+          colliders='trimesh'
+        >
+          <Clone object={goalpost} />
+        </RigidBody>
+      )}
+      {controllable && (
+        <RigidBody colliders={false} type='fixed' name='goal' sensor>
+          <mesh position={[-3.25, -0.75, 0.8]} rotation-y={Math.PI * 0.5}>
+            <planeGeometry args={[1.5, 0.6]} />
+            <meshBasicMaterial visible={false} side={DoubleSide} />
+            <CuboidCollider
+              rotation-y={Math.PI * 0.5}
+              position={[0, -0.25, 0]}
+              args={[0.75, 0.01, 0.2]}
+              sensor
+            />
+          </mesh>
+        </RigidBody>
+      )}
+      {!hideRobot && (
+        <RigidBody
+          ref={rigBodyRef}
+          scale={0.085}
+          position={debugMode ? [0, 0, 0] : [-4.5, 0, 0]}
+          colliders={false}
+          lockRotations
+          onCollisionEnter={() => {
+            setIsJumping(false);
+            actions.Jump?.stop();
+          }}
+          onIntersectionEnter={({ other }) => {
+            if (other.rigidBodyObject?.name === 'void') {
+              resetBotPosition();
+            }
+          }}
+        >
+          <group
+            ref={robotRef}
+            dispose={null}
+            rotation-y={debugMode ? 0 : Math.PI / 2}
+          >
+            <CapsuleCollider args={[0.9, 1.5]} position={[0, 2.375, 0]} />
             <group
               name='RobotArmature'
               rotation={[-Math.PI / 2, 0, 0]}
@@ -202,8 +443,8 @@ export default function Robot(props: any) {
               />
             </group>
           </group>
-        </group>
-      </group>
+        </RigidBody>
+      )}
     </>
   );
 }
