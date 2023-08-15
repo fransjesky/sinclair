@@ -96,7 +96,7 @@ export default function HeroCanvas() {
       <KeyboardControls map={controlMap}>
         <Canvas
           dpr={[1, 2]}
-          gl={{ alpha: true }}
+          gl={{ antialias: true, alpha: false }}
           camera={{ position: [0, 1000, 1000], fov: 15 }}
           linear
         >

@@ -13,11 +13,11 @@ export default function Floor() {
     <group>
       {!mobile && (
         <Sparkles
-          color='#e3f2fd'
+          color='#b3e5fc'
           size={5}
           speed={0.5}
-          scale={[10, 3, 25]}
-          position-y={1.5}
+          scale={[10, 2, 25]}
+          position-y={1}
         />
       )}
       <RigidBody type='fixed' friction={2}>

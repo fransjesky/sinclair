@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { DoubleSide, Group, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
 import {
@@ -25,6 +25,18 @@ useGLTF.preload('/Models/robot-draco.glb');
 useGLTF.preload('/Models/football.glb');
 useGLTF.preload('/Models/goalpost.obj');
 
+const areaLight = (reverse: boolean) => {
+  return (
+    <rectAreaLight
+      width={1.5}
+      intensity={5}
+      color={reverse ? '#00e5ff' : '#ff5722'}
+      position={reverse ? [3.525, 0.75, 0] : [-3.525, -0.75, 0]}
+      rotation-y={reverse ? Math.PI * 0.5 : -Math.PI * 0.5}
+    />
+  );
+};
+
 export default function Robot(props: RobotPropTypes) {
   const robotRef = useRef<Group>(null!);
   const rigBodyRef = useRef<RapierRigidBody>(null!);
@@ -47,6 +59,8 @@ export default function Robot(props: RobotPropTypes) {
   const [talk, setTalk] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
   const [goalCount, setGoalCount] = useState(0);
+  const leftPostLight = useMemo(() => areaLight(false), []);
+  const rightPostLight = useMemo(() => areaLight(true), []);
 
   // movement controls
   const MoveForward = useKeyboardControls((state) => state[Controls.forward]);
@@ -127,7 +141,7 @@ export default function Robot(props: RobotPropTypes) {
     setTimeout(() => {
       danceAnimation();
       setAnnotationData(
-        'My master is currently working hard to finish this website 😋'
+        'My master is currently working hard to finish this website 🎉'
       );
     }, 10000);
 
@@ -264,8 +278,8 @@ export default function Robot(props: RobotPropTypes) {
 
   const resetBotPosition = () => {
     if (rigBodyRef.current) {
-      rigBodyRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
-      rigBodyRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+      rigBodyRef.current.setTranslation({ x: 0, y: -0.95, z: 0 }, true);
+      rigBodyRef.current.setLinvel({ x: 0, y: -0.95, z: 0 }, true);
     }
   };
 
@@ -287,75 +301,71 @@ export default function Robot(props: RobotPropTypes) {
           text={annotationData}
         />
       )}
-      <pointLight intensity={0.25} position={lightPosition} />
+      <pointLight intensity={0.5} position={lightPosition} />
       {controllable && (
-        <RigidBody
-          ref={ballRef}
-          colliders='ball'
-          restitution={1.25}
-          scale={0.1}
-          position={[0, 0, 0]}
-          onIntersectionEnter={({ other }) => {
-            if (other.rigidBodyObject?.name === 'void') {
-              resetBallPosition();
-            }
-            if (other.rigidBodyObject?.name === 'goal') {
-              goalBall();
-            }
-          }}
-        >
-          <Clone object={football.scene} />
-        </RigidBody>
-      )}
-      {controllable && (
-        <RigidBody
-          type='fixed'
-          scale={0.003}
-          position={[-3.25, -1.05, -0.75]}
-          rotation-y={-Math.PI * 0.5}
-          colliders='trimesh'
-        >
-          <Clone object={goalpost} />
-        </RigidBody>
-      )}
-      {controllable && (
-        <RigidBody
-          type='fixed'
-          scale={0.003}
-          position={[3.25, -1.05, 0.75]}
-          rotation-y={Math.PI * 0.5}
-          colliders='trimesh'
-        >
-          <Clone object={goalpost} />
-        </RigidBody>
-      )}
-      {controllable && (
-        <RigidBody colliders={false} type='fixed' name='goal' sensor>
-          <mesh position={[-3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
-            <planeGeometry args={[1.5, 0.6]} />
-            <meshBasicMaterial visible={false} side={DoubleSide} />
-            <CuboidCollider
-              rotation-y={Math.PI * 0.5}
-              position={[0, -0.25, 0]}
-              args={[0.75, 0.01, 0.2]}
-              sensor
-            />
-          </mesh>
-        </RigidBody>
-      )}
-      {controllable && (
-        <RigidBody colliders={false} type='fixed' name='goal' sensor>
-          <mesh position={[3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
-            <planeGeometry args={[1.5, 0.6]} />
-            <meshBasicMaterial visible={false} side={DoubleSide} />
-            <CuboidCollider
-              rotation-y={Math.PI * 0.5}
-              position={[0, -0.25, 0]}
-              args={[0.75, 0.01, 0.2]}
-              sensor
-            />
-          </mesh>
-        </RigidBody>
+        <>
+          <RigidBody
+            ref={ballRef}
+            colliders='ball'
+            restitution={1.25}
+            scale={0.1}
+            position={[0, 0, 0]}
+            onIntersectionEnter={({ other }) => {
+              if (other.rigidBodyObject?.name === 'void') {
+                resetBallPosition();
+              }
+              if (other.rigidBodyObject?.name === 'goal') {
+                goalBall();
+              }
+            }}
+          >
+            <Clone object={football.scene} />
+          </RigidBody>
+          <RigidBody
+            type='fixed'
+            scale={0.003}
+            position={[-3.25, -1.05, -0.75]}
+            rotation-y={-Math.PI * 0.5}
+            colliders='trimesh'
+          >
+            <Clone object={goalpost} />
+          </RigidBody>
+          <RigidBody
+            type='fixed'
+            scale={0.003}
+            position={[3.25, -1.05, 0.75]}
+            rotation-y={Math.PI * 0.5}
+            colliders='trimesh'
+          >
+            <Clone object={goalpost} />
+          </RigidBody>
+          <RigidBody colliders={false} type='fixed' name='goal' sensor>
+            <mesh position={[-3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
+              <planeGeometry args={[1.5, 0.6]} />
+              <meshBasicMaterial visible={false} side={DoubleSide} />
+              <CuboidCollider
+                rotation-y={Math.PI * 0.5}
+                position={[0, -0.25, 0]}
+                args={[0.75, 0.01, 0.2]}
+                sensor
+              />
+            </mesh>
+          </RigidBody>
+          <RigidBody colliders={false} type='fixed' name='goal' sensor>
+            <mesh position={[3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
+              <planeGeometry args={[1.5, 0.6]} />
+              <meshBasicMaterial visible={false} side={DoubleSide} />
+              <CuboidCollider
+                rotation-y={Math.PI * 0.5}
+                position={[0, -0.25, 0]}
+                args={[0.75, 0.01, 0.2]}
+                sensor
+              />
+            </mesh>
+          </RigidBody>
+          {leftPostLight}
+          {rightPostLight}
+        </>
       )}
       <RigidBody
         ref={rigBodyRef}
