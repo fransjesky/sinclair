@@ -23,6 +23,7 @@ export const Controls = {
   left: 'left',
   right: 'right',
   jump: 'jump',
+  sprint: 'sprint',
 };
 
 function Intro() {
@@ -63,6 +64,7 @@ export default function HeroCanvas() {
       { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
       { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
       { name: Controls.jump, keys: ['Space'] },
+      { name: Controls.sprint, keys: ['Shift'] },
     ],
     []
   );
@@ -94,7 +96,7 @@ export default function HeroCanvas() {
       <KeyboardControls map={controlMap}>
         <Canvas
           dpr={[1, 2]}
-          gl={{ alpha: false }}
+          gl={{ alpha: true }}
           camera={{ position: [0, 1000, 1000], fov: 15 }}
           linear
         >

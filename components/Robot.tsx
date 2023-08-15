@@ -17,17 +17,13 @@ import {
 } from '@react-three/rapier';
 import { Controls } from '@/modules/Hero';
 import Annotation from './Annotation';
-
-const JUMP_FORCE = 2;
-const MOV_SPEED = 0.005;
-const MAX_VEL = 1.2;
-
 interface RobotPropTypes {
   started: boolean;
 }
 
 useGLTF.preload('/Models/robot-draco.glb');
 useGLTF.preload('/Models/football.glb');
+useGLTF.preload('/Models/goalpost.obj');
 
 export default function Robot(props: RobotPropTypes) {
   const robotRef = useRef<Group>(null!);
@@ -50,8 +46,21 @@ export default function Robot(props: RobotPropTypes) {
   const [enterance, setEnterance] = useState(false);
   const [talk, setTalk] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
-  const [goal, setGoal] = useState(false);
   const [goalCount, setGoalCount] = useState(0);
+
+  // movement controls
+  const MoveForward = useKeyboardControls((state) => state[Controls.forward]);
+  const MoveBackward = useKeyboardControls((state) => state[Controls.backward]);
+  const MoveLeft = useKeyboardControls((state) => state[Controls.left]);
+  const MoveRight = useKeyboardControls((state) => state[Controls.right]);
+  const Sprint = useKeyboardControls((state) => state[Controls.sprint]);
+  const Jump = useKeyboardControls(
+    (state) => state.jump && state[Controls.jump]
+  );
+
+  const JUMP_FORCE = 2;
+  const MOV_SPEED = 0.005;
+  let MAX_VEL = 1.2;
 
   // talk content's state
   const [annotationData, setAnnotationData] = useState<string>('');
@@ -64,15 +73,6 @@ export default function Robot(props: RobotPropTypes) {
     setDebugMode(false); // enable this to turn on the debug mode
     debugMode && setControllable(true);
   }, [props.started, debugMode]);
-
-  // movement controls
-  const MoveForward = useKeyboardControls((state) => state[Controls.forward]);
-  const MoveBackward = useKeyboardControls((state) => state[Controls.backward]);
-  const MoveLeft = useKeyboardControls((state) => state[Controls.left]);
-  const MoveRight = useKeyboardControls((state) => state[Controls.right]);
-  const Jump = useKeyboardControls(
-    (state) => state.jump && state[Controls.jump]
-  );
 
   // animation functions
   const idleAnimation = () => {
@@ -133,7 +133,9 @@ export default function Robot(props: RobotPropTypes) {
 
     setTimeout(() => {
       idleAnimation();
-      setAnnotationData("Hey, do you want to play? Let's play football!");
+      setAnnotationData(
+        "Hey, do you want to play with me? Let's play football!"
+      );
     }, 15000);
 
     setTimeout(() => {
@@ -151,6 +153,12 @@ export default function Robot(props: RobotPropTypes) {
       const impulse = { x: 0, y: 0, z: 0 };
       const linvel = rigBody.linvel();
       let changeRotation = false;
+
+      if (Sprint) {
+        MAX_VEL = 2;
+      } else {
+        MAX_VEL = 1.2;
+      }
 
       // uncontrolable animation
       if (enterance && robot.parent!.position.x > distance) {
@@ -246,17 +254,12 @@ export default function Robot(props: RobotPropTypes) {
   };
 
   const goalBall = () => {
-    setGoal(true);
     if (ballRef.current) {
       ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
       ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
     }
 
     setGoalCount(goalCount + 1);
-
-    setTimeout(() => {
-      setGoal(false);
-    }, 2000);
   };
 
   const resetBotPosition = () => {
@@ -305,15 +308,6 @@ export default function Robot(props: RobotPropTypes) {
         </RigidBody>
       )}
       {controllable && (
-        <Annotation
-          position={new Vector3(0, 1.4, 0)}
-          title='GOAL COUNT'
-          text='Goal Count'
-          content={`${goalCount}`}
-          board
-        />
-      )}
-      {controllable && (
         <RigidBody
           type='fixed'
           scale={0.003}
@@ -325,8 +319,33 @@ export default function Robot(props: RobotPropTypes) {
         </RigidBody>
       )}
       {controllable && (
+        <RigidBody
+          type='fixed'
+          scale={0.003}
+          position={[3.25, -1.05, 0.75]}
+          rotation-y={Math.PI * 0.5}
+          colliders='trimesh'
+        >
+          <Clone object={goalpost} />
+        </RigidBody>
+      )}
+      {controllable && (
         <RigidBody colliders={false} type='fixed' name='goal' sensor>
           <mesh position={[-3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
+            <planeGeometry args={[1.5, 0.6]} />
+            <meshBasicMaterial visible={false} side={DoubleSide} />
+            <CuboidCollider
+              rotation-y={Math.PI * 0.5}
+              position={[0, -0.25, 0]}
+              args={[0.75, 0.01, 0.2]}
+              sensor
+            />
+          </mesh>
+        </RigidBody>
+      )}
+      {controllable && (
+        <RigidBody colliders={false} type='fixed' name='goal' sensor>
+          <mesh position={[3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
             <planeGeometry args={[1.5, 0.6]} />
             <meshBasicMaterial visible={false} side={DoubleSide} />
             <CuboidCollider

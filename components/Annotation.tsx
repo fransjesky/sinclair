@@ -1,18 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import { Vector3 } from 'three';
 import { Html } from '@react-three/drei';
 
-interface AnnotationTypes {
-  title?: string;
-  text: string;
-  content?: string;
-  board?: boolean;
-  position?: Vector3;
-  rotation?: Vector3;
-}
-
-export default function Annotation(props: AnnotationTypes) {
+export default function Annotation(props: any) {
   const [responsiveWidth, setResponsiveWidth] = useState('');
 
   useEffect(() => {
@@ -38,7 +28,7 @@ export default function Annotation(props: AnnotationTypes) {
             minWidth: props.board ? '12.5rem' : 'inherit',
             width: '100%',
             maxWidth: responsiveWidth,
-            border: '0.125rem solid #ff5722',
+            border: '0.125rem solid #2196f3',
             borderRadius: '0.5rem',
             backgroundColor: '#121212',
             display: 'flex',
@@ -49,47 +39,17 @@ export default function Annotation(props: AnnotationTypes) {
             color: '#ffffff',
           }}
         >
-          {props.board ? (
-            <Typography
-              sx={{
-                width: '100%',
-                color: '#ffffff',
-                fontSize: '0.8rem',
-                fontWeight: 900,
-                textAlign: 'center',
-                textTransform: 'uppercase',
-              }}
-            >
-              {props.title}
-            </Typography>
-          ) : (
-            <Typography
-              sx={{
-                color: '#ff5722',
-                fontSize: '1.2rem',
-                fontWeight: 900,
-                textTransform: 'capitalize',
-              }}
-            >
-              Sinclair
-            </Typography>
-          )}
-          {props.board ? (
-            <Typography
-              sx={{
-                width: '100%',
-                color: '#ff5722',
-                fontSize: '2rem',
-                fontWeight: 900,
-                textTransform: 'uppercase',
-                textAlign: 'center',
-              }}
-            >
-              {props.content}
-            </Typography>
-          ) : (
-            <Typography>{props.text}</Typography>
-          )}
+          <Typography
+            sx={{
+              color: '#2196f3',
+              fontSize: '1.2rem',
+              fontWeight: 900,
+              textTransform: 'capitalize',
+            }}
+          >
+            Sinclair
+          </Typography>
+          <Typography>{props.text}</Typography>
         </Box>
       </Html>
     )
