@@ -8,6 +8,7 @@ import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
+import { Perf } from 'r3f-perf';
 
 // components
 import Floor from '@/components/Floor';
@@ -92,11 +93,12 @@ export default function HeroCanvas() {
       </Box>
       <KeyboardControls map={controlMap}>
         <Canvas
-          dpr={[1.5, 2]}
-          gl={{ antialias: true, alpha: false }}
+          dpr={[1, 2]}
+          gl={{ alpha: false }}
           camera={{ position: [0, 1000, 1000], fov: 15 }}
           linear
         >
+          <Perf />
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 15, 20]} />
           <Suspense fallback={null}>
@@ -107,7 +109,7 @@ export default function HeroCanvas() {
               <Floor />
             </Physics>
           </Suspense>
-          <ambientLight intensity={1.5} />
+          <ambientLight />
           {started && <Intro />}
         </Canvas>
         <LoadingOverlay started={started} onClick={handleStart} />

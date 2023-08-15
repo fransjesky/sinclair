@@ -18,7 +18,7 @@ export default function Floor() {
   return (
     <group>
       {!mobile && (
-        <Sparkles size={2} scale={[10, 2, 25]} speed={0.5} position-y={1} />
+        <Sparkles size={3} scale={[10, 3, 25]} speed={0.25} position-y={1} />
       )}
       <RigidBody type='fixed' friction={2}>
         <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
@@ -32,15 +32,15 @@ export default function Floor() {
             mixStrength={5}
             roughnessMap={floor}
             normalMap={normal}
-            normalScale={new Vector2(5, 5)}
+            normalScale={new Vector2(3, 3)}
           />
         </mesh>
       </RigidBody>
       <RigidBody colliders={false} type='fixed' name='void' sensor>
-        <mesh position={[0, -2, 0]}>
-          <planeGeometry args={[20, 20]} />
+        <mesh position={[0, -1.25, 0]}>
+          <planeGeometry args={[15, 15]} />
           <meshBasicMaterial visible={false} />
-          <CuboidCollider position={[0, -2, 0]} args={[50, 0.1, 50]} sensor />
+          <CuboidCollider position={[0, -2, 0]} args={[15, 0.1, 15]} sensor />
         </mesh>
       </RigidBody>
     </group>

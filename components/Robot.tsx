@@ -47,7 +47,6 @@ export default function Robot(props: RobotPropTypes) {
   const [isJumping, setIsJumping] = useState(false);
   const [controllable, setControllable] = useState(false);
   const [distance, setDistance] = useState(0);
-  const [hideRobot, setHideRobot] = useState(true);
   const [enterance, setEnterance] = useState(false);
   const [talk, setTalk] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
@@ -60,7 +59,6 @@ export default function Robot(props: RobotPropTypes) {
   useEffect(() => {
     window.innerWidth <= 600 ? setDistance(0.75) : setDistance(2);
     props.started && !debugMode ? setEnterance(true) : setEnterance(false);
-    props.started && setHideRobot(false);
 
     // debug mode
     setDebugMode(false); // enable this to turn on the debug mode
@@ -134,20 +132,16 @@ export default function Robot(props: RobotPropTypes) {
     }, 10000);
 
     setTimeout(() => {
-      setAnnotationData('');
-    }, 15000);
-
-    setTimeout(() => {
       idleAnimation();
       setAnnotationData("Hey, do you want to play? Let's play football!");
-    }, 20000);
+    }, 15000);
 
     setTimeout(() => {
       setAnnotationData('');
       setTalk(false);
       removeAllAnimation();
       setControllable(true);
-    }, 25000);
+    }, 20000);
   };
 
   useFrame((state, delta) => {
@@ -220,6 +214,7 @@ export default function Robot(props: RobotPropTypes) {
       // reset animation
       if (!MoveForward && !MoveBackward && !MoveLeft && !MoveRight) {
         actions.Running?.stop();
+        actions.Idle?.play();
       }
 
       // jumping
@@ -319,15 +314,6 @@ export default function Robot(props: RobotPropTypes) {
         />
       )}
       {controllable && (
-        <rectAreaLight
-          width={1.5}
-          intensity={1}
-          color={goal ? '#69f0ae' : '#18ffff'}
-          position={[-3.525, 0, 0]}
-          rotation-y={-Math.PI * 0.5}
-        />
-      )}
-      {controllable && (
         <RigidBody
           type='fixed'
           scale={0.003}
@@ -352,77 +338,75 @@ export default function Robot(props: RobotPropTypes) {
           </mesh>
         </RigidBody>
       )}
-      {!hideRobot && (
-        <RigidBody
-          ref={rigBodyRef}
-          scale={0.085}
-          position={debugMode ? [0, 0, 0] : [5, 0, 0]}
-          colliders={false}
-          lockRotations
-          onCollisionEnter={() => {
-            setIsJumping(false);
-            actions.Jump?.stop();
-          }}
-          onIntersectionEnter={({ other }) => {
-            if (other.rigidBodyObject?.name === 'void') {
-              resetBotPosition();
-            }
-          }}
+      <RigidBody
+        ref={rigBodyRef}
+        scale={0.085}
+        position={debugMode ? [0, 0, 0] : [5, 0, 0]}
+        colliders={false}
+        lockRotations
+        onCollisionEnter={() => {
+          setIsJumping(false);
+          actions.Jump?.stop();
+        }}
+        onIntersectionEnter={({ other }) => {
+          if (other.rigidBodyObject?.name === 'void') {
+            resetBotPosition();
+          }
+        }}
+      >
+        <group
+          ref={robotRef}
+          dispose={null}
+          rotation-y={debugMode ? 0 : -Math.PI / 2}
         >
+          <CapsuleCollider args={[0.9, 1.5]} position={[0, 2.375, 0]} />
           <group
-            ref={robotRef}
-            dispose={null}
-            rotation-y={debugMode ? 0 : -Math.PI / 2}
+            name='RobotArmature'
+            rotation={[-Math.PI / 2, 0, 0]}
+            scale={100}
           >
-            <CapsuleCollider args={[0.9, 1.5]} position={[0, 2.375, 0]} />
-            <group
-              name='RobotArmature'
-              rotation={[-Math.PI / 2, 0, 0]}
-              scale={100}
-            >
-              <primitive object={nodes.Bone} />
-            </group>
-            <group
-              name='HandR'
-              position={[-0.003, 2.37, -0.021]}
-              rotation={[-Math.PI / 2, 0, 0]}
-              scale={100}
-            >
-              <skinnedMesh
-                name='HandR_1'
-                geometry={nodes.HandR_1.geometry}
-                material={materials.Main}
-                skeleton={nodes.HandR_1.skeleton}
-              />
-              <skinnedMesh
-                name='HandR_2'
-                geometry={nodes.HandR_2.geometry}
-                material={materials.Grey}
-                skeleton={nodes.HandR_2.skeleton}
-              />
-            </group>
-            <group
-              name='HandL'
-              position={[-0.003, 2.37, -0.021]}
-              rotation={[-Math.PI / 2, 0, 0]}
-              scale={100}
-            >
-              <skinnedMesh
-                name='HandL_1'
-                geometry={nodes.HandL_1.geometry}
-                material={materials.Main}
-                skeleton={nodes.HandL_1.skeleton}
-              />
-              <skinnedMesh
-                name='HandL_2'
-                geometry={nodes.HandL_2.geometry}
-                material={materials.Grey}
-                skeleton={nodes.HandL_2.skeleton}
-              />
-            </group>
+            <primitive object={nodes.Bone} />
           </group>
-        </RigidBody>
-      )}
+          <group
+            name='HandR'
+            position={[-0.003, 2.37, -0.021]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            scale={100}
+          >
+            <skinnedMesh
+              name='HandR_1'
+              geometry={nodes.HandR_1.geometry}
+              material={materials.Main}
+              skeleton={nodes.HandR_1.skeleton}
+            />
+            <skinnedMesh
+              name='HandR_2'
+              geometry={nodes.HandR_2.geometry}
+              material={materials.Grey}
+              skeleton={nodes.HandR_2.skeleton}
+            />
+          </group>
+          <group
+            name='HandL'
+            position={[-0.003, 2.37, -0.021]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            scale={100}
+          >
+            <skinnedMesh
+              name='HandL_1'
+              geometry={nodes.HandL_1.geometry}
+              material={materials.Main}
+              skeleton={nodes.HandL_1.skeleton}
+            />
+            <skinnedMesh
+              name='HandL_2'
+              geometry={nodes.HandL_2.geometry}
+              material={materials.Grey}
+              skeleton={nodes.HandL_2.skeleton}
+            />
+          </group>
+        </group>
+      </RigidBody>
     </>
   );
 }
