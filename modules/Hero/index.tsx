@@ -22,13 +22,14 @@ export const Controls = {
   left: 'left',
   right: 'right',
   jump: 'jump',
+  sprint: 'sprint',
 };
 
 function Intro() {
   const [vec] = useState(() => new Vector3());
   return useFrame((state, delta) => {
     state.camera.position.lerp(
-      vec.set(state.mouse.x * 5, 3 + state.mouse.y * 2, 14),
+      vec.set(state.mouse.x, 3 + state.mouse.y, 14),
       delta < 0.005 ? 0.01 : 0.045
     );
     if (state.camera.position.y < 1) {
@@ -62,6 +63,7 @@ export default function HeroCanvas() {
       { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
       { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
       { name: Controls.jump, keys: ['Space'] },
+      { name: Controls.sprint, keys: ['Shift'] },
     ],
     []
   );
@@ -107,7 +109,7 @@ export default function HeroCanvas() {
               <Floor />
             </Physics>
           </Suspense>
-          <ambientLight intensity={1.5} />
+          <ambientLight />
           {started && <Intro />}
         </Canvas>
         <LoadingOverlay started={started} onClick={handleStart} />
