@@ -35,6 +35,7 @@ export default function Annotation(props: any) {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'flex-start',
+            userSelect: 'none',
             outline: 'none',
             color: '#ffffff',
           }}
