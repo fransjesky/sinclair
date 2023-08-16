@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
-import { PositionalAudio as AudioTypes } from 'three';
+import { PositionalAudio as AudioTypes, AudioLoader } from 'three';
+import { useLoader } from '@react-three/fiber';
 import { PositionalAudio } from '@react-three/drei';
 
 interface MusicTypes {
@@ -9,6 +10,7 @@ interface MusicTypes {
 
 export default function Music(props: MusicTypes) {
   const audioRef = useRef<AudioTypes>(null!);
+  useLoader(AudioLoader, '/BGM.mp3');
 
   useEffect(() => {
     if (audioRef.current) {

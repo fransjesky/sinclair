@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import { useProgress } from '@react-three/drei';
 import Image from 'next/image';
+import ProgressBar from './ProgressBar';
 
 interface LoadingTypes {
   started: boolean;
@@ -11,12 +12,21 @@ interface LoadingTypes {
 }
 
 export default function LoadingOverlay(props: LoadingTypes) {
-  const { progress } = useProgress();
+  const { item, loaded, total } = useProgress();
   const [enableStart, setEnableStart] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (progress === 100) setEnableStart(true);
-  }, [progress]);
+    const updatedProgress = (loaded / total) * 100;
+    setProgress((current) =>
+      // only update the progress if it has more value than previous progress percentage
+      current > updatedProgress ? current : updatedProgress
+    );
+
+    setTimeout(() => {
+      if (progress === 100) setEnableStart(true);
+    }, 250);
+  }, [progress, item, loaded, total]);
 
   return (
     <Box
@@ -52,6 +62,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
           userSelect: 'none',
         }}
       />
+      <ProgressBar item={item} progress={loaded || total ? progress : 0} />
       <Box
         component='div'
         sx={{
@@ -78,7 +89,11 @@ export default function LoadingOverlay(props: LoadingTypes) {
             fontWeight: 900,
           }}
         >
-          {enableStart ? `READY` : `INITIALIZING`}
+          {enableStart
+            ? `READY`
+            : progress === 0
+            ? `INITIALIZING`
+            : `NOW LOADING`}
         </Typography>
       </Box>
       <Box component='div' sx={{ marginTop: '2.5rem' }}>

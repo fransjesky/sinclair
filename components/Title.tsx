@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
-import { useThree } from '@react-three/fiber';
+import { useEffect, useMemo } from 'react';
+import { FileLoader } from 'three';
+import { useThree, useLoader } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 
 interface TitleTypes {
@@ -38,11 +39,16 @@ const renderTitle = ({
 export default function Title(props: TitleTypes) {
   const { viewport } = useThree();
   const aspect = viewport.aspect;
+  const montserrat = '/Montserrat.ttf';
+  const notoSansJP = 'NotoSansJP.ttf';
+
+  useLoader(FileLoader, montserrat);
+  useLoader(FileLoader, notoSansJP);
 
   const title = useMemo(() => {
     return renderTitle({
       text: 'JESKY',
-      font: '/Montserrat-Black.ttf',
+      font: montserrat,
       fontSize: aspect / 1.75,
     });
   }, [aspect]);
@@ -51,7 +57,7 @@ export default function Title(props: TitleTypes) {
     return renderTitle({
       color: '#2196f3',
       text: 'Frontend Developer',
-      font: '/NotoSansJP-ExtraLight.ttf',
+      font: notoSansJP,
       fontSize: aspect / 12,
       xPosition: aspect * -0.55,
       yPosition: aspect * 0.3,
