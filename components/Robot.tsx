@@ -15,7 +15,7 @@ import {
   CapsuleCollider,
   CuboidCollider,
 } from '@react-three/rapier';
-import { Controls } from '@/modules/Hero';
+import { Controls } from '@/modules/Hero/Canvas';
 import Annotation from './Annotation';
 interface RobotPropTypes {
   started: boolean;
@@ -169,7 +169,7 @@ export default function Robot(props: RobotPropTypes) {
       let changeRotation = false;
 
       if (Sprint) {
-        MAX_VEL = 2;
+        MAX_VEL = 1.8;
       } else {
         MAX_VEL = 1.2;
       }
@@ -301,7 +301,10 @@ export default function Robot(props: RobotPropTypes) {
           text={annotationData}
         />
       )}
-      <pointLight intensity={0.5} position={lightPosition} />
+      <pointLight
+        intensity={controllable ? 0.2 : 0.5}
+        position={lightPosition}
+      />
       {controllable && (
         <>
           <RigidBody

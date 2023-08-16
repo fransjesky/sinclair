@@ -15,10 +15,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
   const [enableStart, setEnableStart] = useState(false);
 
   useEffect(() => {
-    if (progress === 100)
-      setTimeout(() => {
-        setEnableStart(true);
-      }, 50);
+    if (progress === 100) setEnableStart(true);
   }, [progress]);
 
   return (
