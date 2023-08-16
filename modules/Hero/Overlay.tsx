@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Box, Grid, Typography } from '@mui/material';
+
+// components
+import ScrollDown from '@/components/Layouts/ScrollDown';
+
+// icons
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 
 interface HeroOverlayTypes {
   muted: boolean;
@@ -55,62 +61,31 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
           </Grid>
         </Grid>
       </Box>
+      <ScrollDown />
       <Box
         component='div'
         sx={{
+          width: '4.5rem',
           position: 'absolute',
           bottom: 20,
-          left: '50%',
-          transform: 'translate(-50%, 0)',
-          userSelect: 'none',
-          outline: 'none',
+          left: 20,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          cursor: 'pointer',
         }}
       >
+        <SportsEsportsIcon />
         <Typography
           sx={{
             fontWeight: 500,
             fontSize: '0.625rem',
             textTransform: 'capitalize',
+            userSelect: 'none',
           }}
         >
-          Scroll Down
+          Controls
         </Typography>
-        <Box
-          component='span'
-          sx={{
-            position: 'absolute',
-            top: '0%',
-            right: '50%',
-            transform: 'translate(50%, -120%)',
-            width: '1.25rem',
-            height: '2.25rem',
-            boxShadow: 'inset 0 0 0 1px #fff',
-            borderRadius: '25px',
-            '&:before': {
-              content: `''`,
-              position: 'absolute',
-              top: '25%',
-              left: '50%',
-              transform: 'translate(-50%, 0%)',
-              width: '0.25rem',
-              height: '0.25rem',
-              background: '#fff',
-              borderRadius: '50%',
-              animationDuration: '1.5s',
-              animationIterationCount: 'infinite',
-              animationName: 'scroll',
-            },
-            '@keyframes scroll': {
-              '0%': {
-                opacity: 1,
-              },
-              '100%': {
-                opacity: 0,
-                transform: 'translate(-50%, 0.75rem)',
-              },
-            },
-          }}
-        />
       </Box>
     </Box>
   );

@@ -61,7 +61,6 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
           dpr={[1.5, 2]}
           gl={{ antialias: true, alpha: false }}
           camera={{ position: [0, 1000, 1000], fov: 15 }}
-          shadows
           linear
         >
           <color attach='background' args={['black']} />
