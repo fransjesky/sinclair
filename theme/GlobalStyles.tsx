@@ -10,6 +10,10 @@ const globalStyles = {
     maxWidth: '100vw',
     backgroundColor: theme.palette.background.default,
   },
+  a: {
+    color: 'inherit',
+    textDecoration: 'none',
+  },
 };
 
 export default globalStyles;

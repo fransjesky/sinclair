@@ -18,7 +18,14 @@ export default function Music(props: MusicTypes) {
 
   return (
     props.started && (
-      <PositionalAudio ref={audioRef} autoplay loop url='/BGM.mp3' load />
+      <PositionalAudio
+        ref={audioRef}
+        distance={2}
+        autoplay
+        loop
+        url='/BGM.mp3'
+        load
+      />
     )
   );
 }

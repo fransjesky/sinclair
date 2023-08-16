@@ -15,10 +15,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
   const [enableStart, setEnableStart] = useState(false);
 
   useEffect(() => {
-    if (progress === 100)
-      setTimeout(() => {
-        setEnableStart(true);
-      }, 5000);
+    if (progress === 100) setEnableStart(true);
   }, [progress]);
 
   return (
@@ -91,9 +88,9 @@ export default function LoadingOverlay(props: LoadingTypes) {
           sx={{
             minWidth: '10rem',
             padding: '0.5rem 3rem',
-            border: '0.125rem solid #18ffff',
+            border: '0.125rem solid #00e5ff',
             borderRadius: '0.5rem',
-            color: '#18ffff',
+            color: '#00e5ff',
             fontWeight: 900,
             letterSpacing: '0.125rem',
             transition: 'all 0.3s ease',
@@ -101,7 +98,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
               padding: '0.5rem 5rem',
               color: '#ffffff',
               cursor: 'pointer',
-              backgroundColor: '#18ffff',
+              backgroundColor: '#00e5ff',
             },
             '&:disabled': {
               color: '#ff5722',
