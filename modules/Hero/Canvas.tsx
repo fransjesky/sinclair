@@ -37,11 +37,11 @@ function Intro() {
 
 interface HeroCanvasTypes {
   muted: boolean;
+  started: boolean;
+  onClick: () => void;
 }
 
 export default function HeroCanvas(props: HeroCanvasTypes) {
-  const [started, setStarted] = useState(false);
-
   const controlMap = useMemo(
     () => [
       { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
@@ -53,10 +53,6 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
     ],
     []
   );
-
-  const handleStart = () => {
-    setStarted(true);
-  };
 
   return (
     <Box component='div' sx={{ height: '100%', width: '100%' }}>
@@ -71,17 +67,17 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 15, 20]} />
           <Suspense fallback={null}>
-            <Music started={started} toggleMute={props.muted} />
-            <Title started={started} />
+            <Music started={props.started} toggleMute={props.muted} />
+            <Title started={props.started} />
             <Physics>
-              <Robot started={started} />
+              <Robot started={props.started} />
               <Floor />
             </Physics>
           </Suspense>
           <ambientLight />
-          {started && <Intro />}
+          {props.started && <Intro />}
         </Canvas>
-        <LoadingOverlay started={started} onClick={handleStart} />
+        <LoadingOverlay started={props.started} onClick={props.onClick} />
       </KeyboardControls>
     </Box>
   );

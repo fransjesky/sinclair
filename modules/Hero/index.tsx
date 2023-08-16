@@ -8,6 +8,7 @@ import HeroCanvas from './Canvas';
 export default function Hero() {
   const [height, setHeight] = useState(0);
   const [muted, setMuted] = useState(false);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     setHeight(window.innerHeight);
@@ -15,6 +16,10 @@ export default function Hero() {
 
   const handleMute = () => {
     muted ? setMuted(false) : setMuted(true);
+  };
+
+  const handleStart = () => {
+    setStarted(true);
   };
 
   return (
@@ -25,8 +30,8 @@ export default function Hero() {
         width: '100%',
       }}
     >
-      <HeroCanvas muted={muted} />
-      <HeroOverlay muted={muted} onClick={handleMute} />
+      <HeroCanvas muted={muted} started={started} onClick={handleStart} />
+      <HeroOverlay muted={muted} started={started} onClick={handleMute} />
     </Box>
   );
 }
