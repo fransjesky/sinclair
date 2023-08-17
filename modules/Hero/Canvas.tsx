@@ -4,13 +4,14 @@ import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
+import { Perf } from 'r3f-perf';
 
 // components
-import Floor from '@/components/Floor';
-import Title from '@/components/Title';
-import Robot from '@/components/Robot';
-import Music from '@/components/Music';
-import LoadingOverlay from '@/components/Loading';
+import Floor from '@/components/Core/Floor';
+import Title from '@/components/Core/Title';
+import Robot from '@/components/Core/Robot';
+import Music from '@/components/Core/Music';
+import LoadingOverlay from '@/components/Layout/Loading';
 
 export const Controls = {
   forward: 'forward',
@@ -58,14 +59,16 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
     <Box component='div' sx={{ height: '100%', width: '100%' }}>
       <KeyboardControls map={controlMap}>
         <Canvas
-          dpr={[1.5, 2]}
-          gl={{ antialias: true, alpha: false }}
-          camera={{ position: [0, 1000, 1000], fov: 15 }}
+          dpr={[1, 2]}
+          gl={{ alpha: false }}
+          camera={{ position: [0, 1000, 1000], fov: 15, near: 0.001 }}
           linear
         >
+          <Perf />
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 15, 20]} />
           <Suspense fallback={null}>
+            {props.started && <Intro />}
             <Music started={props.started} toggleMute={props.muted} />
             <Title started={props.started} />
             <Physics>
@@ -74,7 +77,6 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
             </Physics>
           </Suspense>
           <ambientLight />
-          {props.started && <Intro />}
         </Canvas>
         <LoadingOverlay started={props.started} onClick={props.onClick} />
       </KeyboardControls>

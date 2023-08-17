@@ -12,6 +12,16 @@ export default function Hero() {
 
   useEffect(() => {
     setHeight(window.innerHeight);
+
+    const handleContextMenu = (event: Event) => {
+      event.preventDefault();
+    };
+
+    window.addEventListener('contextmenu', handleContextMenu);
+
+    return () => {
+      window.removeEventListener('contextmenu', handleContextMenu);
+    };
   }, []);
 
   const handleMute = () => {
