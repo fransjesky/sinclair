@@ -27,14 +27,14 @@ export default function ProgressBar(props: ProgressBarProps) {
       >
         <Grid item>
           {props.progress !== 0 && props.progress !== 100 && (
-            <Typography sx={{ color: '#ffffff' }}>
+            <Typography sx={{ fontSize: '0.75rem', color: '#ffffff' }}>
               Loading: {loadingItem}
             </Typography>
           )}
         </Grid>
         <Grid item>
           {props.progress !== 0 && props.progress !== 100 && (
-            <Typography sx={{ color: '#ffffff' }}>
+            <Typography sx={{ fontSize: '0.75rem', color: '#ffffff' }}>
               {Math.floor(props.progress)}%
             </Typography>
           )}
