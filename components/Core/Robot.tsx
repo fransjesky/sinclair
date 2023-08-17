@@ -29,7 +29,7 @@ const areaLight = (reverse: boolean) => {
   return (
     <rectAreaLight
       width={1.5}
-      intensity={10}
+      intensity={15}
       color={reverse ? '#00e5ff' : '#ff5722'}
       position={reverse ? [3.525, 0.75, 0] : [-3.525, -0.75, 0]}
       rotation-y={reverse ? Math.PI * 0.5 : -Math.PI * 0.5}
@@ -291,7 +291,7 @@ export default function Robot(props: RobotPropTypes) {
             robotRef.current
               ? new Vector3(
                   distance < 1
-                    ? robotRef.current.parent!.position.x - 0.5
+                    ? robotRef.current.parent!.position.x - 0.7
                     : robotRef.current.parent!.position.x - 0.75,
                   robotRef.current.parent!.position.y + 0.25,
                   robotRef.current.parent!.position.z + 0.1
@@ -301,7 +301,7 @@ export default function Robot(props: RobotPropTypes) {
           text={annotationData}
         />
       )}
-      <pointLight intensity={controllable ? 0.5 : 1} position={lightPosition} />
+      <pointLight intensity={0.5} position={lightPosition} />
       {controllable && (
         <>
           <RigidBody
