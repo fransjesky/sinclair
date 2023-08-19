@@ -25,7 +25,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
 
     setTimeout(() => {
       if (progress === 100) setEnableStart(true);
-    }, 250);
+    }, 350);
   }, [progress, item, loaded, total]);
 
   return (
@@ -87,6 +87,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
             color: '#ffffff',
             fontSize: '2.25rem',
             fontWeight: 900,
+            textShadow: enableStart ? `0.125rem 0.125rem #2196f3` : `none`,
           }}
         >
           {enableStart
@@ -109,11 +110,13 @@ export default function LoadingOverlay(props: LoadingTypes) {
             fontWeight: 900,
             letterSpacing: '0.125rem',
             transition: 'all 0.3s ease',
+            boxShadow: enableStart ? `0 0 2rem 0 #2196f3` : `none`,
             '&:hover': {
               padding: '0.5rem 5rem',
               color: '#ffffff',
               cursor: 'pointer',
               backgroundColor: '#00e5ff',
+              boxShadow: enableStart ? `0 0 2rem 0.25rem #2196f3` : `none`,
             },
             '&:disabled': {
               color: '#ff5722',

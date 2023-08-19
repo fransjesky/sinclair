@@ -28,14 +28,18 @@ export default function ProgressBar(props: ProgressBarProps) {
         <Grid item>
           {props.progress !== 0 && props.progress !== 100 && (
             <Typography sx={{ fontSize: '0.75rem', color: '#ffffff' }}>
-              Loading: {loadingItem}
+              {loadingItem.length > 20
+                ? `Loading: ${loadingItem.substring(0, 20)}...`
+                : loadingItem.length > 0
+                ? `Loading: ${loadingItem}`
+                : `Initializing Loader`}
             </Typography>
           )}
         </Grid>
         <Grid item>
           {props.progress !== 0 && props.progress !== 100 && (
             <Typography sx={{ fontSize: '0.75rem', color: '#ffffff' }}>
-              {Math.floor(props.progress)}%
+              {isNaN(props.progress) ? '0%' : `${Math.floor(props.progress)}%`}
             </Typography>
           )}
         </Grid>
@@ -47,6 +51,7 @@ export default function ProgressBar(props: ProgressBarProps) {
           margin: '1rem auto',
           backgroundColor: '#333333',
           borderRadius: '8px',
+          boxShadow: props.progress >= 100 ? `0 0 2rem 0.25rem #2196f3` : 'none',
           '& .MuiLinearProgress-bar': {
             backgroundColor: '#00e5ff',
           },
