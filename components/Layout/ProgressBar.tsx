@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { Box, Grid, Typography, LinearProgress } from '@mui/material';
 
 interface ProgressBarProps {
-  progress: number;
   item: string;
+  progress: number;
+  enableStart: boolean;
 }
 
 export default function ProgressBar(props: ProgressBarProps) {
@@ -51,7 +52,7 @@ export default function ProgressBar(props: ProgressBarProps) {
           margin: '1rem auto',
           backgroundColor: '#333333',
           borderRadius: '8px',
-          boxShadow: props.progress >= 100 ? `0 0 2rem 0.25rem #2196f3` : 'none',
+          boxShadow: props.enableStart ? `0 0 2rem 0.25rem #2196f3` : 'none',
           '& .MuiLinearProgress-bar': {
             backgroundColor: '#00e5ff',
           },

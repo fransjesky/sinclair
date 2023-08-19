@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { FileLoader } from 'three';
 import { useThree, useLoader } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
