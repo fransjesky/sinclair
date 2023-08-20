@@ -9,6 +9,7 @@ const KeyCapIcon = (key: any) => {
       component='div'
       sx={{
         p: '0.5rem',
+        mr: '0.25rem',
         height: '1.5rem',
         minWidth: '1.5rem',
         borderRadius: '0.25rem',
@@ -64,14 +65,14 @@ export default function ControlsGuide() {
       <Modal title='controls guide' open={open} onClose={handleClose}>
         <Box component='div'>
           <Grid container spacing={2}>
-            <Grid xs={6} item>
+            <Grid xs={12} sm={6} item>
               <Box
                 component='div'
                 sx={{
                   mb: '0.5rem',
-                  width: '60%',
+                  width: '100%',
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'flex-start',
                   alignItems: 'center',
                 }}
               >
@@ -84,14 +85,14 @@ export default function ControlsGuide() {
                 Press and hold to move
               </Typography>
             </Grid>
-            <Grid xs={6} item>
+            <Grid xs={12} sm={6} item>
               <Box
                 component='div'
                 sx={{
                   mb: '0.5rem',
-                  width: '55%',
+                  width: '100%',
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'flex-start',
                   alignItems: 'center',
                 }}
               >
@@ -102,14 +103,14 @@ export default function ControlsGuide() {
                 Hold to sprint
               </Typography>
             </Grid>
-            <Grid xs={6} item>
+            <Grid xs={12} sm={6} item>
               <Box
                 component='div'
                 sx={{
                   mb: '0.5rem',
                   width: '100%',
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'flex-start',
                   alignItems: 'center',
                 }}
               >
@@ -119,14 +120,14 @@ export default function ControlsGuide() {
                 Press to jump
               </Typography>
             </Grid>
-            <Grid xs={6} item>
+            <Grid xs={12} sm={6} item>
               <Box
                 component='div'
                 sx={{
                   mb: '0.5rem',
                   width: '100%',
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'flex-start',
                   alignItems: 'center',
                 }}
               >

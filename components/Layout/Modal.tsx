@@ -21,7 +21,13 @@ export default function Modal(props: ModalProps) {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '30vw',
+          width: {
+            xs: '90vw',
+            sm: '60vw',
+            md: '50vw',
+            lg: '40vw',
+            xl: '30vw',
+          },
           borderRadius: '0.5rem',
           color: '#ffffff',
           outline: 'none',
@@ -57,6 +63,8 @@ export default function Modal(props: ModalProps) {
           sx={{
             p: 4,
             width: '100%',
+            maxHeight: '60vh',
+            overflowY: 'scroll',
             borderBottomLeftRadius: '0.5rem',
             borderBottomRightRadius: '0.5rem',
             backgroundColor: '#121212',
