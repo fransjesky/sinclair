@@ -63,7 +63,7 @@ export default function Modal(props: ModalProps) {
           sx={{
             p: 4,
             width: '100%',
-            maxHeight: '60vh',
+            maxHeight: '75vh',
             overflowY: 'scroll',
             borderBottomLeftRadius: '0.5rem',
             borderBottomRightRadius: '0.5rem',

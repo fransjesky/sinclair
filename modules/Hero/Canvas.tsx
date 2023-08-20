@@ -4,7 +4,6 @@ import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
-import { Perf } from 'r3f-perf';
 
 // components
 import Floor from '@/components/Core/Floor';
@@ -20,6 +19,7 @@ export const Controls = {
   right: 'right',
   jump: 'jump',
   sprint: 'sprint',
+  reset: 'reset',
 };
 
 function Intro() {
@@ -51,6 +51,7 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
       { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
       { name: Controls.jump, keys: ['Space'] },
       { name: Controls.sprint, keys: ['Shift'] },
+      { name: Controls.reset, keys: ['KeyR'] },
     ],
     []
   );
@@ -64,7 +65,6 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
           camera={{ position: [0, 1000, 1000], fov: 15, near: 0.001 }}
           linear
         >
-          {/* <Perf /> */}
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 15, 20]} />
           <Suspense fallback={null}>

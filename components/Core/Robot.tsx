@@ -63,6 +63,7 @@ export default function Robot(props: RobotPropTypes) {
   const rightPostLight = useMemo(() => areaLight(true), []);
 
   // movement controls
+  const Reset = useKeyboardControls((state) => state[Controls.reset]);
   const MoveForward = useKeyboardControls((state) => state[Controls.forward]);
   const MoveBackward = useKeyboardControls((state) => state[Controls.backward]);
   const MoveLeft = useKeyboardControls((state) => state[Controls.left]);
@@ -160,6 +161,31 @@ export default function Robot(props: RobotPropTypes) {
     }, 20000);
   };
 
+  // reset logic
+  const resetBallPosition = () => {
+    if (ballRef.current) {
+      ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
+      ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+    }
+  };
+
+  const goalBall = () => {
+    if (ballRef.current) {
+      ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
+      ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+    }
+
+    setGoalCount(goalCount + 1);
+  };
+
+  const resetBotPosition = () => {
+    if (rigBodyRef.current) {
+      rigBodyRef.current.setTranslation({ x: 2, y: -1, z: 0 }, true);
+      rigBodyRef.current.setLinvel({ x: 2, y: -1, z: 0 }, true);
+    }
+  };
+
+  // use frame animations
   useFrame((state, delta) => {
     if (robotRef.current && rigBodyRef.current) {
       const robot = robotRef.current;
@@ -239,6 +265,12 @@ export default function Robot(props: RobotPropTypes) {
         actions.Idle?.play();
       }
 
+      // reset position
+      if (Reset && controllable) {
+        resetBotPosition();
+        resetBallPosition();
+      }
+
       // jumping
       if (
         Jump &&
@@ -259,29 +291,6 @@ export default function Robot(props: RobotPropTypes) {
       }
     }
   });
-
-  const resetBallPosition = () => {
-    if (ballRef.current) {
-      ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
-      ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
-    }
-  };
-
-  const goalBall = () => {
-    if (ballRef.current) {
-      ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
-      ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
-    }
-
-    setGoalCount(goalCount + 1);
-  };
-
-  const resetBotPosition = () => {
-    if (rigBodyRef.current) {
-      rigBodyRef.current.setTranslation({ x: 0, y: -0.95, z: 0 }, true);
-      rigBodyRef.current.setLinvel({ x: 0, y: -0.95, z: 0 }, true);
-    }
-  };
 
   return (
     <>
