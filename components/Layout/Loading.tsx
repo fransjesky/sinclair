@@ -6,6 +6,13 @@ import { useProgress } from '@react-three/drei';
 import Image from 'next/image';
 import ProgressBar from './ProgressBar';
 
+// REDUX
+import { useAppDispatch } from '@/redux/hooks';
+import {
+  mobileViewport,
+  desktopViewport,
+} from '@/redux/features/viewportSlicer';
+
 interface LoadingTypes {
   started: boolean;
   onClick: () => void;
@@ -15,8 +22,15 @@ export default function LoadingOverlay(props: LoadingTypes) {
   const { item, loaded, total } = useProgress();
   const [enableStart, setEnableStart] = useState(false);
   const [progress, setProgress] = useState(0);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (window.innerWidth <= 600) {
+      dispatch(mobileViewport());
+    } else {
+      dispatch(desktopViewport());
+    }
+
     const updatedProgress = (loaded / total) * 100;
     setProgress((current) =>
       // only update the progress if it has more value than previous progress percentage
@@ -25,8 +39,8 @@ export default function LoadingOverlay(props: LoadingTypes) {
 
     setTimeout(() => {
       if (progress === 100) setEnableStart(true);
-    }, 250);
-  }, [progress, item, loaded, total]);
+    }, 350);
+  }, [progress, item, loaded, total, dispatch]);
 
   return (
     <Box
@@ -62,7 +76,11 @@ export default function LoadingOverlay(props: LoadingTypes) {
           userSelect: 'none',
         }}
       />
-      <ProgressBar item={item} progress={loaded || total ? progress : 0} />
+      <ProgressBar
+        item={item}
+        enableStart={enableStart}
+        progress={loaded || total ? progress : 0}
+      />
       <Box
         component='div'
         sx={{
@@ -87,6 +105,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
             color: '#ffffff',
             fontSize: '2.25rem',
             fontWeight: 900,
+            textShadow: enableStart ? `0.125rem 0.125rem #2196f3` : `none`,
           }}
         >
           {enableStart
@@ -108,6 +127,9 @@ export default function LoadingOverlay(props: LoadingTypes) {
             color: '#00e5ff',
             fontWeight: 900,
             letterSpacing: '0.125rem',
+            animationDuration: '1s',
+            animationIterationCount: 'infinite',
+            animationName: 'glowing',
             transition: 'all 0.3s ease',
             '&:hover': {
               padding: '0.5rem 5rem',
@@ -118,6 +140,17 @@ export default function LoadingOverlay(props: LoadingTypes) {
             '&:disabled': {
               color: '#ff5722',
               border: '0.125rem solid #ff5722',
+            },
+            '@keyframes glowing': {
+              '0%': {
+                boxShadow: enableStart ? `0 0 2rem 0 #2196f3` : `none`,
+              },
+              '50%': {
+                boxShadow: enableStart ? `0 0 2rem 0.25rem #2196f3` : `none`,
+              },
+              '100%': {
+                boxShadow: enableStart ? `0 0 2rem 0 #2196f3` : `none`,
+              },
             },
           }}
         >

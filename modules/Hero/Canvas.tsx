@@ -64,7 +64,7 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
           camera={{ position: [0, 1000, 1000], fov: 15, near: 0.001 }}
           linear
         >
-          <Perf />
+          {/* <Perf /> */}
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 15, 20]} />
           <Suspense fallback={null}>
