@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 // components
-import ScrollDown from '@/components/Layouts/ScrollDown';
+import ScrollDown from '@/components/Layout/ScrollDown';
+import ControlsGuide from '@/components/Layout/ControlsGuide';
 
 // icons
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 
 interface HeroOverlayTypes {
   muted: boolean;
@@ -32,7 +32,6 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
       component='div'
       sx={{
         color: '#ffffff',
-        zIndex: 2,
         opacity: showOverlay ? 1 : 0,
         transition: 'all 1s ease',
       }}
@@ -62,31 +61,7 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         </Grid>
       </Box>
       <ScrollDown />
-      <Box
-        component='div'
-        sx={{
-          width: '4.5rem',
-          position: 'absolute',
-          bottom: 20,
-          left: 20,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          cursor: 'pointer',
-        }}
-      >
-        <SportsEsportsIcon />
-        <Typography
-          sx={{
-            fontWeight: 500,
-            fontSize: '0.625rem',
-            textTransform: 'capitalize',
-            userSelect: 'none',
-          }}
-        >
-          Controls
-        </Typography>
-      </Box>
+      <ControlsGuide />
     </Box>
   );
 }
