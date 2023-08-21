@@ -1,7 +1,6 @@
 import { useRef, useEffect } from 'react';
-import { PositionalAudio as AudioTypes, AudioLoader } from 'three';
+import { AudioLoader } from 'three';
 import { useLoader } from '@react-three/fiber';
-import { PositionalAudio } from '@react-three/drei';
 
 interface MusicTypes {
   started: boolean;
@@ -9,25 +8,24 @@ interface MusicTypes {
 }
 
 export default function Music(props: MusicTypes) {
-  const audioRef = useRef<AudioTypes>(null!);
   useLoader(AudioLoader, '/BGM.mp3');
+  const audioRef = useRef<HTMLAudioElement>(null!);
 
   useEffect(() => {
     if (audioRef.current) {
       props.toggleMute ? audioRef.current.pause() : audioRef.current.play();
+
+      props.started
+        ? (audioRef.current.volume = 0.5)
+        : (audioRef.current.volume = 0);
     }
-  }, [props.toggleMute]);
+  }, [props.toggleMute, props.started]);
 
   return (
     props.started && (
-      <PositionalAudio
-        ref={audioRef}
-        distance={2}
-        autoplay
-        loop
-        url='/BGM.mp3'
-        load
-      />
+      <audio ref={audioRef} autoPlay loop>
+        <source src='BGM.mp3' type='audio/mpeg' />
+      </audio>
     )
   );
 }
