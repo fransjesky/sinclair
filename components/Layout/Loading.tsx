@@ -8,10 +8,7 @@ import ProgressBar from './ProgressBar';
 
 // REDUX
 import { useAppDispatch } from '@/redux/hooks';
-import {
-  mobileViewport,
-  desktopViewport,
-} from '@/redux/features/viewportSlicer';
+import { mobileViewport } from '@/redux/features/global';
 
 interface LoadingTypes {
   started: boolean;
@@ -25,11 +22,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (window.innerWidth <= 600) {
-      dispatch(mobileViewport());
-    } else {
-      dispatch(desktopViewport());
-    }
+    if (window.innerWidth <= 600) dispatch(mobileViewport());
 
     const updatedProgress = (loaded / total) * 100;
     setProgress((current) =>

@@ -4,6 +4,7 @@ import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
+// import { Perf } from 'r3f-perf';
 
 // components
 import Floor from '@/components/Core/Floor';
@@ -63,9 +64,10 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
         <Canvas
           dpr={[1, 2]}
           gl={{ antialias: true, alpha: false }}
-          camera={{ position: [0, 10000, 10000], fov: 15, near: 0.001 }}
+          camera={{ position: [0, 10000, 10000], fov: 15 }}
           linear
         >
+          {/* <Perf /> */}
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 15, 20]} />
           <Suspense fallback={null}>

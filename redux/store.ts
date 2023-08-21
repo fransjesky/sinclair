@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 // reducers
-import viewportReducer from './features/viewportSlicer';
+import globalReducer from './features/global';
 
 export const store = configureStore({
   reducer: {
-    viewport: viewportReducer,
+    global: globalReducer,
   },
 });
 

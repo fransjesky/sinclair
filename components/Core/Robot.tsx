@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect, useMemo } from 'react';
-import { DoubleSide, Group, Vector3 } from 'three';
+import { DoubleSide, Group, Object3D, Vector3 } from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import {
   useGLTF,
   useAnimations,
   useKeyboardControls,
+  SpotLight,
   Clone,
 } from '@react-three/drei';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -51,6 +52,17 @@ export default function Robot(props: RobotPropTypes) {
   const [lightPosition, setLightPosition] = useState<Vector3>(
     new Vector3(0, -100, 0)
   );
+  const [chaseLightA, setChaseLightA] = useState<Vector3>(
+    new Vector3(0, -100, 0)
+  );
+  const [chaseLightB, setChaseLightB] = useState<Vector3>(
+    new Vector3(0, -100, 0)
+  );
+  const [chaseDistanceA, setChaseDistanceA] = useState(0);
+  const [chaseDistanceB, setChaseDistanceB] = useState(Math.PI);
+  const [chaseTargetA] = useState(() => new Object3D());
+  const [chaseTargetB] = useState(() => new Object3D());
+  const [chaseLightOpacity, setChaseLightOpacity] = useState(0);
   const [isJumping, setIsJumping] = useState(false);
   const [controllable, setControllable] = useState(false);
   const [distance, setDistance] = useState(0);
@@ -219,10 +231,40 @@ export default function Robot(props: RobotPropTypes) {
       setLightPosition(
         new Vector3(
           robot.parent!.position.x,
-          robot.parent!.position.y + 0.15,
+          robot.parent!.position.y + 0.3,
           robot.parent!.position.z + 0.25
         )
       );
+
+      // smooth visibility animation of chase light
+      if (props.started) {
+        setTimeout(() => {
+          setChaseLightOpacity((state) =>
+            state < 1 ? (state += 0.005) : (state = 1)
+          );
+        }, 3500);
+      }
+
+      // chase light motion
+      if (!controllable) {
+        setChaseLightA(
+          new Vector3(
+            Math.sin(chaseDistanceA) * 2,
+            -1,
+            Math.cos(chaseDistanceA) * 3
+          )
+        );
+        setChaseDistanceA((state) => (state += delta < 0.005 ? 0.005 : 0.025));
+
+        setChaseLightB(
+          new Vector3(
+            Math.sin(chaseDistanceB) * 2,
+            -1,
+            Math.cos(chaseDistanceB) * 3
+          )
+        );
+        setChaseDistanceB((state) => (state += delta < 0.005 ? 0.005 : 0.025));
+      }
 
       // moving
       if (MoveForward && linvel.z > -MAX_VEL && controllable) {
@@ -309,6 +351,60 @@ export default function Robot(props: RobotPropTypes) {
         />
       )}
       <pointLight intensity={0.5} position={lightPosition} />
+      {props.started && !controllable && (
+        <>
+          <SpotLight
+            dispose={null}
+            position={[-2.5, 2, 0]}
+            target={chaseTargetA}
+            radiusTop={0}
+            radiusBottom={3}
+            distance={15}
+            attenuation={6}
+            angle={0}
+            anglePower={2}
+            intensity={1}
+            opacity={chaseLightOpacity}
+            color={0x03a9f4}
+            shadowCameraFov={undefined}
+            shadowCameraLeft={undefined}
+            shadowCameraRight={undefined}
+            shadowCameraTop={undefined}
+            shadowCameraBottom={undefined}
+            shadowCameraNear={undefined}
+            shadowCameraFar={undefined}
+            shadowBias={undefined}
+            shadowMapWidth={undefined}
+            shadowMapHeight={undefined}
+          />
+          <SpotLight
+            dispose={null}
+            position={[2.5, 2, 0]}
+            target={chaseTargetB}
+            radiusTop={0}
+            radiusBottom={3}
+            distance={15}
+            attenuation={6}
+            angle={0}
+            anglePower={2}
+            intensity={1}
+            opacity={chaseLightOpacity}
+            color={0x18ffff}
+            shadowCameraFov={undefined}
+            shadowCameraLeft={undefined}
+            shadowCameraRight={undefined}
+            shadowCameraTop={undefined}
+            shadowCameraBottom={undefined}
+            shadowCameraNear={undefined}
+            shadowCameraFar={undefined}
+            shadowBias={undefined}
+            shadowMapWidth={undefined}
+            shadowMapHeight={undefined}
+          />
+        </>
+      )}
+      <primitive object={chaseTargetA} position={chaseLightA} />
+      <primitive object={chaseTargetB} position={chaseLightB} />
       {controllable && (
         <>
           <RigidBody

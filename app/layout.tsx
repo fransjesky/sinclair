@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import ThemeRegistry from '@/theme/ThemeRegistry';
 import { Providers } from '@/redux/providers';
+import Navigation from '@/components/Layout/Navigation';
 
 export const metadata: Metadata = {
   title: 'Frans Jesky — Frontend Developer',
@@ -17,7 +18,10 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <Providers>
-          <ThemeRegistry>{children}</ThemeRegistry>
+          <ThemeRegistry>
+            <Navigation />
+            {children}
+          </ThemeRegistry>
         </Providers>
       </body>
     </html>
