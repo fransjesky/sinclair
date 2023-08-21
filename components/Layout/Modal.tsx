@@ -64,7 +64,7 @@ export default function Modal(props: ModalProps) {
             p: 4,
             width: '100%',
             maxHeight: '75vh',
-            overflowY: 'scroll',
+            overflowY: 'auto',
             borderBottomLeftRadius: '0.5rem',
             borderBottomRightRadius: '0.5rem',
             backgroundColor: '#121212',
