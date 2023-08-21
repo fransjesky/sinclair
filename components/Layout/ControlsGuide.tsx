@@ -81,6 +81,21 @@ export default function ControlsGuide() {
                 {KeyCapIcon('S')}
                 {KeyCapIcon('D')}
               </Box>
+              <Box
+                component='div'
+                sx={{
+                  mb: '0.5rem',
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                }}
+              >
+                {KeyCapIcon('⇡')}
+                {KeyCapIcon('⇠')}
+                {KeyCapIcon('⇣')}
+                {KeyCapIcon('⇢')}
+              </Box>
               <Typography sx={{ fontSize: '0.75rem', fontWeight: 600 }}>
                 Press and hold to move
               </Typography>
