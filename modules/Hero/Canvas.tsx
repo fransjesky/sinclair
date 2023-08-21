@@ -58,18 +58,18 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
 
   return (
     <Box component='div' sx={{ height: '100%', width: '100%' }}>
+      <Music started={props.started} toggleMute={props.muted} />
       <KeyboardControls map={controlMap}>
         <Canvas
           dpr={[1, 2]}
-          gl={{ alpha: false }}
-          camera={{ position: [0, 1000, 1000], fov: 15, near: 0.001 }}
+          gl={{ antialias: true, alpha: false }}
+          camera={{ position: [0, 10000, 10000], fov: 15, near: 0.001 }}
           linear
         >
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 15, 20]} />
           <Suspense fallback={null}>
             {props.started && <Intro />}
-            <Music started={props.started} toggleMute={props.muted} />
             <Title started={props.started} />
             <Physics>
               <Robot started={props.started} />
