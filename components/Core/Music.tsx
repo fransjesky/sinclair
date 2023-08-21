@@ -1,14 +1,10 @@
 import { useRef, useEffect } from 'react';
-import { AudioLoader } from 'three';
-import { useLoader } from '@react-three/fiber';
-
 interface MusicTypes {
   started: boolean;
   toggleMute: boolean;
 }
 
 export default function Music(props: MusicTypes) {
-  useLoader(AudioLoader, '/BGM.mp3');
   const audioRef = useRef<HTMLAudioElement>(null!);
 
   useEffect(() => {

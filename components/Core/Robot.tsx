@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useMemo } from 'react';
 import { DoubleSide, Group, Vector3 } from 'three';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import {
   useGLTF,
   useAnimations,
@@ -8,7 +8,6 @@ import {
   Clone,
 } from '@react-three/drei';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-import { useLoader } from '@react-three/fiber';
 import {
   RigidBody,
   RapierRigidBody,
@@ -29,7 +28,7 @@ const areaLight = (reverse: boolean) => {
   return (
     <rectAreaLight
       width={1.5}
-      intensity={15}
+      intensity={10}
       color={reverse ? '#00e5ff' : '#ff5722'}
       position={reverse ? [3.525, 0.75, 0] : [-3.525, -0.75, 0]}
       rotation-y={reverse ? Math.PI * 0.5 : -Math.PI * 0.5}
@@ -147,7 +146,6 @@ export default function Robot(props: RobotPropTypes) {
     }, 10000);
 
     setTimeout(() => {
-      idleAnimation();
       setAnnotationData(
         "Hey, do you want to play with me? Let's play football!"
       );
