@@ -65,7 +65,7 @@ export default function Title(props: TitleTypes) {
   }, [aspect]);
 
   return (
-    <group position={[0, 0.25, -2]}>
+    <group position={[0, 0.05, -3]}>
       {props.started && subTitle}
       {props.started && title}
     </group>
