@@ -59,7 +59,7 @@ export default function Title(props: TitleTypes) {
   const subTitle = useMemo(() => {
     return renderTitle({
       color: '#2196f3',
-      text: 'Frontend Developer',
+      text: 'フランス・ジェスキー',
       font: notoSansJP,
       fontSize: aspect / 12,
       xPosition: aspect * -0.55,
