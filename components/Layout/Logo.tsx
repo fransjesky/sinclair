@@ -13,7 +13,7 @@ function Logo({ variant }: { variant: 'text' | 'full' }) {
         component='div'
         sx={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-start',
           alignItems: 'center',
           cursor: 'pointer',
         }}
@@ -22,6 +22,9 @@ function Logo({ variant }: { variant: 'text' | 'full' }) {
           <Box
             component='div'
             sx={{
+              marginRight: '0.5rem',
+              minWidth: '2.5rem',
+              minHeight: '2.5rem',
               width: '2.5rem',
               height: '2.5rem',
               borderRadius: '50%',
@@ -29,6 +32,7 @@ function Logo({ variant }: { variant: 'text' | 'full' }) {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
+              boxShadow: `0 0 0.75rem 0.25rem #2196f3`,
             }}
           >
             <Typography
@@ -48,7 +52,7 @@ function Logo({ variant }: { variant: 'text' | 'full' }) {
         {variant === 'full' || variant === 'text' ? (
           <Box
             component='div'
-            sx={{ display: 'flex', flexDirection: 'column' }}
+            sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}
           >
             <Box
               component='div'
@@ -57,7 +61,7 @@ function Logo({ variant }: { variant: 'text' | 'full' }) {
                 justifyContent: 'flex-start',
                 marginBottom: '0.25rem',
                 marginLeft: '0.5rem',
-                color: '#111111',
+                color: '#ffffff',
                 fontFamily: poiretone.style.fontFamily,
                 fontSize: '1.75rem',
                 fontWeight: 400,
@@ -85,12 +89,11 @@ function Logo({ variant }: { variant: 'text' | 'full' }) {
                 );
               })}
             </Box>
-            <Box
-              component='span'
+            <Typography
               sx={{
                 marginBottom: '0.25rem',
                 marginLeft: '0.5rem',
-                color: '#111111',
+                color: '#ffffff',
                 fontFamily: comfortaa.style.fontFamily,
                 fontSize: '0.65rem',
                 fontWeight: 400,
@@ -98,7 +101,7 @@ function Logo({ variant }: { variant: 'text' | 'full' }) {
               }}
             >
               {desc}
-            </Box>
+            </Typography>
           </Box>
         ) : null}
       </Box>

@@ -1,8 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Box, Grid, Typography } from '@mui/material';
+
+// LOGO
 import Logo from './Logo';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 // REDUX
 import { useAppSelector } from '@/redux/hooks';
@@ -39,69 +44,58 @@ export default function Navigation() {
   ];
 
   return (
-    <Box
-      component='div'
+    <Grid
+      container
       sx={{
         position: 'fixed',
         top: 0,
         left: 0,
+        padding: '0 2rem',
         width: '100%',
         height: '5rem',
-        backgroundColor: '#ffffff',
+        maxHeight: '5rem',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
+        color: '#ffffff',
         zIndex: 999,
         transition: 'all 0.3s ease',
-        userSelect: 'none',
         outline: 'none',
-        borderBottom: `0.125rem solid #2196f3`,
-        boxShadow: `0 0 2.5rem 0 #2196f3`,
+        // backgroundColor: '#ffffff',
+        // borderBottom: `0.125rem solid #2196f3`,
+        // boxShadow: `0 0 2.5rem 0 #2196f3`,
         opacity: showNavigation ? 1 : 0,
       }}
     >
-      <Box
-        component='div'
-        sx={{
-          paddingLeft: '2rem',
-          paddingRight: '2rem',
-          height: '100%',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-        }}
-      >
-        <Box
-          component='div'
-          sx={{
-            padding: '0 1rem',
-            borderRight: '1px solid #0000004d',
-          }}
-        >
-          <Logo variant='full' />
-        </Box>
+      <Grid item xs={6}>
         <Grid
           container
-          sx={{
-            paddingLeft: '1rem',
-            paddingRight: '1rem',
-            width: '20vw',
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
+          columnSpacing={2}
+          sx={{ display: 'flex', alignItems: 'center' }}
         >
+          <Grid
+            item
+            sx={{
+              paddingRight: '1rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRight: '1px solid #ffffff4d',
+            }}
+          >
+            <Logo variant='full' />
+          </Grid>
           {navData.map((data, index) => {
             return (
               <Grid item key={index}>
                 <Typography
                   sx={{
                     padding: '0.5rem',
-                    fontSize: '0.5rem',
+                    fontSize: '0.55rem',
                     fontWeight: 600,
+                    textAlign: 'center',
                     textTransform: 'uppercase',
-                    color: '#121212',
-                    letterSpacing: '1px',
+                    letterSpacing: '0.125rem',
                     position: 'relative',
                     overflow: 'hidden',
                     cursor: 'pointer',
@@ -127,7 +121,7 @@ export default function Navigation() {
                         top: 0,
                         left: '-100%',
                         width: '100%',
-                        height: '2px',
+                        height: '0.125rem',
                         borderRadius: '10rem',
                         background:
                           'linear-gradient(90deg, transparent, #03a9f4)',
@@ -149,7 +143,7 @@ export default function Navigation() {
                         bottom: 0,
                         right: '-100%',
                         width: '100%',
-                        height: '2px',
+                        height: '0.125rem',
                         borderRadius: '10rem',
                         background:
                           'linear-gradient(270deg, transparent, #18ffff)',
@@ -165,7 +159,37 @@ export default function Navigation() {
             );
           })}
         </Grid>
-      </Box>
-    </Box>
+      </Grid>
+      <Grid item xs={6}>
+        <Grid
+          container
+          columnSpacing={3}
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+        >
+          <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+            <Link passHref href='https://www.linkedin.com/in/fransjesky'>
+              <LinkedInIcon
+                sx={{
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  '&:hover': { transform: 'translateY(-0.125rem)' },
+                }}
+              />
+            </Link>
+          </Grid>
+          <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+            <Link passHref href='https://github.com/fransjesky'>
+              <GitHubIcon
+                sx={{
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  '&:hover': { transform: 'translateY(-0.125rem)' },
+                }}
+              />
+            </Link>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }

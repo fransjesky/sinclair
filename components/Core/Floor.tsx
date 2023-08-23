@@ -8,7 +8,7 @@ export default function Floor() {
         color='#90caf9'
         count={200}
         size={5}
-        speed={0.5}
+        speed={0.25}
         scale={[8, 5, 20]}
         position-y={2}
       />

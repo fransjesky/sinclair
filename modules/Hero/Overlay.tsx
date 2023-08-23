@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { Box, Grid } from '@mui/material';
 
 // components
@@ -9,7 +8,6 @@ import ControlsGuide from '@/components/Layout/ControlsGuide';
 // icons
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import GitHubIcon from '@mui/icons-material/GitHub';
 
 interface HeroOverlayTypes {
   muted: boolean;
@@ -40,7 +38,6 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         <Grid
           container
           sx={{
-            width: '4rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -52,11 +49,6 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
             ) : (
               <MusicNoteIcon sx={{ cursor: 'pointer' }} />
             )}
-          </Grid>
-          <Grid item>
-            <Link passHref href='https://github.com/fransjesky/sinclair'>
-              <GitHubIcon sx={{ cursor: 'pointer' }} />
-            </Link>
           </Grid>
         </Grid>
       </Box>
