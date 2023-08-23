@@ -5,7 +5,12 @@ import { Box } from '@mui/material';
 import HeroOverlay from './Overlay';
 import HeroCanvas from './Canvas';
 
+// REDUX
+import { useAppDispatch } from '@/redux/hooks';
+import { start } from '@/redux/features/global';
+
 export default function Hero() {
+  const dispatch = useAppDispatch();
   const [height, setHeight] = useState(0);
   const [muted, setMuted] = useState(false);
   const [started, setStarted] = useState(false);
@@ -30,6 +35,7 @@ export default function Hero() {
 
   const handleStart = () => {
     setStarted(true);
+    dispatch(start());
   };
 
   return (

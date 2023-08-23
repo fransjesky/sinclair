@@ -1,12 +1,35 @@
-import { Montserrat } from 'next/font/google';
+import {
+  Montserrat,
+  Liu_Jian_Mao_Cao,
+  Poiret_One,
+  Comfortaa,
+} from 'next/font/google';
 
-const montserrat = Montserrat({
+export const montserrat = Montserrat({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
   display: 'swap',
 });
 
-const typography = {
+export const liujian = Liu_Jian_Mao_Cao({
+  weight: ['400'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+export const poiretone = Poiret_One({
+  weight: ['400'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+export const comfortaa = Comfortaa({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+export const typography = {
   fontFamily: montserrat.style.fontFamily,
   fontWeightThin: 100,
   fontWeightExtraLight: 200,
@@ -18,5 +41,3 @@ const typography = {
   fontWeightExtraBold: 800,
   fontWeightBlack: 900,
 };
-
-export default typography;
