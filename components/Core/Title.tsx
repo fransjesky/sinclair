@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import { FileLoader } from 'three';
+import { useMemo, useRef } from 'react';
+import { FileLoader, DirectionalLight, DirectionalLightHelper } from 'three';
 import { useThree, useLoader } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
+import { Text, useHelper } from '@react-three/drei';
 
 interface TitleTypes {
   started: boolean;
@@ -39,8 +39,11 @@ const renderTitle = ({
 export default function Title(props: TitleTypes) {
   const { viewport } = useThree();
   const aspect = viewport.aspect;
+  const directionalLightRef = useRef<DirectionalLight>(null!);
   const montserrat = '/Montserrat.ttf';
   const notoSansJP = 'NotoSansJP.ttf';
+
+  useHelper(directionalLightRef, DirectionalLightHelper);
 
   useLoader(FileLoader, montserrat);
   useLoader(FileLoader, notoSansJP);
@@ -65,7 +68,7 @@ export default function Title(props: TitleTypes) {
   }, [aspect]);
 
   return (
-    <group position={[0, 0.05, -3]}>
+    <group position={[0, 0.25, -1]}>
       {props.started && subTitle}
       {props.started && title}
     </group>

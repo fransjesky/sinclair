@@ -63,6 +63,7 @@ export default function Robot(props: RobotPropTypes) {
   const [chaseTargetA] = useState(() => new Object3D());
   const [chaseTargetB] = useState(() => new Object3D());
   const [chaseLightOpacity, setChaseLightOpacity] = useState(0);
+  const [chaseLightIntensity, setChaseLightIntensity] = useState(0);
   const [showChaseLight, setShowChaseLight] = useState(true);
   const [isJumping, setIsJumping] = useState(false);
   const [controllable, setControllable] = useState(false);
@@ -242,11 +243,18 @@ export default function Robot(props: RobotPropTypes) {
           setChaseLightOpacity((state) =>
             state < 1 ? (state += 0.0025) : (state = 1)
           );
-        }, 3500);
+          setChaseLightIntensity((state) =>
+            state < 3 ? (state += 0.005) : (state = 3)
+          );
+        }, 5000);
       }
 
       if (controllable) {
         setChaseLightOpacity((state) =>
+          state > 0 ? (state -= 0.01) : (state = 0)
+        );
+
+        setChaseLightIntensity((state) =>
           state > 0 ? (state -= 0.01) : (state = 0)
         );
 
@@ -262,7 +270,7 @@ export default function Robot(props: RobotPropTypes) {
             Math.cos(chaseDistanceA) * 2
           )
         );
-        setChaseDistanceA((state) => (state += delta < 0.005 ? 0.0075 : 0.025));
+        setChaseDistanceA((state) => (state += delta < 0.005 ? 0.0075 : 0.05));
 
         setChaseLightB(
           new Vector3(
@@ -271,7 +279,7 @@ export default function Robot(props: RobotPropTypes) {
             Math.cos(chaseDistanceB) * 2
           )
         );
-        setChaseDistanceB((state) => (state += delta < 0.005 ? 0.0075 : 0.025));
+        setChaseDistanceB((state) => (state += delta < 0.005 ? 0.0075 : 0.05));
       }
 
       // moving
@@ -368,9 +376,10 @@ export default function Robot(props: RobotPropTypes) {
             radiusTop={0}
             radiusBottom={1}
             distance={10}
-            attenuation={20}
-            angle={0}
-            anglePower={3}
+            attenuation={10}
+            angle={0.1}
+            anglePower={5}
+            intensity={chaseLightIntensity}
             opacity={chaseLightOpacity}
             color={0x03a9f4}
             shadowCameraFov={undefined}
@@ -391,9 +400,10 @@ export default function Robot(props: RobotPropTypes) {
             radiusTop={0}
             radiusBottom={1}
             distance={10}
-            attenuation={20}
-            angle={0}
-            anglePower={3}
+            attenuation={10}
+            angle={0.1}
+            anglePower={5}
+            intensity={chaseLightIntensity}
             opacity={chaseLightOpacity}
             color={0x18ffff}
             shadowCameraFov={undefined}
