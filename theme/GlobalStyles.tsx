@@ -8,7 +8,7 @@ const globalStyles = {
   },
   body: {
     maxWidth: '100vw',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.paper,
   },
   a: {
     color: 'inherit',

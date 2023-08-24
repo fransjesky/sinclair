@@ -27,7 +27,7 @@ function Intro() {
   const [vec] = useState(() => new Vector3());
   return useFrame((state, delta) => {
     state.camera.position.lerp(
-      vec.set(state.mouse.x, 3 + state.mouse.y, 14),
+      vec.set(state.mouse.x, 3 + state.mouse.y, 15),
       delta < 0.005 ? 0.01 : 0.045
     );
     if (state.camera.position.y < 1) {
@@ -62,14 +62,16 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
       <Music started={props.started} toggleMute={props.muted} />
       <KeyboardControls map={controlMap}>
         <Canvas
-          dpr={[1, 2]}
-          gl={{ antialias: true, alpha: false }}
-          camera={{ position: [0, 10000, 10000], fov: 15 }}
+          dpr={[1, 1.5]}
+          shadows
+          gl={{ alpha: false }}
+          camera={{ position: [0, 1000, 1000], fov: 15 }}
           linear
         >
           {/* <Perf /> */}
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 15, 20]} />
+          <ambientLight />
           <Suspense fallback={null}>
             {props.started && <Intro />}
             <Title started={props.started} />
@@ -78,7 +80,6 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
               <Floor />
             </Physics>
           </Suspense>
-          <ambientLight />
         </Canvas>
         <LoadingOverlay started={props.started} onClick={props.onClick} />
       </KeyboardControls>

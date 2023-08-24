@@ -9,13 +9,17 @@ export default function Floor() {
         count={200}
         size={5}
         speed={0.25}
-        scale={[8, 5, 20]}
+        scale={[10, 3, 20]}
         position-y={2}
       />
       <RigidBody type='fixed' friction={2}>
-        <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
+        <mesh
+          position={[0, -1, 0]}
+          rotation={[-Math.PI / 2, 0, Math.PI / 2]}
+          receiveShadow
+        >
           <planeGeometry args={[10, 10]} />
-          <meshStandardMaterial color='#878790' metalness={0.1} />
+          <meshStandardMaterial color='#878790' />
         </mesh>
       </RigidBody>
       <RigidBody colliders={false} type='fixed' name='void' sensor>
