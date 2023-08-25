@@ -19,6 +19,7 @@ export default function Annotation(props: any) {
         dispose={null}
         transform
         geometry={<planeGeometry />}
+        zIndexRange={[998]}
       >
         <Box
           component='div'

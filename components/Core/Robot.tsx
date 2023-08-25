@@ -30,7 +30,7 @@ const areaLight = (reverse: boolean) => {
     <rectAreaLight
       width={1.5}
       intensity={10}
-      color={reverse ? '#03a9f4' : '#ff5722'}
+      color={reverse ? '#69f0ae' : '#ff9800'}
       position={reverse ? [3.525, 0.75, 0] : [-3.525, -0.75, 0]}
       rotation-y={reverse ? Math.PI * 0.5 : -Math.PI * 0.5}
     />
@@ -199,8 +199,8 @@ export default function Robot(props: RobotPropTypes) {
 
   const resetBotPosition = () => {
     if (rigBodyRef.current) {
-      rigBodyRef.current.setTranslation({ x: 0, y: -1, z: -1 }, true);
-      rigBodyRef.current.setLinvel({ x: 0, y: -1, z: -1 }, true);
+      rigBodyRef.current.setTranslation({ x: 0, y: 0, z: -1 }, true);
+      rigBodyRef.current.setLinvel({ x: 0, y: 0, z: -1 }, true);
     }
   };
 
@@ -362,11 +362,9 @@ export default function Robot(props: RobotPropTypes) {
           position={
             robotRef.current
               ? new Vector3(
-                  distance < 1
-                    ? robotRef.current.parent!.position.x - 0.7
-                    : robotRef.current.parent!.position.x - 0.75,
-                  robotRef.current.parent!.position.y + 0.25,
-                  robotRef.current.parent!.position.z + 0.1
+                  robotRef.current.parent!.position.x,
+                  robotRef.current.parent!.position.y + 0.65,
+                  robotRef.current.parent!.position.z
                 )
               : new Vector3(0, -1000, 0)
           }
@@ -376,7 +374,6 @@ export default function Robot(props: RobotPropTypes) {
       <pointLight
         intensity={0.5}
         position={lightPosition}
-        distance={1.5}
         castShadow
         shadow-camera-near={0.1}
       />
