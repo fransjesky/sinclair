@@ -2,6 +2,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
 
 // ICON
+import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
@@ -77,6 +78,13 @@ export default function Drawer(props: DrawType) {
           color: '#121212',
         }}
       >
+        <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+          <Link passHref href='https://www.instagram.com/fransjesky'>
+            <InstagramIcon
+              sx={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
+            />
+          </Link>
+        </Grid>
         <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
           <Link passHref href='https://www.linkedin.com/in/fransjesky'>
             <LinkedInIcon

@@ -20,6 +20,7 @@ function Logo(props: LogoType) {
         justifyContent: 'flex-start',
         alignItems: 'center',
         outline: 'none',
+        userSelect: 'none',
       }}
     >
       {props.variant !== 'text' ? (
@@ -69,6 +70,8 @@ function Logo(props: LogoType) {
                 fontWeight: 400,
                 textTransform: 'uppercase',
                 transform: 'translateY(-10%)',
+                outline: 'none',
+        userSelect: 'none',
               }}
             >
               {initial}
@@ -106,7 +109,7 @@ function Logo(props: LogoType) {
             {title.split('').map((value, index) => {
               return (
                 <Box
-                  component='div'
+                  component='span'
                   key={index}
                   sx={{
                     margin: 0,
@@ -115,6 +118,20 @@ function Logo(props: LogoType) {
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
                     backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
+                    animation: `logoBouncing 1.5s ease infinite ${
+                      index / title.length + 0.25
+                    }s`,
+                    '@keyframes logoBouncing': {
+                      '0%': {
+                        transform: 'translateY(0)',
+                      },
+                      '50%': {
+                        transform: 'translateY(-0.375rem)',
+                      },
+                      '100%': {
+                        transform: 'translateY(0)',
+                      },
+                    },
                   }}
                 >
                   {value}

@@ -148,23 +148,22 @@ export default function Robot(props: RobotPropTypes) {
     waveAnimation();
 
     setTimeout(() => {
-      idleAnimation();
+      danceAnimation();
       setAnnotationData(
-        'This website is under development. Please come back later'
+        `My name's Sinclair, and i am Jesky's personal assistance`
       );
     }, 5000);
 
     setTimeout(() => {
-      danceAnimation();
       setAnnotationData(
-        'My master is currently working hard to finish this website 🎉'
+        `This is a \`Work in Progress\` project. \nMy master is working hard to finish it`
       );
     }, 10000);
 
     setTimeout(() => {
       idleAnimation();
       setAnnotationData(
-        "Hey, do you want to play with me? Let's play football!"
+        "Hey, do you want to play with me? Let's play football! 🎉"
       );
     }, 15000);
 
@@ -199,8 +198,8 @@ export default function Robot(props: RobotPropTypes) {
 
   const resetBotPosition = () => {
     if (rigBodyRef.current) {
-      rigBodyRef.current.setTranslation({ x: 0, y: 0, z: -1 }, true);
-      rigBodyRef.current.setLinvel({ x: 0, y: 0, z: -1 }, true);
+      rigBodyRef.current.setTranslation({ x: 0, y: -1, z: -1 }, true);
+      rigBodyRef.current.setLinvel({ x: 0, y: -1, z: -1 }, true);
     }
   };
 
@@ -258,11 +257,11 @@ export default function Robot(props: RobotPropTypes) {
 
       if (controllable) {
         setChaseLightOpacity((state) =>
-          state > 0 ? (state -= 0.25) : (state = 0)
+          state > 0 ? (state -= 0.1) : (state = 0)
         );
 
         setChaseLightIntensity((state) =>
-          state > 0 ? (state -= 0.25) : (state = 0)
+          state > 0 ? (state -= 0.35) : (state = 0)
         );
 
         chaseLightOpacity === 0 && setShowChaseLight(false);

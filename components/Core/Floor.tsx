@@ -10,7 +10,7 @@ export default function Floor() {
         size={5}
         speed={0.2}
         scale={[10, 3, 20]}
-        position-y={2}
+        position-y={1}
       />
       <RigidBody type='fixed' friction={2}>
         <mesh
