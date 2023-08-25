@@ -30,7 +30,7 @@ const areaLight = (reverse: boolean) => {
     <rectAreaLight
       width={1.5}
       intensity={10}
-      color={reverse ? '#00e5ff' : '#ff5722'}
+      color={reverse ? '#69f0ae' : '#ff9800'}
       position={reverse ? [3.525, 0.75, 0] : [-3.525, -0.75, 0]}
       rotation-y={reverse ? Math.PI * 0.5 : -Math.PI * 0.5}
     />
@@ -71,6 +71,8 @@ export default function Robot(props: RobotPropTypes) {
   const [enterance, setEnterance] = useState(false);
   const [talk, setTalk] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
+  const [isGoalA, setIsGoalA] = useState(false);
+  const [isGoalB, setIsGoalB] = useState(false);
   const [goalCount, setGoalCount] = useState(0);
   const leftPostLight = useMemo(() => areaLight(false), []);
   const rightPostLight = useMemo(() => areaLight(true), []);
@@ -160,6 +162,7 @@ export default function Robot(props: RobotPropTypes) {
     }, 10000);
 
     setTimeout(() => {
+      idleAnimation();
       setAnnotationData(
         "Hey, do you want to play with me? Let's play football!"
       );
@@ -181,8 +184,12 @@ export default function Robot(props: RobotPropTypes) {
     }
   };
 
-  const goalBall = () => {
+  const goalBall = (leftSide: boolean) => {
     if (ballRef.current) {
+      leftSide ? setIsGoalA(true) : setIsGoalB(true);
+      setTimeout(() => {
+        leftSide ? setIsGoalA(false) : setIsGoalB(false);
+      }, 2000);
       ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
       ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
     }
@@ -192,8 +199,8 @@ export default function Robot(props: RobotPropTypes) {
 
   const resetBotPosition = () => {
     if (rigBodyRef.current) {
-      rigBodyRef.current.setTranslation({ x: 0, y: -1, z: -1 }, true);
-      rigBodyRef.current.setLinvel({ x: 0, y: -1, z: -1 }, true);
+      rigBodyRef.current.setTranslation({ x: 0, y: 0, z: -1 }, true);
+      rigBodyRef.current.setLinvel({ x: 0, y: 0, z: -1 }, true);
     }
   };
 
@@ -251,11 +258,11 @@ export default function Robot(props: RobotPropTypes) {
 
       if (controllable) {
         setChaseLightOpacity((state) =>
-          state > 0 ? (state -= 0.01) : (state = 0)
+          state > 0 ? (state -= 0.25) : (state = 0)
         );
 
         setChaseLightIntensity((state) =>
-          state > 0 ? (state -= 0.01) : (state = 0)
+          state > 0 ? (state -= 0.25) : (state = 0)
         );
 
         chaseLightOpacity === 0 && setShowChaseLight(false);
@@ -355,18 +362,21 @@ export default function Robot(props: RobotPropTypes) {
           position={
             robotRef.current
               ? new Vector3(
-                  distance < 1
-                    ? robotRef.current.parent!.position.x - 0.7
-                    : robotRef.current.parent!.position.x - 0.75,
-                  robotRef.current.parent!.position.y + 0.25,
-                  robotRef.current.parent!.position.z + 0.1
+                  robotRef.current.parent!.position.x,
+                  robotRef.current.parent!.position.y + 0.65,
+                  robotRef.current.parent!.position.z
                 )
               : new Vector3(0, -1000, 0)
           }
           text={annotationData}
         />
       )}
-      <pointLight intensity={0.5} position={lightPosition} />
+      <pointLight
+        intensity={0.5}
+        position={lightPosition}
+        castShadow
+        shadow-camera-near={0.1}
+      />
       {props.started && showChaseLight && (
         <>
           <SpotLight
@@ -433,12 +443,14 @@ export default function Robot(props: RobotPropTypes) {
               if (other.rigidBodyObject?.name === 'void') {
                 resetBallPosition();
               }
-              if (other.rigidBodyObject?.name === 'goal') {
-                goalBall();
+              if (other.rigidBodyObject?.name === 'goalA') {
+                goalBall(true);
+              } else if (other.rigidBodyObject?.name === 'goalB') {
+                goalBall(false);
               }
             }}
           >
-            <Clone object={football.scene} />
+            <Clone object={football.scene} castShadow receiveShadow />
           </RigidBody>
           <RigidBody
             type='fixed'
@@ -447,7 +459,7 @@ export default function Robot(props: RobotPropTypes) {
             rotation-y={-Math.PI * 0.5}
             colliders='trimesh'
           >
-            <Clone object={goalpost} />
+            <Clone object={goalpost} castShadow receiveShadow />
           </RigidBody>
           <RigidBody
             type='fixed'
@@ -456,9 +468,9 @@ export default function Robot(props: RobotPropTypes) {
             rotation-y={Math.PI * 0.5}
             colliders='trimesh'
           >
-            <Clone object={goalpost} />
+            <Clone object={goalpost} castShadow receiveShadow />
           </RigidBody>
-          <RigidBody colliders={false} type='fixed' name='goal' sensor>
+          <RigidBody colliders={false} type='fixed' name='goalA' sensor>
             <mesh position={[-3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
               <planeGeometry args={[1.5, 0.6]} />
               <meshBasicMaterial visible={false} side={DoubleSide} />
@@ -470,7 +482,7 @@ export default function Robot(props: RobotPropTypes) {
               />
             </mesh>
           </RigidBody>
-          <RigidBody colliders={false} type='fixed' name='goal' sensor>
+          <RigidBody colliders={false} type='fixed' name='goalB' sensor>
             <mesh position={[3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
               <planeGeometry args={[1.5, 0.6]} />
               <meshBasicMaterial visible={false} side={DoubleSide} />
@@ -482,14 +494,14 @@ export default function Robot(props: RobotPropTypes) {
               />
             </mesh>
           </RigidBody>
-          {leftPostLight}
-          {rightPostLight}
+          {isGoalA && leftPostLight}
+          {isGoalB && rightPostLight}
         </>
       )}
       <RigidBody
         ref={rigBodyRef}
         scale={0.085}
-        position={debugMode ? [0, 0, 0] : [0, 0, -5]}
+        position={debugMode ? [0, 0, 0] : [0, 0, -3]}
         colliders={false}
         lockRotations
         onCollisionEnter={() => {

@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Box, Grid, Typography } from '@mui/material';
+import Drawer from './Drawer';
+import DrawerButton from './DrawerButton';
 
-// LOGO
+// ICON
 import Logo from './Logo';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -14,16 +16,8 @@ import { useAppSelector } from '@/redux/hooks';
 
 export default function Navigation() {
   const [showNavigation, setShowNavigation] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
   const started = useAppSelector((state) => state.global.isStarted);
-
-  useEffect(() => {
-    if (started) {
-      setTimeout(() => {
-        setShowNavigation(true);
-      }, 3500);
-    }
-  }, [started]);
-
   const navData = [
     {
       link: '#about',
@@ -43,6 +37,18 @@ export default function Navigation() {
     },
   ];
 
+  useEffect(() => {
+    if (started) {
+      setTimeout(() => {
+        setShowNavigation(true);
+      }, 3500);
+    }
+  }, [started]);
+
+  const handleDrawer = () => {
+    openDrawer ? setOpenDrawer(false) : setOpenDrawer(true);
+  };
+
   return (
     <Grid
       container
@@ -50,12 +56,16 @@ export default function Navigation() {
         position: 'fixed',
         top: 0,
         left: 0,
-        padding: '0 2rem',
+        padding: {
+          xs: '0 1rem',
+          sm: '0 1rem',
+          md: '0 2rem',
+        },
         width: '100%',
         height: '5rem',
         maxHeight: '5rem',
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
         color: '#ffffff',
         zIndex: 999,
@@ -67,7 +77,7 @@ export default function Navigation() {
         opacity: showNavigation ? 1 : 0,
       }}
     >
-      <Grid item xs={6}>
+      <Grid item xs={10}>
         <Grid
           container
           columnSpacing={2}
@@ -80,14 +90,28 @@ export default function Navigation() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              borderRight: '1px solid #ffffff4d',
+              borderRight: {
+                xs: 'none',
+                sm: 'none',
+                md: '0.075rem solid #ffffff',
+              },
             }}
           >
-            <Logo variant='full' />
+            <Logo variant='full' opened={openDrawer} />
           </Grid>
           {navData.map((data, index) => {
             return (
-              <Grid item key={index}>
+              <Grid
+                item
+                key={index}
+                sx={{
+                  display: {
+                    xs: 'none',
+                    sm: 'none',
+                    md: 'initial',
+                  },
+                }}
+              >
                 <Typography
                   sx={{
                     padding: '0.5rem',
@@ -160,7 +184,17 @@ export default function Navigation() {
           })}
         </Grid>
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        xs={2}
+        sx={{
+          display: {
+            xs: 'none',
+            sm: 'none',
+            md: 'initial',
+          },
+        }}
+      >
         <Grid
           container
           columnSpacing={3}
@@ -190,6 +224,8 @@ export default function Navigation() {
           </Grid>
         </Grid>
       </Grid>
+      <DrawerButton onClick={handleDrawer} opened={openDrawer} />
+      <Drawer data={navData} opened={openDrawer} />
     </Grid>
   );
 }
