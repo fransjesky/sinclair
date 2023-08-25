@@ -30,7 +30,7 @@ const areaLight = (reverse: boolean) => {
     <rectAreaLight
       width={1.5}
       intensity={10}
-      color={reverse ? '#00e5ff' : '#ff5722'}
+      color={reverse ? '#69f0ae' : '#ff9800'}
       position={reverse ? [3.525, 0.75, 0] : [-3.525, -0.75, 0]}
       rotation-y={reverse ? Math.PI * 0.5 : -Math.PI * 0.5}
     />
@@ -63,12 +63,16 @@ export default function Robot(props: RobotPropTypes) {
   const [chaseTargetA] = useState(() => new Object3D());
   const [chaseTargetB] = useState(() => new Object3D());
   const [chaseLightOpacity, setChaseLightOpacity] = useState(0);
+  const [chaseLightIntensity, setChaseLightIntensity] = useState(0);
+  const [showChaseLight, setShowChaseLight] = useState(true);
   const [isJumping, setIsJumping] = useState(false);
   const [controllable, setControllable] = useState(false);
   const [distance, setDistance] = useState(0);
   const [enterance, setEnterance] = useState(false);
   const [talk, setTalk] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
+  const [isGoalA, setIsGoalA] = useState(false);
+  const [isGoalB, setIsGoalB] = useState(false);
   const [goalCount, setGoalCount] = useState(0);
   const leftPostLight = useMemo(() => areaLight(false), []);
   const rightPostLight = useMemo(() => areaLight(true), []);
@@ -92,7 +96,7 @@ export default function Robot(props: RobotPropTypes) {
   const [annotationData, setAnnotationData] = useState<string>('');
 
   useEffect(() => {
-    window.innerWidth <= 600 ? setDistance(0.75) : setDistance(2);
+    window.innerWidth <= 600 ? setDistance(-0.25) : setDistance(-0.5);
     props.started && !debugMode ? setEnterance(true) : setEnterance(false);
 
     // debug mode
@@ -158,6 +162,7 @@ export default function Robot(props: RobotPropTypes) {
     }, 10000);
 
     setTimeout(() => {
+      idleAnimation();
       setAnnotationData(
         "Hey, do you want to play with me? Let's play football!"
       );
@@ -179,8 +184,12 @@ export default function Robot(props: RobotPropTypes) {
     }
   };
 
-  const goalBall = () => {
+  const goalBall = (leftSide: boolean) => {
     if (ballRef.current) {
+      leftSide ? setIsGoalA(true) : setIsGoalB(true);
+      setTimeout(() => {
+        leftSide ? setIsGoalA(false) : setIsGoalB(false);
+      }, 2000);
       ballRef.current.setTranslation({ x: 0, y: 0, z: 0 }, true);
       ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
     }
@@ -190,8 +199,8 @@ export default function Robot(props: RobotPropTypes) {
 
   const resetBotPosition = () => {
     if (rigBodyRef.current) {
-      rigBodyRef.current.setTranslation({ x: 2, y: -1, z: 0 }, true);
-      rigBodyRef.current.setLinvel({ x: 2, y: -1, z: 0 }, true);
+      rigBodyRef.current.setTranslation({ x: 0, y: 0, z: -1 }, true);
+      rigBodyRef.current.setLinvel({ x: 0, y: 0, z: -1 }, true);
     }
   };
 
@@ -205,17 +214,16 @@ export default function Robot(props: RobotPropTypes) {
       let changeRotation = false;
 
       if (Sprint) {
-        MAX_VEL = 1.8;
+        MAX_VEL = 2;
       } else {
         MAX_VEL = 1.2;
       }
 
       // uncontrolable animation
-      if (enterance && robot.parent!.position.x > distance) {
-        robot.parent!.position.x -= delta * 0.5;
+      if (enterance && robot.parent!.position.z < distance) {
+        robot.parent!.position.z += delta * 0.5;
         walkAnimation();
-      } else if (enterance && robot.parent!.position.x <= distance) {
-        robot.rotation.y = -Math.PI * 2.075;
+      } else if (enterance && robot.parent!.position.z >= distance) {
         !talk && doTalk();
         rigBody.setTranslation(
           {
@@ -231,39 +239,54 @@ export default function Robot(props: RobotPropTypes) {
       setLightPosition(
         new Vector3(
           robot.parent!.position.x,
-          robot.parent!.position.y + 0.3,
-          robot.parent!.position.z + 0.25
+          robot.parent!.position.y + 0.2,
+          robot.parent!.position.z + 0.2
         )
       );
 
       // smooth visibility animation of chase light
-      if (props.started) {
+      if (props.started && !controllable) {
         setTimeout(() => {
           setChaseLightOpacity((state) =>
-            state < 1 ? (state += 0.005) : (state = 1)
+            state < 1 ? (state += 0.0025) : (state = 1)
           );
-        }, 3500);
+          setChaseLightIntensity((state) =>
+            state < 3 ? (state += 0.005) : (state = 3)
+          );
+        }, 5000);
+      }
+
+      if (controllable) {
+        setChaseLightOpacity((state) =>
+          state > 0 ? (state -= 0.25) : (state = 0)
+        );
+
+        setChaseLightIntensity((state) =>
+          state > 0 ? (state -= 0.25) : (state = 0)
+        );
+
+        chaseLightOpacity === 0 && setShowChaseLight(false);
       }
 
       // chase light motion
-      if (!controllable) {
+      if (props.started) {
         setChaseLightA(
           new Vector3(
             Math.sin(chaseDistanceA) * 2,
             -1,
-            Math.cos(chaseDistanceA) * 3
+            Math.cos(chaseDistanceA) * 2
           )
         );
-        setChaseDistanceA((state) => (state += delta < 0.005 ? 0.005 : 0.025));
+        setChaseDistanceA((state) => (state += delta < 0.005 ? 0.0075 : 0.05));
 
         setChaseLightB(
           new Vector3(
             Math.sin(chaseDistanceB) * 2,
             -1,
-            Math.cos(chaseDistanceB) * 3
+            Math.cos(chaseDistanceB) * 2
           )
         );
-        setChaseDistanceB((state) => (state += delta < 0.005 ? 0.005 : 0.025));
+        setChaseDistanceB((state) => (state += delta < 0.005 ? 0.0075 : 0.05));
       }
 
       // moving
@@ -339,31 +362,34 @@ export default function Robot(props: RobotPropTypes) {
           position={
             robotRef.current
               ? new Vector3(
-                  distance < 1
-                    ? robotRef.current.parent!.position.x - 0.7
-                    : robotRef.current.parent!.position.x - 0.75,
-                  robotRef.current.parent!.position.y + 0.25,
-                  robotRef.current.parent!.position.z + 0.1
+                  robotRef.current.parent!.position.x,
+                  robotRef.current.parent!.position.y + 0.65,
+                  robotRef.current.parent!.position.z
                 )
               : new Vector3(0, -1000, 0)
           }
           text={annotationData}
         />
       )}
-      <pointLight intensity={0.5} position={lightPosition} />
-      {props.started && !controllable && (
+      <pointLight
+        intensity={0.5}
+        position={lightPosition}
+        castShadow
+        shadow-camera-near={0.1}
+      />
+      {props.started && showChaseLight && (
         <>
           <SpotLight
             dispose={null}
-            position={[-2.5, 2, 0]}
+            position={[-2, 2, 0]}
             target={chaseTargetA}
             radiusTop={0}
-            radiusBottom={3}
-            distance={15}
-            attenuation={6}
-            angle={0}
-            anglePower={2}
-            intensity={1}
+            radiusBottom={1}
+            distance={10}
+            attenuation={10}
+            angle={0.1}
+            anglePower={5}
+            intensity={chaseLightIntensity}
             opacity={chaseLightOpacity}
             color={0x03a9f4}
             shadowCameraFov={undefined}
@@ -379,15 +405,15 @@ export default function Robot(props: RobotPropTypes) {
           />
           <SpotLight
             dispose={null}
-            position={[2.5, 2, 0]}
+            position={[2, 2, 0]}
             target={chaseTargetB}
             radiusTop={0}
-            radiusBottom={3}
-            distance={15}
-            attenuation={6}
-            angle={0}
-            anglePower={2}
-            intensity={1}
+            radiusBottom={1}
+            distance={10}
+            attenuation={10}
+            angle={0.1}
+            anglePower={5}
+            intensity={chaseLightIntensity}
             opacity={chaseLightOpacity}
             color={0x18ffff}
             shadowCameraFov={undefined}
@@ -417,12 +443,14 @@ export default function Robot(props: RobotPropTypes) {
               if (other.rigidBodyObject?.name === 'void') {
                 resetBallPosition();
               }
-              if (other.rigidBodyObject?.name === 'goal') {
-                goalBall();
+              if (other.rigidBodyObject?.name === 'goalA') {
+                goalBall(true);
+              } else if (other.rigidBodyObject?.name === 'goalB') {
+                goalBall(false);
               }
             }}
           >
-            <Clone object={football.scene} />
+            <Clone object={football.scene} castShadow receiveShadow />
           </RigidBody>
           <RigidBody
             type='fixed'
@@ -431,7 +459,7 @@ export default function Robot(props: RobotPropTypes) {
             rotation-y={-Math.PI * 0.5}
             colliders='trimesh'
           >
-            <Clone object={goalpost} />
+            <Clone object={goalpost} castShadow receiveShadow />
           </RigidBody>
           <RigidBody
             type='fixed'
@@ -440,9 +468,9 @@ export default function Robot(props: RobotPropTypes) {
             rotation-y={Math.PI * 0.5}
             colliders='trimesh'
           >
-            <Clone object={goalpost} />
+            <Clone object={goalpost} castShadow receiveShadow />
           </RigidBody>
-          <RigidBody colliders={false} type='fixed' name='goal' sensor>
+          <RigidBody colliders={false} type='fixed' name='goalA' sensor>
             <mesh position={[-3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
               <planeGeometry args={[1.5, 0.6]} />
               <meshBasicMaterial visible={false} side={DoubleSide} />
@@ -454,7 +482,7 @@ export default function Robot(props: RobotPropTypes) {
               />
             </mesh>
           </RigidBody>
-          <RigidBody colliders={false} type='fixed' name='goal' sensor>
+          <RigidBody colliders={false} type='fixed' name='goalB' sensor>
             <mesh position={[3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
               <planeGeometry args={[1.5, 0.6]} />
               <meshBasicMaterial visible={false} side={DoubleSide} />
@@ -466,14 +494,14 @@ export default function Robot(props: RobotPropTypes) {
               />
             </mesh>
           </RigidBody>
-          {leftPostLight}
-          {rightPostLight}
+          {isGoalA && leftPostLight}
+          {isGoalB && rightPostLight}
         </>
       )}
       <RigidBody
         ref={rigBodyRef}
         scale={0.085}
-        position={debugMode ? [0, 0, 0] : [5, 0, 0]}
+        position={debugMode ? [0, 0, 0] : [0, 0, -3]}
         colliders={false}
         lockRotations
         onCollisionEnter={() => {
@@ -486,11 +514,7 @@ export default function Robot(props: RobotPropTypes) {
           }
         }}
       >
-        <group
-          ref={robotRef}
-          dispose={null}
-          rotation-y={debugMode ? 0 : -Math.PI / 2}
-        >
+        <group ref={robotRef} dispose={null}>
           <CapsuleCollider args={[0.9, 1.5]} position={[0, 2.375, 0]} />
           <group
             name='RobotArmature'

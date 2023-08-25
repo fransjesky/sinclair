@@ -54,7 +54,7 @@ export default function ProgressBar(props: ProgressBarProps) {
           margin: '1rem auto',
           backgroundColor: '#333333',
           borderRadius: '8px',
-          boxShadow: props.enableStart ? `0 0 2rem 0.25rem #2196f3` : 'none',
+          boxShadow: props.enableStart ? `0 0 0.5rem 0.25rem #2196f3` : 'none',
           '& .MuiLinearProgress-bar': {
             backgroundColor: '#00e5ff',
           },

@@ -98,7 +98,6 @@ export default function LoadingOverlay(props: LoadingTypes) {
             color: '#ffffff',
             fontSize: '2.25rem',
             fontWeight: 900,
-            textShadow: enableStart ? `0.125rem 0.125rem #2196f3` : `none`,
           }}
         >
           {enableStart

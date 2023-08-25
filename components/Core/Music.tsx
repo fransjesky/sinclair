@@ -12,7 +12,7 @@ export default function Music(props: MusicTypes) {
       props.toggleMute ? audioRef.current.pause() : audioRef.current.play();
 
       props.started
-        ? (audioRef.current.volume = 0.5)
+        ? (audioRef.current.volume = 0.2)
         : (audioRef.current.volume = 0);
     }
   }, [props.toggleMute, props.started]);
