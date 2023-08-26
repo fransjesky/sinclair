@@ -19,12 +19,10 @@ function Logo(props: LogoType) {
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        outline: 'none',
-        userSelect: 'none',
       }}
     >
       {props.variant !== 'text' ? (
-        <Link href='/'>
+        <Link href='/' style={{ userSelect: 'none', outline: 'none' }}>
           <Box
             component='div'
             sx={{
@@ -33,15 +31,19 @@ function Logo(props: LogoType) {
               minHeight: '2.5rem',
               width: '2.5rem',
               height: '2.5rem',
-              borderRadius: '50%',
+              borderRadius: '0.5rem',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
               position: 'relative',
-              transition: 'all 0.3s ease',
               cursor: 'pointer',
+              transition: 'all 0.3s ease-in',
               zIndex: props.opened ? 1000 : 'inherit',
+              '&:hover': {
+                transition: 'all 0.3s ease',
+                boxShadow: `0 0 1rem 0.125rem #2196f3`,
+              },
               '&:after': {
                 content: `''`,
                 position: 'absolute',
@@ -51,10 +53,7 @@ function Logo(props: LogoType) {
                 width: '100%',
                 borderRadius: '50%',
                 borderTop: '0.125rem solid #ffffff',
-                transition: 'all 0.3s ease',
-                animation: props.opened
-                  ? 'none'
-                  : 'rotatingNeon 0.75s linear infinite',
+                animation: 'rotatingNeon 1.5s linear infinite',
                 '@keyframes rotatingNeon': {
                   '0%': { transform: 'rotate(0)' },
                   '100%': { transform: 'rotate(360deg)' },
@@ -71,7 +70,7 @@ function Logo(props: LogoType) {
                 textTransform: 'uppercase',
                 transform: 'translateY(-10%)',
                 outline: 'none',
-        userSelect: 'none',
+                userSelect: 'none',
               }}
             >
               {initial}

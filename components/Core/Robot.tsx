@@ -156,7 +156,7 @@ export default function Robot(props: RobotPropTypes) {
 
     setTimeout(() => {
       setAnnotationData(
-        `This is a \`Work in Progress\` project. \nMy master is working hard to finish it`
+        `This is a work in progress project. My master is working hard to finish it`
       );
     }, 10000);
 

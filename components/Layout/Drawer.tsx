@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
 
@@ -15,6 +16,12 @@ interface DrawType {
 }
 
 export default function Drawer(props: DrawType) {
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    setHeight(window.innerHeight);
+  }, []);
+
   return (
     <Box
       component='div'
@@ -24,7 +31,7 @@ export default function Drawer(props: DrawType) {
         top: 0,
         left: 0,
         width: '100%',
-        height: '100vh',
+        height: height || '100vh',
         backgroundColor: '#ffffff',
         transform: props.opened ? 'translateX(0)' : 'translateX(100%)',
         transition: 'all 0.5s ease-in-out',

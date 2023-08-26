@@ -15,11 +15,11 @@ export default function Annotation(props: any) {
     props.text.length > 0 && (
       <Html
         position={props.position}
+        transform
         scale={0.12}
         dispose={null}
-        transform
+        zIndexRange={[1]}
         geometry={<planeGeometry />}
-        zIndexRange={[998]}
       >
         <Box
           component='div'
