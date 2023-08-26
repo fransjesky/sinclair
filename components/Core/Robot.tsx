@@ -17,6 +17,11 @@ import {
 } from '@react-three/rapier';
 import { Controls } from '@/modules/Hero/Canvas';
 import Annotation from './Annotation';
+
+// REDUX
+import { takeControl } from '@/redux/features/global';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+
 interface RobotPropTypes {
   started: boolean;
 }
@@ -38,6 +43,10 @@ const areaLight = (reverse: boolean) => {
 };
 
 export default function Robot(props: RobotPropTypes) {
+  // variables init
+  const clock = new Date().getHours();
+  const dispatch = useAppDispatch();
+  const isMobile = useAppSelector((state) => state.global.isMobile);
   const robotRef = useRef<Group>(null!);
   const rigBodyRef = useRef<RapierRigidBody>(null!);
   const ballRef = useRef<RapierRigidBody>(null!);
@@ -49,6 +58,10 @@ export default function Robot(props: RobotPropTypes) {
   const { actions } = useAnimations(animations, robotRef);
 
   // state init
+  const [doGreet, setDoGreet] = useState(false);
+  const [greeting, setGreeting] = useState(
+    `Hey there! I'm glad you are here 👋🏻`
+  );
   const [lightPosition, setLightPosition] = useState<Vector3>(
     new Vector3(0, -100, 0)
   );
@@ -102,7 +115,25 @@ export default function Robot(props: RobotPropTypes) {
     // debug mode
     setDebugMode(false); // enable this to turn on the debug mode
     debugMode && setControllable(true);
-  }, [props.started, debugMode]);
+
+    // set greeting based on current time
+    if (!doGreet) {
+      setDoGreet(true);
+      if (clock >= 5 && clock < 12) {
+        setGreeting(`Good morning, have a great day! 👋🏻`);
+      } else if (clock >= 12 && clock < 18) {
+        setGreeting(
+          `Hi! How's your afternoon going? Half your day is gone, keep it up!`
+        );
+      } else if (clock >= 18 && clock < 0) {
+        setGreeting(`Good evening! I hope you had a good and productive day`);
+      } else if (clock >= 0 && clock < 5) {
+        setGreeting(
+          `Hi! Staying up late? Take care of your health and try to get some sleep 😴`
+        );
+      }
+    }
+  }, [props.started, debugMode, clock, doGreet]);
 
   // animation functions
   const idleAnimation = () => {
@@ -142,38 +173,40 @@ export default function Robot(props: RobotPropTypes) {
 
   // talk script
   const doTalk = () => {
-    setEnterance(false);
-    setTalk(true);
-    setAnnotationData("Hey there! I'm glad you are here 👋🏻");
     waveAnimation();
+    setTalk(true);
+    setEnterance(false);
+    setAnnotationData(greeting);
 
     setTimeout(() => {
       idleAnimation();
-      setAnnotationData(
-        'This website is under development. Please come back later'
-      );
     }, 5000);
 
-    setTimeout(() => {
-      danceAnimation();
-      setAnnotationData(
-        'My master is currently working hard to finish this website 🎉'
-      );
-    }, 10000);
+    if (isMobile) {
+      // stop all the conversation if it's a mobile platform
+      setTimeout(() => {
+        removeAllAnimation();
+        setTalk(false);
+        setAnnotationData('');
+        setShowChaseLight(false);
+      }, 8000);
+    } else {
+      // start play football script if it isn't a mobile platform
+      setTimeout(() => {
+        danceAnimation();
+        setAnnotationData(
+          "Hey, do you want to play with me? Let's play football! 🎉"
+        );
+      }, 8000);
 
-    setTimeout(() => {
-      idleAnimation();
-      setAnnotationData(
-        "Hey, do you want to play with me? Let's play football!"
-      );
-    }, 15000);
-
-    setTimeout(() => {
-      setAnnotationData('');
-      setTalk(false);
-      removeAllAnimation();
-      setControllable(true);
-    }, 20000);
+      setTimeout(() => {
+        removeAllAnimation();
+        setTalk(false);
+        setAnnotationData('');
+        setControllable(true);
+        dispatch(takeControl());
+      }, 13000);
+    }
   };
 
   // reset logic
@@ -199,8 +232,8 @@ export default function Robot(props: RobotPropTypes) {
 
   const resetBotPosition = () => {
     if (rigBodyRef.current) {
-      rigBodyRef.current.setTranslation({ x: 0, y: 0, z: -1 }, true);
-      rigBodyRef.current.setLinvel({ x: 0, y: 0, z: -1 }, true);
+      rigBodyRef.current.setTranslation({ x: 0, y: -1, z: -1 }, true);
+      rigBodyRef.current.setLinvel({ x: 0, y: -1, z: -1 }, true);
     }
   };
 
@@ -258,11 +291,11 @@ export default function Robot(props: RobotPropTypes) {
 
       if (controllable) {
         setChaseLightOpacity((state) =>
-          state > 0 ? (state -= 0.25) : (state = 0)
+          state > 0 ? (state -= 0.1) : (state = 0)
         );
 
         setChaseLightIntensity((state) =>
-          state > 0 ? (state -= 0.25) : (state = 0)
+          state > 0 ? (state -= 0.35) : (state = 0)
         );
 
         chaseLightOpacity === 0 && setShowChaseLight(false);

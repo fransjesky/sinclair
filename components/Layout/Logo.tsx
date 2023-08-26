@@ -19,11 +19,10 @@ function Logo(props: LogoType) {
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        outline: 'none',
       }}
     >
       {props.variant !== 'text' ? (
-        <Link href='/'>
+        <Link href='/' style={{ userSelect: 'none', outline: 'none' }}>
           <Box
             component='div'
             sx={{
@@ -32,15 +31,19 @@ function Logo(props: LogoType) {
               minHeight: '2.5rem',
               width: '2.5rem',
               height: '2.5rem',
-              borderRadius: '50%',
+              borderRadius: '0.5rem',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
               position: 'relative',
-              transition: 'all 0.3s ease',
               cursor: 'pointer',
+              transition: 'all 0.3s ease-in',
               zIndex: props.opened ? 1000 : 'inherit',
+              '&:hover': {
+                transition: 'all 0.3s ease',
+                boxShadow: `0 0 1rem 0.125rem #2196f3`,
+              },
               '&:after': {
                 content: `''`,
                 position: 'absolute',
@@ -50,10 +53,7 @@ function Logo(props: LogoType) {
                 width: '100%',
                 borderRadius: '50%',
                 borderTop: '0.125rem solid #ffffff',
-                transition: 'all 0.3s ease',
-                animation: props.opened
-                  ? 'none'
-                  : 'rotatingNeon 0.75s linear infinite',
+                animation: 'rotatingNeon 1.5s linear infinite',
                 '@keyframes rotatingNeon': {
                   '0%': { transform: 'rotate(0)' },
                   '100%': { transform: 'rotate(360deg)' },
@@ -69,6 +69,8 @@ function Logo(props: LogoType) {
                 fontWeight: 400,
                 textTransform: 'uppercase',
                 transform: 'translateY(-10%)',
+                outline: 'none',
+                userSelect: 'none',
               }}
             >
               {initial}
@@ -106,7 +108,7 @@ function Logo(props: LogoType) {
             {title.split('').map((value, index) => {
               return (
                 <Box
-                  component='div'
+                  component='span'
                   key={index}
                   sx={{
                     margin: 0,
@@ -115,6 +117,20 @@ function Logo(props: LogoType) {
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
                     backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
+                    animation: `logoBouncing 1.5s ease infinite ${
+                      index / title.length + 0.25
+                    }s`,
+                    '@keyframes logoBouncing': {
+                      '0%': {
+                        transform: 'translateY(0)',
+                      },
+                      '50%': {
+                        transform: 'translateY(-0.375rem)',
+                      },
+                      '100%': {
+                        transform: 'translateY(0)',
+                      },
+                    },
                   }}
                 >
                   {value}

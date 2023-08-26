@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import Modal from './Modal';
+
+// REDUX
+import { useAppSelector } from '@/redux/hooks';
 
 const KeyCapIcon = (key: any) => {
   return (
@@ -30,9 +33,15 @@ const KeyCapIcon = (key: any) => {
 
 export default function ControlsGuide() {
   const [open, setOpen] = useState(false);
+  const [showControl, setShowControl] = useState(false);
+  const controllable = useAppSelector((state) => state.global.isControllable);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    controllable ? setShowControl(true) : setShowControl(false);
+  }, [controllable]);
 
   return (
     <>
@@ -47,6 +56,8 @@ export default function ControlsGuide() {
           alignItems: 'center',
           justifyContent: 'space-between',
           cursor: 'pointer',
+          opacity: showControl ? 1 : 0,
+          transition: 'all 3.5s ease',
         }}
         onClick={handleOpen}
       >

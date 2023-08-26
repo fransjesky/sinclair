@@ -18,6 +18,7 @@ export default function Hero() {
   useEffect(() => {
     setHeight(window.innerHeight);
 
+    // disable right click
     const handleContextMenu = (event: Event) => {
       event.preventDefault();
     };
