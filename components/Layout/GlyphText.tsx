@@ -30,9 +30,10 @@ const CharType = {
 };
 
 interface GlyphTextType {
-  text: string;
   start?: boolean;
   delay?: number;
+  english: string;
+  japanese: string;
 }
 
 function shuffle(
@@ -55,16 +56,21 @@ function shuffle(
 }
 
 export default function GlyphText({
-  text,
+  english,
+  japanese,
   start = true,
   delay: startDelay = 0,
 }: GlyphTextType) {
   const output = useRef([{ type: CharType.Glyph, value: '' }]);
   const decoderSpring = useSpring(0, { stiffness: 8, damping: 5 });
+  const [startGlyph, setStartGlyph] = useState(start);
   const [glyph, setGlyph] = useState<string | null>(null);
+  const [isJapanese, setIsJapanese] = useState(false);
+  const [enText] = useState(english);
+  const [jpText] = useState(japanese);
 
   useEffect(() => {
-    const content: string[] = text.split('');
+    const content: string[] = isJapanese ? jpText.split('') : enText.split('');
 
     const renderOutput = () => {
       const characterMap = output.current.map((item) => {
@@ -78,30 +84,37 @@ export default function GlyphText({
       await delay(startDelay);
       decoderSpring.set(content.length);
       decoderSpring.on('change', (value) => {
-        if (start) {
-          output.current = shuffle(content, output.current, value);
-        }
+        output.current = shuffle(content, output.current, value);
         renderOutput();
       });
     };
 
-    if (start) {
+    if (startGlyph) {
       startSpring();
     } else {
+      decoderSpring.clearListeners();
       decoderSpring.set(0);
       output.current = [{ type: CharType.Glyph, value: '' }];
-      decoderSpring.clearListeners();
     }
 
+    const glyphInterval = setInterval(() => {
+      // Toggle the startGlyph state to restart the animation
+      setStartGlyph((prevState) => !prevState);
+
+      startGlyph && setIsJapanese(isJapanese ? false : true);
+    }, 3000);
+
     return () => {
-      // Clean up the animation when the component unmounts
       decoderSpring.stop();
+      clearInterval(glyphInterval);
     };
-  }, [start, text, decoderSpring, startDelay]);
+  }, [startGlyph, startDelay, decoderSpring, isJapanese, jpText, enText]);
 
   return (
     <Typography
       sx={{
+        width: '100%',
+        height: '1rem',
         color: '#ffffff',
         fontSize: `${'inherit'} : ${'1rem'}`,
         textTransform: 'uppercase',
@@ -109,12 +122,15 @@ export default function GlyphText({
         clip: 'rect(0 0 0 0)',
         whiteSpace: 'nowrap',
         wordWrap: 'normal',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         transition: 'all 0.3s ease',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
         backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
-        animation: 'hueSwitch 20s linear infinite',
+        animation: 'hueSwitch 30s linear infinite',
         '@keyframes hueSwitch': {
           '0%': {
             filter: 'hue-rotate(0)',

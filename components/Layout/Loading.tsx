@@ -13,8 +13,6 @@ import { start, mobileViewport } from '@/redux/features/global';
 
 export default function LoadingOverlay() {
   const started = useAppSelector((state) => state.global.isStarted);
-  const [glyphText, setGlyphText] = useState('loading status');
-  const [startGlyph, setStartGlyph] = useState(true);
   const { item, loaded, total } = useProgress();
   const [enableStart, setEnableStart] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -32,24 +30,7 @@ export default function LoadingOverlay() {
     setTimeout(() => {
       if (progress === 100) setEnableStart(true);
     }, 350);
-
-    const glyphInterval = setInterval(() => {
-      // Toggle the startGlyph state to restart the animation
-      setStartGlyph((prevState) => !prevState);
-
-      setTimeout(() => {
-        setGlyphText(
-          glyphText === 'loading status'
-            ? 'データを読み込み中'
-            : 'loading status'
-        );
-      }, 3000);
-    }, 3000);
-
-    return () => {
-      clearInterval(glyphInterval);
-    };
-  }, [progress, item, loaded, total, dispatch, glyphText]);
+  }, [progress, item, loaded, total, dispatch]);
 
   const handleStart = () => {
     dispatch(start());
@@ -103,7 +84,11 @@ export default function LoadingOverlay() {
           alignItems: 'center',
         }}
       >
-        <GlyphText start={startGlyph} text={glyphText} delay={300} />
+        <GlyphText
+          english='loading status'
+          japanese='読み込みステータス'
+          delay={300}
+        />
         <Typography
           variant='h1'
           sx={{
