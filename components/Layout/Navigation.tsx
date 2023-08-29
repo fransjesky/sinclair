@@ -134,7 +134,7 @@ export default function Navigation() {
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       backgroundImage:
-                        'linear-gradient(90deg, #03a9f4, #18ffff)',
+                        'linear-gradient(90deg, #2196f3, #18ffff)',
                     },
                   }}
                 >
@@ -155,7 +155,7 @@ export default function Navigation() {
                         height: '0.125rem',
                         borderRadius: '10rem',
                         background:
-                          'linear-gradient(90deg, transparent, #03a9f4)',
+                          'linear-gradient(90deg, transparent, #2196f3)',
                       },
                       '@keyframes animatedNeonLeft': {
                         '0%': { left: '-100%' },

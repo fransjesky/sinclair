@@ -424,7 +424,7 @@ export default function Robot(props: RobotPropTypes) {
             anglePower={5}
             intensity={chaseLightIntensity}
             opacity={chaseLightOpacity}
-            color={0x03a9f4}
+            color={0x2196f3}
             shadowCameraFov={undefined}
             shadowCameraLeft={undefined}
             shadowCameraRight={undefined}
