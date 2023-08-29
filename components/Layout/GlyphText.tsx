@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { useReducedMotion, useSpring } from 'framer-motion';
-import { Box, Typography } from '@mui/material';
+import { useEffect, useState, useRef } from 'react';
+import { useSpring } from 'framer-motion';
+import { Typography } from '@mui/material';
+import { delay } from '@/hooks/useDelay';
 
 // prettier-ignore
 const glyphs = [
@@ -31,15 +32,20 @@ const CharType = {
 interface GlyphTextType {
   text: string;
   start?: boolean;
+  delay?: number;
 }
 
-function shuffle(content: string[], output: any, position: number) {
-  return content.map((value: any, index: any) => {
+function shuffle(
+  content: string[],
+  output: { type: string; value: string }[],
+  position: number
+) {
+  return content.map((value: string, index: number) => {
     if (index < position) {
       return { type: CharType.Value, value };
     }
 
-    if (position % 1 < 0.5) {
+    if (position % 1 < 0.5 || position < index) {
       const rand = Math.floor(Math.random() * glyphs.length);
       return { type: CharType.Glyph, value: glyphs[rand] };
     }
@@ -48,62 +54,62 @@ function shuffle(content: string[], output: any, position: number) {
   });
 }
 
-export default function GlyphText({ text, start = true }: GlyphTextType) {
-  // variables init
+export default function GlyphText({
+  text,
+  start = true,
+  delay: startDelay = 0,
+}: GlyphTextType) {
   const output = useRef([{ type: CharType.Glyph, value: '' }]);
-  const container = useRef<HTMLSpanElement>(null!);
-  const reduceMotion = useReducedMotion();
-  const decoderSpring = useSpring(0, { stiffness: 8, damping: 5 });
+  const decoderSpring = useSpring(0, { stiffness: 10, damping: 3 });
+  const [glyph, setGlyph] = useState<string | null>(null);
 
   useEffect(() => {
-    const containerInstance = container.current;
-    const content = text.split('');
+    const content: string[] = text.split('');
 
     const renderOutput = () => {
       const characterMap = output.current.map((item) => {
         return item.value;
       });
 
-      containerInstance.innerHTML = characterMap.join('');
+      setGlyph(characterMap.join(''));
     };
-
-    const unsubscribeSpring = decoderSpring.onChange((value) => {
-      output.current = shuffle(content, output.current, value);
-      renderOutput();
-    });
 
     const startSpring = async () => {
+      await delay(startDelay);
       decoderSpring.set(content.length);
+      decoderSpring.on('change', (value) => {
+        output.current = shuffle(content, output.current, value);
+        renderOutput();
+      });
     };
 
-    if (start && !reduceMotion) {
+    if (start) {
       startSpring();
-    }
-
-    if (reduceMotion) {
-      output.current = content.map((value, index) => ({
-        type: CharType.Value,
-        value: content[index],
-      }));
-      renderOutput();
+    } else {
+      decoderSpring.set(0);
+      output.current = [{ type: CharType.Glyph, value: '' }];
     }
 
     return () => {
-      unsubscribeSpring?.();
+      // Clean up the animation when the component unmounts
+      decoderSpring.stop();
     };
-  }, [decoderSpring, reduceMotion, start, text]);
+  }, [start, text, decoderSpring, startDelay]);
 
   return (
-    <Box component='div'>
-      <Typography
-        ref={container}
-        sx={{
-          color: '#ffffff',
-          fontSize: '1rem',
-          textTransform: 'uppercase',
-          letterSpacing: '0.25rem',
-        }}
-      />
-    </Box>
+    <Typography
+      sx={{
+        color: '#ffffff',
+        fontSize: `${'inherit'} : ${'1rem'}`,
+        textTransform: 'uppercase',
+        letterSpacing: `${'inherit'} : ${'0.25rem'}`,
+        clip: 'rect(0 0 0 0)',
+        whiteSpace: 'nowrap',
+        wordWrap: 'normal',
+        transition: 'all 0.3s ease',
+      }}
+    >
+      {glyph}
+    </Typography>
   );
 }

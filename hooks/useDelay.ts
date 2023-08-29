@@ -1,3 +1,3 @@
-export async function useDelay(ms: any) {
+export async function delay(ms: any) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

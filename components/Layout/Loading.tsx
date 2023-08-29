@@ -5,17 +5,16 @@ import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import { useProgress } from '@react-three/drei';
 import Image from 'next/image';
 import ProgressBar from './ProgressBar';
+import GlyphText from './GlyphText';
 
 // REDUX
-import { useAppDispatch } from '@/redux/hooks';
-import { mobileViewport } from '@/redux/features/global';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { start, mobileViewport } from '@/redux/features/global';
 
-interface LoadingTypes {
-  started: boolean;
-  onClick: () => void;
-}
-
-export default function LoadingOverlay(props: LoadingTypes) {
+export default function LoadingOverlay() {
+  const started = useAppSelector((state) => state.global.isStarted);
+  const [glyphText, setGlyphText] = useState('loading status');
+  const [startGlyph, setStartGlyph] = useState(true);
   const { item, loaded, total } = useProgress();
   const [enableStart, setEnableStart] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -33,7 +32,28 @@ export default function LoadingOverlay(props: LoadingTypes) {
     setTimeout(() => {
       if (progress === 100) setEnableStart(true);
     }, 350);
-  }, [progress, item, loaded, total, dispatch]);
+
+    const glyphInterval = setInterval(() => {
+      // Toggle the startGlyph state to restart the animation
+      setStartGlyph((prevState) => !prevState);
+
+      setTimeout(() => {
+        setGlyphText(
+          glyphText === 'loading status'
+            ? 'ローディングステータス'
+            : 'loading status'
+        );
+      }, 5000);
+    }, 5000);
+
+    return () => {
+      clearInterval(glyphInterval);
+    };
+  }, [progress, item, loaded, total, dispatch, glyphText]);
+
+  const handleStart = () => {
+    dispatch(start());
+  };
 
   return (
     <Box
@@ -46,7 +66,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
         right: 0,
         height: '100%',
         width: '100%',
-        display: props.started ? 'none' : 'flex',
+        display: started ? 'none' : 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -83,15 +103,7 @@ export default function LoadingOverlay(props: LoadingTypes) {
           alignItems: 'center',
         }}
       >
-        <Typography
-          sx={{
-            color: '#ffffff',
-            fontSize: '1rem',
-            fontWeight: 300,
-          }}
-        >
-          LOADING STATUS
-        </Typography>
+        <GlyphText start={startGlyph} text={glyphText} delay={300} />
         <Typography
           variant='h1'
           sx={{
@@ -109,25 +121,23 @@ export default function LoadingOverlay(props: LoadingTypes) {
       </Box>
       <Box component='div' sx={{ marginTop: '2.5rem' }}>
         <Button
-          onClick={props.onClick}
+          onClick={handleStart}
           disabled={enableStart ? false : true}
           sx={{
             minWidth: '10rem',
             padding: '0.5rem 3rem',
-            border: '0.125rem solid #00e5ff',
+            border: '0.125rem solid #2196f3',
             borderRadius: '0.5rem',
-            color: '#00e5ff',
+            color: '#2196f3',
             fontWeight: 900,
             letterSpacing: '0.125rem',
-            animationDuration: '1s',
-            animationIterationCount: 'infinite',
-            animationName: 'glowing',
+            animation: 'glowing 3s linear infinite',
             transition: 'all 0.3s ease',
             '&:hover': {
               padding: '0.5rem 5rem',
               color: '#ffffff',
               cursor: 'pointer',
-              backgroundColor: '#00e5ff',
+              backgroundColor: '#2196f3',
             },
             '&:disabled': {
               color: '#ff5722',
@@ -135,13 +145,13 @@ export default function LoadingOverlay(props: LoadingTypes) {
             },
             '@keyframes glowing': {
               '0%': {
-                boxShadow: enableStart ? `0 0 2rem 0 #2196f3` : `none`,
+                boxShadow: enableStart ? `0 0 0.5rem 0.25rem #2196f3` : `none`,
               },
               '50%': {
                 boxShadow: enableStart ? `0 0 2rem 0.25rem #2196f3` : `none`,
               },
               '100%': {
-                boxShadow: enableStart ? `0 0 2rem 0 #2196f3` : `none`,
+                boxShadow: enableStart ? `0 0 0.5rem 0.25rem #2196f3` : `none`,
               },
             },
           }}
