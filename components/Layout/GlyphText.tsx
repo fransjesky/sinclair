@@ -46,12 +46,12 @@ function shuffle(
       return { type: CharType.Value, value };
     }
 
-    if (position % 1 < 0.5 || position < index) {
+    if (position % 1 < 0.5) {
       const rand = Math.floor(Math.random() * glyphs.length);
       return { type: CharType.Glyph, value: glyphs[rand] };
     }
 
-    return { type: CharType.Glyph, value: output[index].value };
+    return { type: CharType.Glyph, value: output[index]?.value };
   });
 }
 
@@ -62,7 +62,7 @@ export default function GlyphText({
   delay: startDelay = 0,
 }: GlyphTextType) {
   const output = useRef([{ type: CharType.Glyph, value: '' }]);
-  const decoderSpring = useSpring(0, { stiffness: 8, damping: 5 });
+  const decoderSpring = useSpring(0, { stiffness: 6, damping: 3 });
   const [startGlyph, setStartGlyph] = useState(start);
   const [glyph, setGlyph] = useState<string | null>(null);
   const [isJapanese, setIsJapanese] = useState(false);
