@@ -40,11 +40,11 @@ export default function LoadingOverlay() {
       setTimeout(() => {
         setGlyphText(
           glyphText === 'loading status'
-            ? 'ローディングステータス'
+            ? 'データを読み込み中'
             : 'loading status'
         );
-      }, 5000);
-    }, 5000);
+      }, 3000);
+    }, 3000);
 
     return () => {
       clearInterval(glyphInterval);
@@ -110,6 +110,7 @@ export default function LoadingOverlay() {
             color: '#ffffff',
             fontSize: '2.25rem',
             fontWeight: 900,
+            letterSpacing: '0.125rem',
           }}
         >
           {enableStart

@@ -60,7 +60,7 @@ export default function GlyphText({
   delay: startDelay = 0,
 }: GlyphTextType) {
   const output = useRef([{ type: CharType.Glyph, value: '' }]);
-  const decoderSpring = useSpring(0, { stiffness: 10, damping: 3 });
+  const decoderSpring = useSpring(0, { stiffness: 8, damping: 5 });
   const [glyph, setGlyph] = useState<string | null>(null);
 
   useEffect(() => {
@@ -78,7 +78,9 @@ export default function GlyphText({
       await delay(startDelay);
       decoderSpring.set(content.length);
       decoderSpring.on('change', (value) => {
-        output.current = shuffle(content, output.current, value);
+        if (start) {
+          output.current = shuffle(content, output.current, value);
+        }
         renderOutput();
       });
     };
@@ -88,6 +90,7 @@ export default function GlyphText({
     } else {
       decoderSpring.set(0);
       output.current = [{ type: CharType.Glyph, value: '' }];
+      decoderSpring.clearListeners();
     }
 
     return () => {
@@ -107,6 +110,22 @@ export default function GlyphText({
         whiteSpace: 'nowrap',
         wordWrap: 'normal',
         transition: 'all 0.3s ease',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+        backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
+        animation: 'hueSwitch 20s linear infinite',
+        '@keyframes hueSwitch': {
+          '0%': {
+            filter: 'hue-rotate(0)',
+          },
+          '50%': {
+            filter: 'hue-rotate(180deg)',
+          },
+          '100%': {
+            filter: 'hue-rotate(0deg)',
+          },
+        },
       }}
     >
       {glyph}
