@@ -8,6 +8,7 @@ import DrawerButton from './DrawerButton';
 
 // ICON
 import Logo from './Logo';
+import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
@@ -34,6 +35,10 @@ export default function Navigation() {
     {
       link: '#blog',
       nav: 'blog',
+    },
+    {
+      link: '#contact',
+      nav: 'contact',
     },
   ];
 
@@ -129,7 +134,7 @@ export default function Navigation() {
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       backgroundImage:
-                        'linear-gradient(90deg, #03a9f4, #18ffff)',
+                        'linear-gradient(90deg, #2196f3, #18ffff)',
                     },
                   }}
                 >
@@ -140,7 +145,9 @@ export default function Navigation() {
                     sx={{
                       position: 'absolute',
                       display: 'block',
-                      animation: 'animatedNeonLeft 0.75s ease infinite',
+                      animation: `animatedNeonLeft 0.75s ease infinite ${
+                        index / navData.length + 0.25
+                      }s`,
                       '&:nth-child(1)': {
                         top: 0,
                         left: '-100%',
@@ -148,7 +155,7 @@ export default function Navigation() {
                         height: '0.125rem',
                         borderRadius: '10rem',
                         background:
-                          'linear-gradient(90deg, transparent, #03a9f4)',
+                          'linear-gradient(90deg, transparent, #2196f3)',
                       },
                       '@keyframes animatedNeonLeft': {
                         '0%': { left: '-100%' },
@@ -162,7 +169,9 @@ export default function Navigation() {
                     sx={{
                       position: 'absolute',
                       display: 'block',
-                      animation: 'animatedNeonRight 0.75s ease infinite',
+                      animation: `animatedNeonRight 0.75s ease infinite ${
+                        index * navData.length - 12
+                      }s`,
                       '&:nth-child(2)': {
                         bottom: 0,
                         right: '-100%',
@@ -200,6 +209,17 @@ export default function Navigation() {
           columnSpacing={3}
           sx={{ display: 'flex', justifyContent: 'flex-end' }}
         >
+          <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+            <Link passHref href='https://www.instagram.com/fransjesky'>
+              <InstagramIcon
+                sx={{
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  '&:hover': { transform: 'translateY(-0.125rem)' },
+                }}
+              />
+            </Link>
+          </Grid>
           <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
             <Link passHref href='https://www.linkedin.com/in/fransjesky'>
               <LinkedInIcon

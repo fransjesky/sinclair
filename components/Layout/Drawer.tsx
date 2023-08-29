@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
 
 // ICON
+import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
@@ -14,6 +16,12 @@ interface DrawType {
 }
 
 export default function Drawer(props: DrawType) {
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    setHeight(window.innerHeight);
+  }, []);
+
   return (
     <Box
       component='div'
@@ -23,7 +31,7 @@ export default function Drawer(props: DrawType) {
         top: 0,
         left: 0,
         width: '100%',
-        height: '100vh',
+        height: height || '100vh',
         backgroundColor: '#ffffff',
         transform: props.opened ? 'translateX(0)' : 'translateX(100%)',
         transition: 'all 0.5s ease-in-out',
@@ -77,6 +85,13 @@ export default function Drawer(props: DrawType) {
           color: '#121212',
         }}
       >
+        <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+          <Link passHref href='https://www.instagram.com/fransjesky'>
+            <InstagramIcon
+              sx={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
+            />
+          </Link>
+        </Grid>
         <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
           <Link passHref href='https://www.linkedin.com/in/fransjesky'>
             <LinkedInIcon

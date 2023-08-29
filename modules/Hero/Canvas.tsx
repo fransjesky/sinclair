@@ -11,7 +11,6 @@ import Floor from '@/components/Core/Floor';
 import Title from '@/components/Core/Title';
 import Robot from '@/components/Core/Robot';
 import Music from '@/components/Core/Music';
-import LoadingOverlay from '@/components/Layout/Loading';
 
 export const Controls = {
   forward: 'forward',
@@ -40,7 +39,6 @@ function Intro() {
 interface HeroCanvasTypes {
   muted: boolean;
   started: boolean;
-  onClick: () => void;
 }
 
 export default function HeroCanvas(props: HeroCanvasTypes) {
@@ -69,8 +67,8 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
           linear
         >
           {/* <Perf /> */}
-          <color attach='background' args={['#121212']} />
-          <fog attach='fog' args={['#121212', 15, 20]} />
+          <color attach='background' args={['black']} />
+          <fog attach='fog' args={['black', 15, 20]} />
           <ambientLight />
           <Suspense fallback={null}>
             {props.started && <Intro />}
@@ -81,7 +79,6 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
             </Physics>
           </Suspense>
         </Canvas>
-        <LoadingOverlay started={props.started} onClick={props.onClick} />
       </KeyboardControls>
     </Box>
   );

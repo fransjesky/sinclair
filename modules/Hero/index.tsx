@@ -6,18 +6,19 @@ import HeroOverlay from './Overlay';
 import HeroCanvas from './Canvas';
 
 // REDUX
-import { useAppDispatch } from '@/redux/hooks';
-import { start } from '@/redux/features/global';
+import { useAppSelector } from '@/redux/hooks';
 
 export default function Hero() {
-  const dispatch = useAppDispatch();
+  const isStarted = useAppSelector((state) => state.global.isStarted);
   const [height, setHeight] = useState(0);
   const [muted, setMuted] = useState(false);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
+    isStarted && setStarted(true);
     setHeight(window.innerHeight);
 
+    // disable right click
     const handleContextMenu = (event: Event) => {
       event.preventDefault();
     };
@@ -27,15 +28,10 @@ export default function Hero() {
     return () => {
       window.removeEventListener('contextmenu', handleContextMenu);
     };
-  }, []);
+  }, [isStarted]);
 
   const handleMute = () => {
     muted ? setMuted(false) : setMuted(true);
-  };
-
-  const handleStart = () => {
-    setStarted(true);
-    dispatch(start());
   };
 
   return (
@@ -46,7 +42,7 @@ export default function Hero() {
         width: '100%',
       }}
     >
-      <HeroCanvas muted={muted} started={started} onClick={handleStart} />
+      <HeroCanvas muted={muted} started={started} />
       <HeroOverlay muted={muted} started={started} onClick={handleMute} />
     </Box>
   );

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 
 // components
 import ScrollDown from '@/components/Layout/ScrollDown';
@@ -45,9 +45,49 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         >
           <Grid item onClick={props.onClick}>
             {props.muted ? (
-              <MusicOffIcon sx={{ cursor: 'pointer' }} />
+              <Box
+                component='div'
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  cursor: 'pointer',
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: 500,
+                    fontSize: '0.625rem',
+                    textTransform: 'capitalize',
+                    userSelect: 'none',
+                  }}
+                >
+                  Music: Off
+                </Typography>
+                <MusicOffIcon />
+              </Box>
             ) : (
-              <MusicNoteIcon sx={{ cursor: 'pointer' }} />
+              <Box
+                component='div'
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  cursor: 'pointer',
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: 500,
+                    fontSize: '0.625rem',
+                    textTransform: 'capitalize',
+                    userSelect: 'none',
+                  }}
+                >
+                  Music: On
+                </Typography>
+                <MusicNoteIcon />
+              </Box>
             )}
           </Grid>
         </Grid>
