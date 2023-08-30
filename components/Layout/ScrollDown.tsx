@@ -1,6 +1,21 @@
+import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
+import useScroll from '@/hooks/useScroll';
 
 export default function ScrollDown() {
+  const [hideScrollInfo, setHideScrollInfo] = useState(false);
+  const scroll = useScroll();
+
+  useEffect(() => {
+    const clientHeight = window.innerHeight;
+
+    if (scroll >= clientHeight * (10 / 100)) {
+      setHideScrollInfo(true);
+    } else {
+      setHideScrollInfo(false);
+    }
+  }, [scroll]);
+
   return (
     <Box
       component='div'
@@ -11,6 +26,8 @@ export default function ScrollDown() {
         transform: 'translate(-50%, 0)',
         userSelect: 'none',
         outline: 'none',
+        opacity: hideScrollInfo ? 0 : 1,
+        transition: 'all 0.3s ease',
       }}
     >
       <Typography

@@ -34,6 +34,9 @@ interface GlyphTextType {
   delay?: number;
   english: string;
   japanese: string;
+  size?: 'small' | 'medium' | 'large';
+  animate?: boolean;
+  dark?: boolean;
 }
 
 function shuffle(
@@ -60,6 +63,9 @@ export default function GlyphText({
   japanese,
   start = true,
   delay: startDelay = 0,
+  size = 'small',
+  animate = true,
+  dark = false,
 }: GlyphTextType) {
   const output = useRef([{ type: CharType.Glyph, value: '' }]);
   const decoderSpring = useSpring(0, { stiffness: 6, damping: 3 });
@@ -113,10 +119,16 @@ export default function GlyphText({
   return (
     <Typography
       sx={{
-        width: '100%',
-        height: '1rem',
-        color: '#ffffff',
-        fontSize: `${'inherit'} : ${'1rem'}`,
+        minHeight: '1.5rem',
+        color: dark ? '#0F1923' : '#ffffff',
+        fontSize:
+          size === 'small'
+            ? '1rem'
+            : size === 'medium'
+            ? '1.5rem'
+            : size === 'large'
+            ? '2rem'
+            : '1rem',
         textTransform: 'uppercase',
         letterSpacing: `${'inherit'} : ${'0.25rem'}`,
         clip: 'rect(0 0 0 0)',
@@ -125,18 +137,21 @@ export default function GlyphText({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        userSelect: 'none',
         transition: 'all 0.3s ease',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
-        backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
-        animation: 'hueSwitch 30s linear infinite',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: animate ? 'transparent' : 'none',
+        backgroundImage: animate
+          ? 'linear-gradient(90deg, #2196f3, #00dfd8)'
+          : 'none',
+        animation: animate ? 'hueSwitch 20s linear infinite' : 'none',
         '@keyframes hueSwitch': {
           '0%': {
             filter: 'hue-rotate(0)',
           },
           '50%': {
-            filter: 'hue-rotate(180deg)',
+            filter: 'hue-rotate(120deg)',
           },
           '100%': {
             filter: 'hue-rotate(0deg)',
