@@ -41,7 +41,7 @@ export default function Title(props: TitleTypes) {
 
   return (
     showTitle && (
-      <group position={[0, 0.15, -1]}>
+      <group position={[0, 0.5, -1]}>
         <Text
           color='#ffffff'
           anchorX='center'

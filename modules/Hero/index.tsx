@@ -23,10 +23,19 @@ export default function Hero() {
       event.preventDefault();
     };
 
+    // prevent auto scrolling when press spacebar
+    const preventSpaceScroll = (event: KeyboardEvent) => {
+      if (event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault();
+      }
+    };
+
     window.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', preventSpaceScroll);
 
     return () => {
       window.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', preventSpaceScroll);
     };
   }, [isStarted]);
 
