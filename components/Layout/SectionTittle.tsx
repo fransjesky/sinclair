@@ -29,12 +29,11 @@ export default function SectionTitle(props: SectionTitleType) {
           delay={props.delay || 300}
           size='medium'
           animate={false}
-          dark
         />
       </Box>
       <Typography
         sx={{
-          color: '#0F1923',
+          color: '#ffffff',
           fontSize: '10rem',
           fontWeight: 900,
           textAlign: 'left',

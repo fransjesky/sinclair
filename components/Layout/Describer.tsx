@@ -51,8 +51,11 @@ export default function Describer() {
       <Box
         component='span'
         sx={{
-          color: '#2196f3',
-          fontSize: '0.55rem',
+          padding: '0.125rem 0.5rem',
+          borderRadius: '0.5rem',
+          color: '#ffffff',
+          backgroundColor: '#2196f3',
+          fontSize: '0.75rem',
           fontWeight: 600,
           textTransform: 'uppercase',
         }}

@@ -29,9 +29,13 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
     <Box
       component='div'
       sx={{
+        width: '100vw',
+        position: 'fixed',
+        bottom: 0,
         color: '#ffffff',
         opacity: showOverlay ? 1 : 0,
         transition: 'all 1s ease',
+        zIndex: 999,
       }}
     >
       <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 20 }}>
