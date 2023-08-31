@@ -19,8 +19,16 @@ export default function Drawer(props: DrawType) {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    setHeight(window.innerHeight);
-  }, []);
+    const getHeight = () => {
+      setHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', getHeight);
+
+    return () => {
+      window.removeEventListener('resize', getHeight);
+    };
+  }, [height]);
 
   return (
     <Box
@@ -51,23 +59,25 @@ export default function Drawer(props: DrawType) {
                   alignItems: 'center',
                 }}
               >
-                <Typography
-                  sx={{
-                    padding: '0.5rem',
-                    fontSize: '0.55rem',
-                    fontWeight: 600,
-                    textAlign: 'center',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.075rem',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    color: '#121212',
-                    transition: 'all 0.3s ease-in',
-                  }}
-                >
-                  {data.nav}
-                </Typography>
+                <Link href={data.link}>
+                  <Typography
+                    sx={{
+                      padding: '0.5rem',
+                      fontSize: '0.55rem',
+                      fontWeight: 600,
+                      textAlign: 'center',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.075rem',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      color: '#121212',
+                      transition: 'all 0.3s ease-in',
+                    }}
+                  >
+                    {data.nav}
+                  </Typography>
+                </Link>
               </Box>
             </Grid>
           );

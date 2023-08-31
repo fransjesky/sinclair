@@ -3,6 +3,7 @@ import Header from './Header';
 import Introduction from './Introduction';
 import Jumbotron from './Jumbotron';
 import Skills from './Skills';
+import Biography from './Biography';
 
 export default function Profile() {
   return (
@@ -11,7 +12,7 @@ export default function Profile() {
       component='div'
       sx={{
         paddingTop: '10rem',
-        height: 'calc(200vh + 5rem)',
+        minHeight: 'calc(100vh + 5rem)',
         width: '100%',
         backgroundColor: '#000000',
       }}
@@ -20,6 +21,7 @@ export default function Profile() {
       <Introduction />
       <Skills />
       <Jumbotron />
+      <Biography />
     </Box>
   );
 }
