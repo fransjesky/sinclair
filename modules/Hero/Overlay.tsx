@@ -38,15 +38,19 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         zIndex: 999,
       }}
     >
-      <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 20 }}>
+      <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 40 }}>
         <Grid
           container
           sx={{
+            width: '4.2rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
+          <Grid item>
+            <ControlsGuide />
+          </Grid>
           <Grid item onClick={props.onClick}>
             {props.muted ? (
               <Box
@@ -77,7 +81,6 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         </Grid>
       </Box>
       <ScrollDown />
-      <ControlsGuide />
     </Box>
   );
 }

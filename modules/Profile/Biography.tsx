@@ -147,7 +147,7 @@ export default function Biography() {
               }}
             >
               <strong style={{ color: '#2196f3' }}>Frans Jesky Yeremi</strong>{' '}
-              (born June 26, 1991), better known as Jesky, is a professional{' '}
+              (born June 26, 1991), better known as Jesky, is a{' '}
               <strong style={{ color: '#2196f3' }}>Frontend Developer</strong>.
               He has had an interest in programming and computers since he was a
               kid and discovered Windows 95. Most people around him know that
