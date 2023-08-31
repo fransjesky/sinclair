@@ -12,7 +12,7 @@ export default function Profile() {
       component='div'
       sx={{
         paddingTop: '10rem',
-        height: 'calc(200vh + 5rem)',
+        minHeight: 'calc(100vh + 5rem)',
         width: '100%',
         backgroundColor: '#000000',
       }}

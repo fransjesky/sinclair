@@ -22,7 +22,16 @@ export default function SectionTitle(props: SectionTitleType) {
         userSelect: 'none',
       }}
     >
-      <Box component='span' sx={{ padding: '0 0.5rem' }}>
+      <Box
+        component='span'
+        sx={{
+          padding: {
+            xs: '0 0.1rem',
+            sm: '0 0.25rem',
+            md: '0 0.5rem',
+          },
+        }}
+      >
         <GlyphText
           english={props.english}
           japanese={props.japanese}
@@ -34,11 +43,17 @@ export default function SectionTitle(props: SectionTitleType) {
       <Typography
         sx={{
           color: '#ffffff',
-          fontSize: '10rem',
+          fontSize: {
+            xs: '4.5rem',
+            md: '10rem',
+          },
           fontWeight: 900,
           textAlign: 'left',
           textTransform: 'uppercase',
-          lineHeight: '7.5rem',
+          lineHeight: {
+            xs: '4.5rem',
+            md: '7.5rem',
+          },
         }}
       >
         {props.title}

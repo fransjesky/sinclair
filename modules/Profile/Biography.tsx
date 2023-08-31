@@ -3,7 +3,11 @@ import { Box, Button, Container } from '@mui/material';
 import GlyphText from '@/components/Layout/GlyphText';
 import Describer from '@/components/Layout/Describer';
 
+// REDUX
+import { useAppSelector } from '@/redux/hooks';
+
 export default function Biography() {
+  const mobile = useAppSelector((state) => state.global.isMobile);
   const [showMore, setShowMore] = useState(false);
   const readMore = () => {
     if (showMore) {
@@ -29,7 +33,7 @@ export default function Biography() {
         <GlyphText
           english='short biography'
           japanese='ショートバイオグラフィー'
-          size='large'
+          size={mobile ? 'medium' : 'large'}
         />
       </Box>
       {showMore ? (
@@ -37,8 +41,11 @@ export default function Biography() {
           component='article'
           sx={{
             marginBottom: '20px',
-            width: '50%',
-            padding: '0 20px',
+            width: {
+              xs: '100%',
+              sm: '100%',
+              md: '50%',
+            },
             color: '#ffffff',
             fontSize: '0.75rem',
           }}
@@ -85,8 +92,11 @@ export default function Biography() {
           component='article'
           sx={{
             marginBottom: '20px',
-            width: '50%',
-            padding: '0 20px',
+            width: {
+              xs: '100%',
+              sm: '100%',
+              md: '50%',
+            },
             color: '#ffffff',
             fontSize: '0.75rem',
           }}

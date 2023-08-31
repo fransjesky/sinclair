@@ -60,7 +60,7 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
       component='div'
       sx={{ height: 'calc(100% + 10rem)', width: '100%', position: 'relative' }}
     >
-      <Music started={props.started} toggleMute={props.muted} />
+      <Music toggleMute={props.muted} />
       <KeyboardControls map={controlMap}>
         <Canvas
           dpr={[1, 1.5]}

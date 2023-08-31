@@ -5,8 +5,11 @@ export default function Jumbotron() {
     <Box
       component='div'
       sx={{
-        minHeight: '50vh',
-        height: '50vh',
+        minHeight: {
+          xs: '30vh',
+          sm: '40vh',
+          md: '50vh',
+        },
         width: '100%',
         display: 'flex',
         flexDirection: 'column',

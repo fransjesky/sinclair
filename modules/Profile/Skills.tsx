@@ -1,8 +1,7 @@
 import React from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import Card from '@/components/Layout/Card';
 import GlyphText from '@/components/Layout/GlyphText';
-
 import {
   SiAdobe as Adobe,
   SiAmazonaws as AWS,
@@ -39,7 +38,11 @@ import {
   SiXcode as Xcode,
 } from 'react-icons/si';
 
+// REDUX
+import { useAppSelector } from '@/redux/hooks';
+
 export default function Skills() {
+  const mobile = useAppSelector((state) => state.global.isMobile);
   const frontEnd = [
     'HTML',
     'CSS',
@@ -138,8 +141,7 @@ export default function Skills() {
     <Box
       component='div'
       sx={{
-        minHeight: '75vh',
-        height: '75vh',
+        minHeight: '60vh',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -159,7 +161,7 @@ export default function Skills() {
           <GlyphText
             english='programming skills'
             japanese='プログラミングスキル'
-            size='large'
+            size={mobile ? 'medium' : 'large'}
           />
           <Typography
             sx={{
@@ -172,36 +174,43 @@ export default function Skills() {
             list of my skills set
           </Typography>
         </Box>
-        <Box
-          component='div'
+        <Grid
+          container
+          spacing={2}
           sx={{
+            marginBottom: '2rem',
             display: 'flex',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          <Card
-            title='Front-End'
-            icon={frontEndIcon}
-            list={frontEnd}
-            desc={cardDescription[0]}
-            scrollable
-          />
-          <Card
-            title='Back-End'
-            icon={backEndIcon}
-            list={backEnd}
-            desc={cardDescription[1]}
-            scrollable
-          />
-          <Card
-            title='Utilities'
-            icon={utilitiesIcon}
-            list={utilities}
-            desc={cardDescription[2]}
-            scrollable
-          />
-        </Box>
+          <Grid item>
+            <Card
+              title='Front-End'
+              icon={frontEndIcon}
+              list={frontEnd}
+              desc={cardDescription[0]}
+              scrollable
+            />
+          </Grid>
+          <Grid item>
+            <Card
+              title='Back-End'
+              icon={backEndIcon}
+              list={backEnd}
+              desc={cardDescription[1]}
+              scrollable
+            />
+          </Grid>
+          <Grid item>
+            <Card
+              title='Utilities'
+              icon={utilitiesIcon}
+              list={utilities}
+              desc={cardDescription[2]}
+              scrollable
+            />
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );
