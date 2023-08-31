@@ -114,31 +114,22 @@ export default function LoadingOverlay() {
             padding: '0.5rem 3rem',
             border: '0.125rem solid #2196f3',
             borderRadius: '0.5rem',
-            color: '#2196f3',
             fontWeight: 900,
             letterSpacing: '0.125rem',
-            animation: 'glowing 3s linear infinite',
+            color: enableStart ? '#ffffff' : '#333333',
+            backgroundColor: enableStart ? '#2196f3' : 'transparent',
+            cursor: 'pointer',
+            position: 'relative',
             transition: 'all 0.3s ease',
+            animation: 'hueSwitch 20s linear infinite',
             '&:hover': {
               padding: '0.5rem 5rem',
               color: '#ffffff',
-              cursor: 'pointer',
-              backgroundColor: '#2196f3',
+              backgroundColor: enableStart ? '#2196f3' : 'transparent',
             },
             '&:disabled': {
-              color: '#ff5722',
-              border: '0.125rem solid #ff5722',
-            },
-            '@keyframes glowing': {
-              '0%': {
-                boxShadow: enableStart ? `0 0 0.5rem 0.25rem #2196f3` : `none`,
-              },
-              '50%': {
-                boxShadow: enableStart ? `0 0 2rem 0.25rem #2196f3` : `none`,
-              },
-              '100%': {
-                boxShadow: enableStart ? `0 0 0.5rem 0.25rem #2196f3` : `none`,
-              },
+              color: '#333333',
+              border: '0.125rem solid #333333',
             },
           }}
         >
@@ -149,7 +140,7 @@ export default function LoadingOverlay() {
               size={25}
               thickness={5}
               value={100}
-              sx={{ color: '#ff5722' }}
+              sx={{ color: '#333333' }}
             />
           )}
         </Button>

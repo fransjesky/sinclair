@@ -35,14 +35,14 @@ function Logo(props: LogoType) {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
+              backgroundImage: 'linear-gradient(45deg, #2196f3, #00dfd8)',
               position: 'relative',
               cursor: 'pointer',
               transition: 'all 0.3s ease-in',
               zIndex: props.opened ? 1000 : 'inherit',
               '&:hover': {
                 transition: 'all 0.3s ease',
-                boxShadow: `0 0 1rem 0.125rem #2196f3`,
+                boxShadow: `0 0 1rem 0 #2196f3`,
               },
               '&:after': {
                 content: `''`,
@@ -116,7 +116,7 @@ function Logo(props: LogoType) {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
-                    backgroundImage: 'linear-gradient(90deg, #2196f3, #00dfd8)',
+                    backgroundImage: 'linear-gradient(45deg, #2196f3, #00dfd8)',
                     animation: `logoBouncing 1.5s ease infinite ${
                       index / title.length + 0.25
                     }s`,
