@@ -26,9 +26,9 @@ interface RobotPropTypes {
   started: boolean;
 }
 
-useGLTF.preload('/models/robot-draco.glb');
-useGLTF.preload('/models/football.glb');
-useGLTF.preload('/models/goalpost.obj');
+useGLTF.preload('models/robot-draco.glb');
+useGLTF.preload('models/football.glb');
+useGLTF.preload('models/goalpost.obj');
 
 const areaLight = (reverse: boolean) => {
   return (
