@@ -9,8 +9,11 @@ export default function Introduction() {
     <Box
       component='div'
       sx={{
-        padding: '1rem 0',
+        minHeight: '50vh',
+        height: '50vh',
         width: '100%',
+        display: 'flex',
+        alignItems: 'center',
       }}
     >
       <Container maxWidth='lg'>
@@ -90,8 +93,9 @@ export default function Introduction() {
                   fontWeight: 400,
                 }}
               >
-                Currently, i&apos;m working as a Frontend Developer at Xcidic, a
-                startup IT company based in Singapore.
+                Currently, i&apos;m working as a Frontend Developer at Xcidic
+                since late 2020. Xcidic is a startup IT company based in
+                Singapore.
               </Typography>
               <Typography
                 sx={{

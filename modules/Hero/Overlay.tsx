@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 // components
 import ScrollDown from '@/components/Layout/ScrollDown';
@@ -58,16 +58,6 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
                   cursor: 'pointer',
                 }}
               >
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    fontSize: '0.625rem',
-                    textTransform: 'capitalize',
-                    userSelect: 'none',
-                  }}
-                >
-                  Music: Off
-                </Typography>
                 <MusicOffIcon />
               </Box>
             ) : (
@@ -80,16 +70,6 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
                   cursor: 'pointer',
                 }}
               >
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    fontSize: '0.625rem',
-                    textTransform: 'capitalize',
-                    userSelect: 'none',
-                  }}
-                >
-                  Music: On
-                </Typography>
                 <MusicNoteIcon />
               </Box>
             )}

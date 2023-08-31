@@ -6,8 +6,8 @@ export default function Jumbotron() {
     <Box
       component='div'
       sx={{
-        marginTop: '1rem',
         minHeight: '50vh',
+        height: '50vh',
         width: '100%',
         display: 'flex',
         justifyContent: 'center',

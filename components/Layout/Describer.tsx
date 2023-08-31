@@ -52,10 +52,9 @@ export default function Describer() {
         component='span'
         sx={{
           padding: '0.125rem 0.5rem',
-          borderRadius: '0.5rem',
-          color: '#ffffff',
-          backgroundColor: '#2196f3',
-          fontSize: '0.75rem',
+          borderRadius: '0.125rem',
+          color: '#d3bc90',
+          fontSize: '0.55rem',
           fontWeight: 600,
           textTransform: 'uppercase',
         }}
