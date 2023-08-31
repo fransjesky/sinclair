@@ -121,6 +121,20 @@ export default function Introduction() {
                 games, and watch movies. I was a musician, and sometimes i still
                 play guitar in my free time.
               </Typography>
+              <Box component='div' sx={{ marginTop: '2rem' }}>
+                <Typography
+                  sx={{
+                    color: '#ffffff',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                  }}
+                >
+                  Languages I know
+                </Typography>
+                <Typography sx={{ color: '#ffffff', fontSize: '0.75rem' }}>
+                  Indonesia (native), English, Japanese (JLPT N2)
+                </Typography>
+              </Box>
             </Box>
           </Grid>
         </Grid>
