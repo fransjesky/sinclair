@@ -3,6 +3,7 @@ import Header from './Header';
 import Introduction from './Introduction';
 import Jumbotron from './Jumbotron';
 import Skills from './Skills';
+import Biography from './Biography';
 
 export default function Profile() {
   return (
@@ -20,6 +21,7 @@ export default function Profile() {
       <Introduction />
       <Skills />
       <Jumbotron />
+      <Biography />
     </Box>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import Card from '@/components/Layout/Card';
+import GlyphText from '@/components/Layout/GlyphText';
 
 import {
   SiAdobe as Adobe,
@@ -21,6 +22,7 @@ import {
   SiMongodb as MongoDB,
   SiMysql as MySQL,
   SiNetlify as Netlify,
+  SiNextdotjs as NextJS,
   SiNodedotjs as Node,
   SiOpenai as OpenAi,
   SiPostgresql as Postgre,
@@ -32,6 +34,7 @@ import {
   SiStackoverflow as StackOverflow,
   SiTailwindcss as Tailwind,
   SiThreedotjs as ThreeJS,
+  SiVercel as Vercel,
   SiVisualstudiocode as VScode,
   SiXcode as Xcode,
 } from 'react-icons/si';
@@ -45,10 +48,11 @@ export default function Skills() {
     'Tailwind',
     'Material-UI',
     'JavaScript',
+    'Next JS',
     'React',
     'React Native',
     'Redux',
-    'Three.js',
+    'Three JS',
   ];
 
   const backEnd = [
@@ -67,6 +71,7 @@ export default function Skills() {
     'VS Code',
     'Postman',
     'Jira',
+    'Vercel',
     'AWS',
     'Netlify',
     'Heroku',
@@ -87,6 +92,7 @@ export default function Skills() {
     <Tailwind key='tailwind' />,
     <MaterialUI key='mui' />,
     <JavaScript key='jsx' />,
+    <NextJS key='next' />,
     <ReactIcon key='react' />,
     <ReactIcon key='react-native' />,
     <Redux key='redux' />,
@@ -109,6 +115,7 @@ export default function Skills() {
     <VScode key='vscode' />,
     <Postman key='postman' />,
     <Jira key='jira' />,
+    <Vercel key='vercel' />,
     <AWS key='aws' />,
     <Netlify key='netlify' />,
     <Heroku key='heroku' />,
@@ -142,8 +149,34 @@ export default function Skills() {
         <Box
           component='div'
           sx={{
+            marginBottom: '2rem',
             display: 'flex',
-            justifyContent: 'space-between',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <GlyphText
+            english='programming skills'
+            japanese='プログラミングスキル'
+            size='large'
+          />
+          <Typography
+            sx={{
+              color: '#ffffff',
+              fontSize: '0.75rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.125rem',
+            }}
+          >
+            list of my skills set
+          </Typography>
+        </Box>
+        <Box
+          component='div'
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-evenly',
             alignItems: 'center',
           }}
         >

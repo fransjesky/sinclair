@@ -14,6 +14,7 @@ export default function Introduction() {
         width: '100%',
         display: 'flex',
         alignItems: 'center',
+        userSelect: 'none',
       }}
     >
       <Container maxWidth='lg'>

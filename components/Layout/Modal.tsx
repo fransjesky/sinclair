@@ -32,7 +32,6 @@ export default function Modal(props: ModalProps) {
           color: '#ffffff',
           outline: 'none',
           borderBottom: `0.25rem solid #2196f3`,
-          boxShadow: `0 0 1.5rem 0 #2196f3`,
         }}
       >
         <Box
@@ -67,7 +66,7 @@ export default function Modal(props: ModalProps) {
             overflowY: 'auto',
             borderBottomLeftRadius: '0.5rem',
             borderBottomRightRadius: '0.5rem',
-            backgroundColor: '#121212',
+            backgroundColor: '#111111',
           }}
         >
           {props.children}
