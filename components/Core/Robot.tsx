@@ -26,9 +26,9 @@ interface RobotPropTypes {
   started: boolean;
 }
 
-useGLTF.preload('/models/robot-draco.glb');
-useGLTF.preload('/models/football.glb');
-useGLTF.preload('/models/goalpost.obj');
+useGLTF.preload('Models/robot-draco.glb');
+useGLTF.preload('Models/football.glb');
+useGLTF.preload('Models/goalpost.obj');
 
 const areaLight = (reverse: boolean) => {
   return (
@@ -51,10 +51,10 @@ export default function Robot(props: RobotPropTypes) {
   const rigBodyRef = useRef<RapierRigidBody>(null!);
   const ballRef = useRef<RapierRigidBody>(null!);
   const { nodes, materials, animations }: any = useGLTF(
-    'models/robot-draco.glb'
+    'Models/robot-draco.glb'
   );
-  const football = useGLTF('models/football.glb');
-  const goalpost = useLoader(OBJLoader, 'models/goalpost.obj');
+  const football = useGLTF('Models/football.glb');
+  const goalpost = useLoader(OBJLoader, 'Models/goalpost.obj');
   const { actions } = useAnimations(animations, robotRef);
 
   // state init
