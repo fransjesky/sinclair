@@ -79,81 +79,84 @@ function Logo(props: LogoType) {
         </Link>
       ) : null}
       {props.variant === 'full' || props.variant === 'text' ? (
-        <Box
-          component='div'
-          sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            outline: 'none',
-            userSelect: 'none',
-            zIndex: props.opened ? 1000 : 'inherit',
-          }}
-        >
+        <Link href='/' style={{ userSelect: 'none', outline: 'none' }}>
           <Box
             component='div'
             sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              marginBottom: '0.25rem',
-              marginLeft: '0.5rem',
-              color: '#ffffff',
-              fontFamily: poiretone.style.fontFamily,
-              fontSize: '1.75rem',
-              fontWeight: 400,
-              lineHeight: '2rem',
-              textTransform: 'lowercase',
-            }}
-          >
-            {title.split('').map((value, index) => {
-              return (
-                <Box
-                  component='span'
-                  key={index}
-                  sx={{
-                    margin: 0,
-                    padding: 0,
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    backgroundImage: 'linear-gradient(45deg, #2196f3, #00dfd8)',
-                    animation: `logoBouncing 1.5s ease infinite ${
-                      index / title.length + 0.25
-                    }s`,
-                    '@keyframes logoBouncing': {
-                      '0%': {
-                        transform: 'translateY(0)',
-                      },
-                      '50%': {
-                        transform: 'translateY(-0.375rem)',
-                      },
-                      '100%': {
-                        transform: 'translateY(0)',
-                      },
-                    },
-                  }}
-                >
-                  {value}
-                </Box>
-              );
-            })}
-          </Box>
-          <Typography
-            sx={{
               width: '100%',
-              marginBottom: '0.25rem',
-              marginLeft: '0.5rem',
-              color: props.opened ? '#121212' : '#ffffff',
-              fontFamily: comfortaa.style.fontFamily,
-              fontSize: '0.65rem',
-              fontWeight: 400,
-              textTransform: 'capitalize',
-              transition: 'all 0.5s ease',
+              display: 'flex',
+              flexDirection: 'column',
+              outline: 'none',
+              userSelect: 'none',
+              zIndex: props.opened ? 1000 : 'inherit',
             }}
           >
-            {desc}
-          </Typography>
-        </Box>
+            <Box
+              component='div'
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-start',
+                marginBottom: '0.25rem',
+                marginLeft: '0.5rem',
+                color: '#ffffff',
+                fontFamily: poiretone.style.fontFamily,
+                fontSize: '1.75rem',
+                fontWeight: 400,
+                lineHeight: '2rem',
+                textTransform: 'lowercase',
+              }}
+            >
+              {title.split('').map((value, index) => {
+                return (
+                  <Box
+                    component='span'
+                    key={index}
+                    sx={{
+                      margin: 0,
+                      padding: 0,
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      backgroundImage:
+                        'linear-gradient(45deg, #2196f3, #00dfd8)',
+                      animation: `logoBouncing 1.5s ease infinite ${
+                        index / title.length + 0.25
+                      }s`,
+                      '@keyframes logoBouncing': {
+                        '0%': {
+                          transform: 'translateY(0)',
+                        },
+                        '50%': {
+                          transform: 'translateY(-0.375rem)',
+                        },
+                        '100%': {
+                          transform: 'translateY(0)',
+                        },
+                      },
+                    }}
+                  >
+                    {value}
+                  </Box>
+                );
+              })}
+            </Box>
+            <Typography
+              sx={{
+                width: '100%',
+                marginBottom: '0.25rem',
+                marginLeft: '0.5rem',
+                color: props.opened ? '#121212' : '#ffffff',
+                fontFamily: comfortaa.style.fontFamily,
+                fontSize: '0.65rem',
+                fontWeight: 400,
+                textTransform: 'capitalize',
+                transition: 'all 0.5s ease',
+              }}
+            >
+              {desc}
+            </Typography>
+          </Box>
+        </Link>
       ) : null}
     </Box>
   );

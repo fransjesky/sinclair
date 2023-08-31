@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import Card from '@/components/Layout/Card';
-
+import GlyphText from '@/components/Layout/GlyphText';
 import {
   SiAdobe as Adobe,
   SiAmazonaws as AWS,
@@ -21,6 +21,7 @@ import {
   SiMongodb as MongoDB,
   SiMysql as MySQL,
   SiNetlify as Netlify,
+  SiNextdotjs as NextJS,
   SiNodedotjs as Node,
   SiOpenai as OpenAi,
   SiPostgresql as Postgre,
@@ -32,11 +33,16 @@ import {
   SiStackoverflow as StackOverflow,
   SiTailwindcss as Tailwind,
   SiThreedotjs as ThreeJS,
+  SiVercel as Vercel,
   SiVisualstudiocode as VScode,
   SiXcode as Xcode,
 } from 'react-icons/si';
 
+// REDUX
+import { useAppSelector } from '@/redux/hooks';
+
 export default function Skills() {
+  const mobile = useAppSelector((state) => state.global.isMobile);
   const frontEnd = [
     'HTML',
     'CSS',
@@ -45,10 +51,11 @@ export default function Skills() {
     'Tailwind',
     'Material-UI',
     'JavaScript',
+    'Next JS',
     'React',
     'React Native',
     'Redux',
-    'Three.js',
+    'Three JS',
   ];
 
   const backEnd = [
@@ -67,6 +74,7 @@ export default function Skills() {
     'VS Code',
     'Postman',
     'Jira',
+    'Vercel',
     'AWS',
     'Netlify',
     'Heroku',
@@ -87,6 +95,7 @@ export default function Skills() {
     <Tailwind key='tailwind' />,
     <MaterialUI key='mui' />,
     <JavaScript key='jsx' />,
+    <NextJS key='next' />,
     <ReactIcon key='react' />,
     <ReactIcon key='react-native' />,
     <Redux key='redux' />,
@@ -109,6 +118,7 @@ export default function Skills() {
     <VScode key='vscode' />,
     <Postman key='postman' />,
     <Jira key='jira' />,
+    <Vercel key='vercel' />,
     <AWS key='aws' />,
     <Netlify key='netlify' />,
     <Heroku key='heroku' />,
@@ -131,8 +141,7 @@ export default function Skills() {
     <Box
       component='div'
       sx={{
-        minHeight: '75vh',
-        height: '75vh',
+        minHeight: '60vh',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -142,33 +151,66 @@ export default function Skills() {
         <Box
           component='div'
           sx={{
+            marginBottom: '2rem',
             display: 'flex',
-            justifyContent: 'space-between',
+            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
           }}
         >
-          <Card
-            title='Front-End'
-            icon={frontEndIcon}
-            list={frontEnd}
-            desc={cardDescription[0]}
-            scrollable
+          <GlyphText
+            english='programming skills'
+            japanese='プログラミングスキル'
+            size={mobile ? 'medium' : 'large'}
           />
-          <Card
-            title='Back-End'
-            icon={backEndIcon}
-            list={backEnd}
-            desc={cardDescription[1]}
-            scrollable
-          />
-          <Card
-            title='Utilities'
-            icon={utilitiesIcon}
-            list={utilities}
-            desc={cardDescription[2]}
-            scrollable
-          />
+          <Typography
+            sx={{
+              color: '#ffffff',
+              fontSize: '0.75rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.125rem',
+            }}
+          >
+            list of my skills set
+          </Typography>
         </Box>
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            marginBottom: '2rem',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Grid item>
+            <Card
+              title='Front-End'
+              icon={frontEndIcon}
+              list={frontEnd}
+              desc={cardDescription[0]}
+              scrollable
+            />
+          </Grid>
+          <Grid item>
+            <Card
+              title='Back-End'
+              icon={backEndIcon}
+              list={backEnd}
+              desc={cardDescription[1]}
+              scrollable
+            />
+          </Grid>
+          <Grid item>
+            <Card
+              title='Utilities'
+              icon={utilitiesIcon}
+              list={utilities}
+              desc={cardDescription[2]}
+              scrollable
+            />
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

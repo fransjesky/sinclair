@@ -48,9 +48,6 @@ export default function ControlsGuide() {
       <Box
         component='div'
         sx={{
-          position: 'absolute',
-          bottom: 20,
-          right: 60,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',

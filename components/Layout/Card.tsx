@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import { comfortaa } from '@/theme/Typography';
 
 interface CardType {
   title: string;
@@ -75,6 +76,9 @@ export default function Card(props: CardType) {
           '&:active': {
             cursor: 'grabbing',
           },
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
         }}
       >
         {props.list.map((item, index) => (
@@ -113,9 +117,18 @@ export default function Card(props: CardType) {
           height: '5rem',
           width: '100%',
           overflow: 'auto',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
         }}
       >
-        <Typography sx={{ fontSize: '0.75rem', opacity: '0.75' }}>
+        <Typography
+          sx={{
+            fontFamily: comfortaa.style.fontFamily,
+            fontSize: '0.75rem',
+            opacity: '0.75',
+          }}
+        >
           {props.desc}
         </Typography>
       </Box>

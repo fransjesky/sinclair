@@ -9,16 +9,27 @@ export default function Introduction() {
     <Box
       component='div'
       sx={{
-        minHeight: '50vh',
-        height: '50vh',
+        margin: {
+          xs: '2rem 0',
+          sm: '2rem 0',
+          md: '0',
+        },
+        minHeight: '45vh',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
+        userSelect: 'none',
       }}
     >
       <Container maxWidth='lg'>
-        <Grid container>
-          <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Grid container rowSpacing={2}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            sx={{ display: 'flex', justifyContent: 'center' }}
+          >
             <Box
               component='div'
               sx={{
@@ -36,7 +47,7 @@ export default function Introduction() {
               />
             </Box>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <Box
               component='div'
               sx={{
@@ -110,6 +121,20 @@ export default function Introduction() {
                 games, and watch movies. I was a musician, and sometimes i still
                 play guitar in my free time.
               </Typography>
+              <Box component='div' sx={{ marginTop: '2rem' }}>
+                <Typography
+                  sx={{
+                    color: '#ffffff',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                  }}
+                >
+                  Languages I know
+                </Typography>
+                <Typography sx={{ color: '#ffffff', fontSize: '0.75rem' }}>
+                  Indonesia (native), English, Japanese (JLPT N2)
+                </Typography>
+              </Box>
             </Box>
           </Grid>
         </Grid>
