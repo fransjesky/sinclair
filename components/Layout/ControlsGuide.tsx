@@ -48,10 +48,9 @@ export default function ControlsGuide() {
       <Box
         component='div'
         sx={{
-          width: '4.5rem',
           position: 'absolute',
           bottom: 20,
-          left: 20,
+          right: 60,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -62,16 +61,6 @@ export default function ControlsGuide() {
         onClick={handleOpen}
       >
         <SportsEsportsIcon />
-        <Typography
-          sx={{
-            fontWeight: 500,
-            fontSize: '0.625rem',
-            textTransform: 'capitalize',
-            userSelect: 'none',
-          }}
-        >
-          Controls
-        </Typography>
       </Box>
       <Modal title='controls guide' open={open} onClose={handleClose}>
         <Box component='div'>

@@ -1,0 +1,7 @@
+<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+  <defs>
+    <clipPath id="wave-clip" clipPathUnits="objectBoundingBox">
+      <path d="M0,0.25 L0,0.5 C0.125,0.5 0.25,0 0.375,0 L0.5,0 Z" class="shape-fill" fill="#101014" fill-opacity="1" />
+    </clipPath>
+  </defs>
+</svg>

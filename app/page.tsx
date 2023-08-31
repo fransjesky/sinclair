@@ -1,7 +1,7 @@
 'use client';
 
 import Hero from '@/modules/Hero';
-import About from '@/modules/About';
+import Profile from '@/modules/Profile';
 import LoadingOverlay from '@/components/Layout/Loading';
 
 // REDUX
@@ -13,7 +13,7 @@ export default function Home() {
   return started ? (
     <>
       <Hero />
-      <About />
+      <Profile />
     </>
   ) : (
     <LoadingOverlay />

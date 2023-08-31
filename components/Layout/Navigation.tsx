@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Box, Grid, Typography } from '@mui/material';
+import useScroll from '@/hooks/useScroll';
 import Drawer from './Drawer';
 import DrawerButton from './DrawerButton';
 
@@ -16,13 +17,15 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { useAppSelector } from '@/redux/hooks';
 
 export default function Navigation() {
+  const scroll = useScroll();
   const [showNavigation, setShowNavigation] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [solidBackground, setSolidBackground] = useState(false);
   const started = useAppSelector((state) => state.global.isStarted);
   const navData = [
     {
-      link: '#about',
-      nav: 'about',
+      link: '#profile',
+      nav: 'profile',
     },
     {
       link: '#projects',
@@ -43,12 +46,20 @@ export default function Navigation() {
   ];
 
   useEffect(() => {
+    const clientHeight = window.innerHeight;
+
+    if (scroll >= clientHeight * (10 / 100)) {
+      setSolidBackground(true);
+    } else {
+      setSolidBackground(false);
+    }
+
     if (started) {
       setTimeout(() => {
         setShowNavigation(true);
       }, 3500);
     }
-  }, [started]);
+  }, [started, scroll]);
 
   const handleDrawer = () => {
     openDrawer ? setOpenDrawer(false) : setOpenDrawer(true);
@@ -73,13 +84,14 @@ export default function Navigation() {
         justifyContent: 'space-between',
         alignItems: 'center',
         color: '#ffffff',
+        outline: 'none',
+        backgroundColor: solidBackground ? '#111111' : 'none',
+        boxShadow: solidBackground
+          ? '0 0.0625rem 0.5rem 0 rgba(0,0,0,.05), 0 0.0625rem 0.3125rem 0 rgba(0,0,0,.05)'
+          : 'none',
+        opacity: showNavigation ? 1 : 0,
         zIndex: 999,
         transition: 'all 0.3s ease',
-        outline: 'none',
-        // backgroundColor: '#ffffff',
-        // borderBottom: `0.125rem solid #2196f3`,
-        // boxShadow: `0 0 2.5rem 0 #2196f3`,
-        opacity: showNavigation ? 1 : 0,
       }}
     >
       <Grid item xs={10}>
@@ -117,77 +129,80 @@ export default function Navigation() {
                   },
                 }}
               >
-                <Typography
-                  sx={{
-                    padding: '0.5rem',
-                    fontSize: '0.55rem',
-                    fontWeight: 600,
-                    textAlign: 'center',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.125rem',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease-in',
-                    '&:hover': {
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                      backgroundImage:
-                        'linear-gradient(90deg, #2196f3, #18ffff)',
-                    },
-                  }}
-                >
-                  {data.nav}
-                  <Box
-                    component='span'
-                    id={`topNeonBar-${index}`}
+                <Link href={data.link}>
+                  <Typography
                     sx={{
-                      position: 'absolute',
-                      display: 'block',
-                      animation: `animatedNeonLeft 0.75s ease infinite ${
-                        index / navData.length + 0.25
-                      }s`,
-                      '&:nth-child(1)': {
-                        top: 0,
-                        left: '-100%',
-                        width: '100%',
-                        height: '0.125rem',
-                        borderRadius: '10rem',
-                        background:
+                      padding: '0.5rem',
+                      color: '#ffffff',
+                      fontSize: '0.55rem',
+                      fontWeight: 600,
+                      textAlign: 'center',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.125rem',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease-in',
+                      '&:hover': {
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        backgroundImage:
+                        'linear-gradient(45deg, #2196f3, #18ffff)',
+                      },
+                    }}
+                  >
+                    {data.nav}
+                    <Box
+                      component='span'
+                      id={`topNeonBar-${index}`}
+                      sx={{
+                        position: 'absolute',
+                        display: 'block',
+                        animation: `animatedNeonLeft 0.75s ease infinite ${
+                          index / navData.length + 0.25
+                        }s`,
+                        '&:nth-child(1)': {
+                          top: 0,
+                          left: '-100%',
+                          width: '100%',
+                          height: '0.125rem',
+                          borderRadius: '10rem',
+                          background:
                           'linear-gradient(90deg, transparent, #2196f3)',
-                      },
-                      '@keyframes animatedNeonLeft': {
-                        '0%': { left: '-100%' },
-                        '100%': { left: '100%' },
-                      },
-                    }}
-                  />
-                  <Box
-                    component='span'
-                    id={`topNeonBar-${index}`}
-                    sx={{
-                      position: 'absolute',
-                      display: 'block',
-                      animation: `animatedNeonRight 0.75s ease infinite ${
-                        index * navData.length - 12
-                      }s`,
-                      '&:nth-child(2)': {
-                        bottom: 0,
-                        right: '-100%',
-                        width: '100%',
-                        height: '0.125rem',
-                        borderRadius: '10rem',
-                        background:
+                        },
+                        '@keyframes animatedNeonLeft': {
+                          '0%': { left: '-100%' },
+                          '100%': { left: '100%' },
+                        },
+                      }}
+                    />
+                    <Box
+                      component='span'
+                      id={`topNeonBar-${index}`}
+                      sx={{
+                        position: 'absolute',
+                        display: 'block',
+                        animation: `animatedNeonRight 0.75s ease infinite ${
+                          index * navData.length - 12
+                        }s`,
+                        '&:nth-child(2)': {
+                          bottom: 0,
+                          right: '-100%',
+                          width: '100%',
+                          height: '0.125rem',
+                          borderRadius: '10rem',
+                          background:
                           'linear-gradient(270deg, transparent, #18ffff)',
-                      },
-                      '@keyframes animatedNeonRight': {
-                        '0%': { right: '-100%' },
-                        '100%': { right: '100%' },
-                      },
-                    }}
-                  />
-                </Typography>
+                        },
+                        '@keyframes animatedNeonRight': {
+                          '0%': { right: '-100%' },
+                          '100%': { right: '100%' },
+                        },
+                      }}
+                    />
+                  </Typography>
+                </Link>
               </Grid>
             );
           })}
