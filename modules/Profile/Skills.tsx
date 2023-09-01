@@ -141,7 +141,7 @@ export default function Skills() {
     <Box
       component='div'
       sx={{
-        minHeight: '60vh',
+        minHeight: '70vh',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -169,6 +169,7 @@ export default function Skills() {
               fontSize: '0.75rem',
               textTransform: 'uppercase',
               letterSpacing: '0.125rem',
+              textAlign: 'center',
             }}
           >
             list of my skills set

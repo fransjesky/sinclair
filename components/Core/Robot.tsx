@@ -26,9 +26,9 @@ interface RobotPropTypes {
   started: boolean;
 }
 
-useGLTF.preload('/models/robot-draco.glb');
-useGLTF.preload('/models/football.glb');
-useGLTF.preload('/models/goalpost.obj');
+useGLTF.preload('Models/robot-draco.glb');
+useGLTF.preload('Models/football.glb');
+useGLTF.preload('Models/goalpost.obj');
 
 const areaLight = (reverse: boolean) => {
   return (
@@ -51,10 +51,10 @@ export default function Robot(props: RobotPropTypes) {
   const rigBodyRef = useRef<RapierRigidBody>(null!);
   const ballRef = useRef<RapierRigidBody>(null!);
   const { nodes, materials, animations }: any = useGLTF(
-    'models/robot-draco.glb'
+    'Models/robot-draco.glb'
   );
-  const football = useGLTF('models/football.glb');
-  const goalpost = useLoader(OBJLoader, 'models/goalpost.obj');
+  const football = useGLTF('Models/football.glb');
+  const goalpost = useLoader(OBJLoader, 'Models/goalpost.obj');
   const { actions } = useAnimations(animations, robotRef);
 
   // state init
@@ -120,7 +120,7 @@ export default function Robot(props: RobotPropTypes) {
     if (!doGreet) {
       setDoGreet(true);
       if (clock >= 5 && clock < 12) {
-        setGreeting(`Good morning, have a great day! 👋🏻`);
+        setGreeting(`Good morning, i wish you have a great day! 👋🏻`);
       } else if (clock >= 12 && clock < 18) {
         setGreeting(
           `Hi! How's your afternoon going? Half your day is gone, keep it up!`

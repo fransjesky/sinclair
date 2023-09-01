@@ -16,14 +16,20 @@ export default function Card(props: CardType) {
       sx={{
         padding: '1rem',
         height: '25rem',
-        width: '20rem',
+        width: {
+          xs: '100%',
+          sm: '20rem',
+        },
+        maxWidth: {
+          xs: '20rem',
+        },
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
         color: 'white',
         borderRadius: '1rem',
-        background: '#121212',
+        backgroundColor: '#111111',
         boxShadow: '0px 10px 10px -5px rgba(0, 0, 0, 0.5)',
         userSelect: 'none',
       }}

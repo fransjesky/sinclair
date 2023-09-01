@@ -6,6 +6,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import useScroll from '@/hooks/useScroll';
 import Drawer from './Drawer';
 import DrawerButton from './DrawerButton';
+import { useLenis } from '@studio-freight/react-lenis';
 
 // ICON
 import Logo from './Logo';
@@ -18,6 +19,7 @@ import { useAppSelector } from '@/redux/hooks';
 
 export default function Navigation() {
   const scroll = useScroll();
+  const lenis = useLenis();
   const [showNavigation, setShowNavigation] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [solidBackground, setSolidBackground] = useState(false);
@@ -32,16 +34,12 @@ export default function Navigation() {
       nav: 'projects',
     },
     {
-      link: '#experience',
-      nav: 'experience',
-    },
-    {
-      link: '#blog',
-      nav: 'blog',
-    },
-    {
       link: '#contact',
       nav: 'contact',
+    },
+    {
+      link: '#blogs',
+      nav: 'blogs',
     },
   ];
 
@@ -63,6 +61,10 @@ export default function Navigation() {
 
   const handleDrawer = () => {
     openDrawer ? setOpenDrawer(false) : setOpenDrawer(true);
+  };
+
+  const SmoothScroll = (target: string) => {
+    lenis.scrollTo(target);
   };
 
   return (
@@ -129,7 +131,7 @@ export default function Navigation() {
                   },
                 }}
               >
-                <Link href={data.link}>
+                <Link href={data.link} onClick={() => SmoothScroll(data.link)}>
                   <Typography
                     sx={{
                       padding: '0.5rem',
@@ -148,7 +150,7 @@ export default function Navigation() {
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
                         backgroundImage:
-                        'linear-gradient(45deg, #2196f3, #18ffff)',
+                          'linear-gradient(45deg, #2196f3, #18ffff)',
                       },
                     }}
                   >
@@ -169,7 +171,7 @@ export default function Navigation() {
                           height: '0.125rem',
                           borderRadius: '10rem',
                           background:
-                          'linear-gradient(90deg, transparent, #2196f3)',
+                            'linear-gradient(90deg, transparent, #2196f3)',
                         },
                         '@keyframes animatedNeonLeft': {
                           '0%': { left: '-100%' },
@@ -193,7 +195,7 @@ export default function Navigation() {
                           height: '0.125rem',
                           borderRadius: '10rem',
                           background:
-                          'linear-gradient(270deg, transparent, #18ffff)',
+                            'linear-gradient(270deg, transparent, #18ffff)',
                         },
                         '@keyframes animatedNeonRight': {
                           '0%': { right: '-100%' },

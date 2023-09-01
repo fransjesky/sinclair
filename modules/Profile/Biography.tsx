@@ -17,6 +17,7 @@ export default function Biography() {
       setShowMore(true);
     }
   };
+
   return (
     <Box
       component='div'
@@ -36,6 +37,17 @@ export default function Biography() {
           japanese='ショートバイオグラフィー'
           size={mobile ? 'medium' : 'large'}
         />
+        <Typography
+          sx={{
+            color: '#ffffff',
+            fontSize: '0.75rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.125rem',
+            textAlign: 'center',
+          }}
+        >
+          story of my life
+        </Typography>
       </Box>
       {showMore ? (
         <Box
@@ -122,6 +134,10 @@ export default function Biography() {
               as a frontend developer at{' '}
               <strong style={{ color: '#2196f3' }}>Xcidic</strong>, a start-up
               IT company based in Singapore.
+              <br />
+              <br />
+              Until now, he has kept improving his programming skills and
+              knowledge while chasing a higher dream.
             </Typography>
           </Container>
         </Box>
