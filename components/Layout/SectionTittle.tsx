@@ -26,7 +26,7 @@ export default function SectionTitle(props: SectionTitleType) {
     return () => {
       window.removeEventListener('resize', mobilePort);
     };
-  });
+  }, []);
 
   return (
     <Box

@@ -16,7 +16,13 @@ export default function CardJob(props: CardJobType) {
       component='div'
       sx={{
         height: '25rem',
-        width: '20rem',
+        width: {
+          xs: '100%',
+          sm: '20rem',
+        },
+        maxWidth: {
+          xs: '20rem',
+        },
         borderRadius: '1rem',
         backgroundColor: '#111111',
         overflow: 'hidden',

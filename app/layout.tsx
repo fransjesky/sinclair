@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 import ThemeRegistry from '@/theme/ThemeRegistry';
 import SmoothScroll from '@/hooks/useSmooth';
 import { Providers } from '@/redux/providers';
@@ -26,6 +27,7 @@ export default function RootLayout({
               {children}
               <Footer />
             </SmoothScroll>
+            <Analytics />
           </ThemeRegistry>
         </Providers>
       </body>

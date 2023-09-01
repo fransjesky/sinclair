@@ -5,6 +5,7 @@ import Introduction from './Introduction';
 import Jumbotron from './Jumbotron';
 import Skills from './Skills';
 import Biography from './Biography';
+import Hobby from './Hobby';
 import Experience from './Experience';
 
 export default function Profile() {
@@ -26,6 +27,7 @@ export default function Profile() {
       <Skills />
       <Jumbotron />
       <Biography />
+      <Hobby />
       <Experience />
       <Box
         component='div'
