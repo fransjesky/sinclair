@@ -28,18 +28,22 @@ export default function Navigation() {
     {
       link: '#profile',
       nav: 'profile',
+      disabled: false,
     },
     {
       link: '#projects',
       nav: 'projects',
+      disabled: true,
     },
     {
       link: '#contact',
       nav: 'contact',
+      disabled: true,
     },
     {
       link: '#blogs',
       nav: 'blogs',
+      disabled: true,
     },
   ];
 
@@ -131,11 +135,14 @@ export default function Navigation() {
                   },
                 }}
               >
-                <Link href={data.link} onClick={() => SmoothScroll(data.link)}>
+                <Link
+                  href={data.disabled ? '' : data.link}
+                  onClick={() => SmoothScroll(data.link)}
+                >
                   <Typography
                     sx={{
                       padding: '0.5rem',
-                      color: '#ffffff',
+                      color: data.disabled ? '#616161' : '#ffffff',
                       fontSize: '0.55rem',
                       fontWeight: 600,
                       textAlign: 'center',
@@ -143,14 +150,15 @@ export default function Navigation() {
                       letterSpacing: '0.125rem',
                       position: 'relative',
                       overflow: 'hidden',
-                      cursor: 'pointer',
+                      cursor: data.disabled ? 'default' : 'pointer',
                       transition: 'all 0.3s ease-in',
                       '&:hover': {
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
-                        backgroundImage:
-                          'linear-gradient(45deg, #2196f3, #18ffff)',
+                        backgroundImage: data.disabled
+                          ? 'linear-gradient(45deg, #616161, #616161)'
+                          : 'linear-gradient(45deg, #2196f3, #18ffff)',
                       },
                     }}
                   >
@@ -186,7 +194,7 @@ export default function Navigation() {
                         position: 'absolute',
                         display: 'block',
                         animation: `animatedNeonRight 0.75s ease infinite ${
-                          index * navData.length - 12
+                          index * (navData.length + 1) - 12
                         }s`,
                         '&:nth-child(2)': {
                           bottom: 0,

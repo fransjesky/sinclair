@@ -6,9 +6,11 @@ import HeroOverlay from './Overlay';
 import HeroCanvas from './Canvas';
 
 // REDUX
-import { useAppSelector } from '@/redux/hooks';
+import { playMusic, stopMusic } from '@/redux/features/global';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 
 export default function Hero() {
+  const dispatch = useAppDispatch();
   const isStarted = useAppSelector((state) => state.global.isStarted);
   const [height, setHeight] = useState(0);
   const [muted, setMuted] = useState(false);
@@ -40,7 +42,13 @@ export default function Hero() {
   }, [isStarted]);
 
   const handleMute = () => {
-    muted ? setMuted(false) : setMuted(true);
+    if (muted) {
+      setMuted(false);
+      dispatch(stopMusic());
+    } else {
+      setMuted(true);
+      dispatch(playMusic());
+    }
   };
 
   return (
