@@ -25,6 +25,7 @@
     "@react-three/postprocessing": "^2.15.0",
     "@react-three/rapier": "^1.1.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "@studio-freight/react-lenis": "^0.0.26",
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",

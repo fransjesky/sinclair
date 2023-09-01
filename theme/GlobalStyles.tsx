@@ -9,6 +9,10 @@ const globalStyles = {
   body: {
     maxWidth: '100vw',
     backgroundColor: theme.palette.background.default,
+    overflowX: 'hidden',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
   a: {
     color: 'inherit',

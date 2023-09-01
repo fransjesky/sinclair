@@ -58,12 +58,17 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
   return (
     <Box
       component='div'
-      sx={{ height: 'calc(100% + 10rem)', width: '100%', position: 'relative' }}
+      sx={{
+        height: 'calc(100% + 10rem)',
+        width: '100%',
+        position: 'relative',
+        zIndex: 2,
+      }}
     >
       <Music toggleMute={props.muted} />
       <KeyboardControls map={controlMap}>
         <Canvas
-          dpr={[1, 1.5]}
+          dpr={1}
           shadows
           gl={{ alpha: false }}
           camera={{ position: [0, 1000, 1000], fov: 16 }}

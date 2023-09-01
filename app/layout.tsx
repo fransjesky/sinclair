@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ThemeRegistry from '@/theme/ThemeRegistry';
+import SmoothScroll from '@/hooks/useSmooth';
 import { Providers } from '@/redux/providers';
 import Navigation from '@/components/Layout/Navigation';
 import Footer from '@/components/Layout/Footer';
@@ -20,9 +21,11 @@ export default function RootLayout({
       <body>
         <Providers>
           <ThemeRegistry>
-            <Navigation />
-            {children}
-            <Footer />
+            <SmoothScroll>
+              <Navigation />
+              {children}
+              <Footer />
+            </SmoothScroll>
           </ThemeRegistry>
         </Providers>
       </body>

@@ -120,7 +120,7 @@ export default function Robot(props: RobotPropTypes) {
     if (!doGreet) {
       setDoGreet(true);
       if (clock >= 5 && clock < 12) {
-        setGreeting(`Good morning, have a great day! 👋🏻`);
+        setGreeting(`Good morning, i wish you have a great day! 👋🏻`);
       } else if (clock >= 12 && clock < 18) {
         setGreeting(
           `Hi! How's your afternoon going? Half your day is gone, keep it up!`
