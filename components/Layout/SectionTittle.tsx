@@ -1,5 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import GlyphText from './GlyphText';
+
+// REDUX
+import { useAppSelector } from '@/redux/hooks';
 
 interface SectionTitleType {
   title: string;
@@ -9,6 +13,21 @@ interface SectionTitleType {
 }
 
 export default function SectionTitle(props: SectionTitleType) {
+  const mobile = useAppSelector((state) => state.global.isMobile);
+  const [mobileView, setMobileView] = useState(mobile);
+
+  useEffect(() => {
+    const mobilePort = () => {
+      window.innerWidth <= 425 ? setMobileView(true) : setMobileView(false);
+    };
+
+    window.addEventListener('resize', mobilePort);
+
+    return () => {
+      window.removeEventListener('resize', mobilePort);
+    };
+  }, []);
+
   return (
     <Box
       component='div'
@@ -30,13 +49,14 @@ export default function SectionTitle(props: SectionTitleType) {
             sm: '0 0.25rem',
             md: '0 0.5rem',
           },
+          zIndex: 2,
         }}
       >
         <GlyphText
           english={props.english}
           japanese={props.japanese}
           delay={props.delay || 300}
-          size='medium'
+          size={mobileView ? 'small' : 'medium'}
           animate={false}
         />
       </Box>
@@ -44,16 +64,23 @@ export default function SectionTitle(props: SectionTitleType) {
         sx={{
           color: '#ffffff',
           fontSize: {
-            xs: '4.5rem',
-            md: '10rem',
+            xs: '4rem',
+            sm: '5rem',
+            md: '6.5rem',
+            lg: '8.5rem',
+            xl: '10rem',
           },
           fontWeight: 900,
           textAlign: 'left',
           textTransform: 'uppercase',
           lineHeight: {
-            xs: '4.5rem',
-            md: '7.5rem',
+            xs: '4rem',
+            sm: '5rem',
+            md: '6.5rem',
+            lg: '8.5rem',
+            xl: '8.5rem',
           },
+          zIndex: 2,
         }}
       >
         {props.title}

@@ -6,6 +6,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import useScroll from '@/hooks/useScroll';
 import Drawer from './Drawer';
 import DrawerButton from './DrawerButton';
+import { useLenis } from '@studio-freight/react-lenis';
 
 // ICON
 import Logo from './Logo';
@@ -18,6 +19,7 @@ import { useAppSelector } from '@/redux/hooks';
 
 export default function Navigation() {
   const scroll = useScroll();
+  const lenis = useLenis();
   const [showNavigation, setShowNavigation] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [solidBackground, setSolidBackground] = useState(false);
@@ -26,22 +28,22 @@ export default function Navigation() {
     {
       link: '#profile',
       nav: 'profile',
+      disabled: false,
     },
     {
       link: '#projects',
       nav: 'projects',
-    },
-    {
-      link: '#experience',
-      nav: 'experience',
-    },
-    {
-      link: '#blog',
-      nav: 'blog',
+      disabled: true,
     },
     {
       link: '#contact',
       nav: 'contact',
+      disabled: true,
+    },
+    {
+      link: '#blogs',
+      nav: 'blogs',
+      disabled: true,
     },
   ];
 
@@ -63,6 +65,10 @@ export default function Navigation() {
 
   const handleDrawer = () => {
     openDrawer ? setOpenDrawer(false) : setOpenDrawer(true);
+  };
+
+  const SmoothScroll = (target: string) => {
+    lenis.scrollTo(target);
   };
 
   return (
@@ -129,11 +135,14 @@ export default function Navigation() {
                   },
                 }}
               >
-                <Link href={data.link}>
+                <Link
+                  href={data.disabled ? '' : data.link}
+                  onClick={() => SmoothScroll(data.link)}
+                >
                   <Typography
                     sx={{
                       padding: '0.5rem',
-                      color: '#ffffff',
+                      color: data.disabled ? '#616161' : '#ffffff',
                       fontSize: '0.55rem',
                       fontWeight: 600,
                       textAlign: 'center',
@@ -141,14 +150,15 @@ export default function Navigation() {
                       letterSpacing: '0.125rem',
                       position: 'relative',
                       overflow: 'hidden',
-                      cursor: 'pointer',
+                      cursor: data.disabled ? 'default' : 'pointer',
                       transition: 'all 0.3s ease-in',
                       '&:hover': {
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
-                        backgroundImage:
-                        'linear-gradient(45deg, #2196f3, #18ffff)',
+                        backgroundImage: data.disabled
+                          ? 'linear-gradient(45deg, #616161, #616161)'
+                          : 'linear-gradient(45deg, #2196f3, #18ffff)',
                       },
                     }}
                   >
@@ -169,7 +179,7 @@ export default function Navigation() {
                           height: '0.125rem',
                           borderRadius: '10rem',
                           background:
-                          'linear-gradient(90deg, transparent, #2196f3)',
+                            'linear-gradient(90deg, transparent, #2196f3)',
                         },
                         '@keyframes animatedNeonLeft': {
                           '0%': { left: '-100%' },
@@ -184,7 +194,7 @@ export default function Navigation() {
                         position: 'absolute',
                         display: 'block',
                         animation: `animatedNeonRight 0.75s ease infinite ${
-                          index * navData.length - 12
+                          index * (navData.length + 1) - 12
                         }s`,
                         '&:nth-child(2)': {
                           bottom: 0,
@@ -193,7 +203,7 @@ export default function Navigation() {
                           height: '0.125rem',
                           borderRadius: '10rem',
                           background:
-                          'linear-gradient(270deg, transparent, #18ffff)',
+                            'linear-gradient(270deg, transparent, #18ffff)',
                         },
                         '@keyframes animatedNeonRight': {
                           '0%': { right: '-100%' },

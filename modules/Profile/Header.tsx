@@ -13,22 +13,30 @@ export default function Header() {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <SectionTitle
-            title='profile'
-            english='introduction'
-            japanese='プロフィール'
-          />
+        <Grid item xs={6}>
+          <Box
+            component='div'
+            sx={{
+              height: '100%',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            }}
+          >
+            <SectionTitle
+              title='profile'
+              english='introduction'
+              japanese='プロフィール'
+            />
+          </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={6}>
           <Box
             component='div'
             sx={{
               width: '100%',
-              height: {
-                xs: '1.5rem',
-                md: '10rem',
-              },
+              height: '10rem',
               backgroundColor: '#2196f3',
               clipPath:
                 'polygon(100% 0%, 100% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%)',

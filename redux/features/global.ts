@@ -4,12 +4,14 @@ interface GlobalType {
   isMobile: boolean;
   isStarted: boolean;
   isControllable: boolean;
+  isMusicPlaying: boolean;
 }
 
 const initialState: GlobalType = {
   isMobile: false,
   isStarted: false,
   isControllable: false,
+  isMusicPlaying: false,
 };
 
 export const globalState = createSlice({
@@ -25,9 +27,16 @@ export const globalState = createSlice({
     takeControl: (state) => {
       state.isControllable = true;
     },
+    playMusic: (state) => {
+      state.isMusicPlaying = true;
+    },
+    stopMusic: (state) => {
+      state.isMusicPlaying = false;
+    },
   },
 });
 
-export const { mobileViewport, start, takeControl } = globalState.actions;
+export const { mobileViewport, start, takeControl, playMusic, stopMusic } =
+  globalState.actions;
 
 export default globalState.reducer;

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useLenis } from '@studio-freight/react-lenis';
 import { Box, Typography } from '@mui/material';
 import { liujian, poiretone, comfortaa } from '@/theme/Typography';
 
@@ -11,6 +12,11 @@ function Logo(props: LogoType) {
   const initial = 'j';
   const title = 'je`sky';
   const desc = 'frontend developer';
+  const lenis = useLenis();
+
+  const SmoothScroll = () => {
+    lenis.scrollTo(0);
+  };
 
   return (
     <Box
@@ -22,7 +28,11 @@ function Logo(props: LogoType) {
       }}
     >
       {props.variant !== 'text' ? (
-        <Link href='/' style={{ userSelect: 'none', outline: 'none' }}>
+        <Link
+          href='/'
+          onClick={SmoothScroll}
+          style={{ userSelect: 'none', outline: 'none' }}
+        >
           <Box
             component='div'
             sx={{
@@ -79,7 +89,11 @@ function Logo(props: LogoType) {
         </Link>
       ) : null}
       {props.variant === 'full' || props.variant === 'text' ? (
-        <Link href='/' style={{ userSelect: 'none', outline: 'none' }}>
+        <Link
+          href='/'
+          onClick={SmoothScroll}
+          style={{ userSelect: 'none', outline: 'none' }}
+        >
           <Box
             component='div'
             sx={{

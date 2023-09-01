@@ -4,7 +4,6 @@ import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
-// import { Perf } from 'r3f-perf';
 
 // components
 import Floor from '@/components/Core/Floor';
@@ -44,10 +43,10 @@ interface HeroCanvasTypes {
 export default function HeroCanvas(props: HeroCanvasTypes) {
   const controlMap = useMemo(
     () => [
-      { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
-      { name: Controls.backward, keys: ['ArrowDown', 'KeyS'] },
-      { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
-      { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
+      { name: Controls.forward, keys: ['KeyW'] },
+      { name: Controls.backward, keys: ['KeyS'] },
+      { name: Controls.left, keys: ['KeyA'] },
+      { name: Controls.right, keys: ['KeyD'] },
       { name: Controls.jump, keys: ['Space'] },
       { name: Controls.sprint, keys: ['Shift'] },
       { name: Controls.reset, keys: ['KeyR'] },
@@ -58,18 +57,22 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
   return (
     <Box
       component='div'
-      sx={{ height: 'calc(100% + 10rem)', width: '100%', position: 'relative' }}
+      sx={{
+        height: 'calc(100% + 10rem)',
+        width: '100%',
+        position: 'relative',
+        zIndex: 2,
+      }}
     >
       <Music toggleMute={props.muted} />
       <KeyboardControls map={controlMap}>
         <Canvas
-          dpr={[1, 1.5]}
+          dpr={1}
           shadows
           gl={{ alpha: false }}
           camera={{ position: [0, 1000, 1000], fov: 16 }}
           linear
         >
-          {/* <Perf /> */}
           <color attach='background' args={['black']} />
           <fog attach='fog' args={['black', 17.5, 20]} />
           <ambientLight />
