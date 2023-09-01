@@ -42,6 +42,7 @@ export default function Introduction() {
                 src='/assets/picture.jpg'
                 alt='frans jesky'
                 fill
+                sizes='(max-width: 768px) 10rem (max-width: 1200px) 20rem'
                 quality={100}
                 style={{ borderRadius: '1.625rem', objectFit: 'cover' }}
               />

@@ -36,12 +36,12 @@ export default function Navigation() {
       nav: 'experience',
     },
     {
-      link: '#blog',
-      nav: 'blog',
-    },
-    {
       link: '#contact',
       nav: 'contact',
+    },
+    {
+      link: '#blog',
+      nav: 'blog',
     },
   ];
 
@@ -148,7 +148,7 @@ export default function Navigation() {
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
                         backgroundImage:
-                        'linear-gradient(45deg, #2196f3, #18ffff)',
+                          'linear-gradient(45deg, #2196f3, #18ffff)',
                       },
                     }}
                   >
@@ -169,7 +169,7 @@ export default function Navigation() {
                           height: '0.125rem',
                           borderRadius: '10rem',
                           background:
-                          'linear-gradient(90deg, transparent, #2196f3)',
+                            'linear-gradient(90deg, transparent, #2196f3)',
                         },
                         '@keyframes animatedNeonLeft': {
                           '0%': { left: '-100%' },
@@ -193,7 +193,7 @@ export default function Navigation() {
                           height: '0.125rem',
                           borderRadius: '10rem',
                           background:
-                          'linear-gradient(270deg, transparent, #18ffff)',
+                            'linear-gradient(270deg, transparent, #18ffff)',
                         },
                         '@keyframes animatedNeonRight': {
                           '0%': { right: '-100%' },
