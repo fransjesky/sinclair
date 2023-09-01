@@ -32,6 +32,10 @@ export default function Hobby() {
     window.addEventListener('resize', mobileControl);
   }, []);
 
+  const watchVideo = () => {
+    console.log('clicked');
+  };
+
   return (
     <Box
       component='div'
@@ -165,6 +169,7 @@ export default function Hobby() {
                     title='YouTube video player'
                     allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
+                    onLoad={watchVideo}
                   />
                 </Box>
               </SwiperSlide>
