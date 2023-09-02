@@ -13,7 +13,7 @@ export default function Profile() {
     <Box
       component='div'
       sx={{
-        padding: '10rem 0',
+        paddingTop: '10rem',
         minHeight: 'calc(100vh + 5rem)',
         width: '100%',
         backgroundColor: '#000000',
