@@ -7,9 +7,9 @@ export default function Floor() {
       <Sparkles
         color='#90caf9'
         count={200}
-        size={5}
+        size={3}
         speed={0.2}
-        scale={[10, 3, 20]}
+        scale={[10, 2, 25]}
         position-y={1}
       />
       <RigidBody type='fixed' friction={2}>

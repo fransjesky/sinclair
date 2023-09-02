@@ -57,9 +57,13 @@ export default function Navigation() {
     }
 
     if (started) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setShowNavigation(true);
       }, 3500);
+
+      return () => {
+        clearTimeout(timer);
+      };
     }
   }, [started, scroll]);
 

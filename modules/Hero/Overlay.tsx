@@ -9,6 +9,9 @@ import ControlsGuide from '@/components/Layout/ControlsGuide';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
+// REDUX
+import { useAppSelector } from '@/redux/hooks';
+
 interface HeroOverlayTypes {
   muted: boolean;
   started: boolean;
@@ -16,6 +19,7 @@ interface HeroOverlayTypes {
 }
 
 export default function HeroOverlay(props: HeroOverlayTypes) {
+  const isMusicPlaying = useAppSelector((state) => state.global.isMusicPlaying);
   const [showOverlay, setShowOverlay] = useState(false);
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         zIndex: 999,
       }}
     >
-      <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 40 }}>
+      <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 30 }}>
         <Grid
           container
           sx={{
@@ -52,18 +56,18 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
             <ControlsGuide />
           </Grid>
           <Grid item onClick={props.onClick}>
-            {props.muted ? (
+            {isMusicPlaying ? (
               <Box
-                component='div'
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  cursor: 'pointer',
-                }}
-              >
-                <MusicOffIcon />
-              </Box>
+              component='div'
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                cursor: 'pointer',
+              }}
+            >
+              <MusicNoteIcon />
+            </Box>
             ) : (
               <Box
                 component='div'
@@ -74,7 +78,7 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
                   cursor: 'pointer',
                 }}
               >
-                <MusicNoteIcon />
+                <MusicOffIcon />
               </Box>
             )}
           </Grid>
