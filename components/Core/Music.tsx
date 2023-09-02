@@ -28,7 +28,7 @@ export default function Music(props: MusicTypes) {
 
   return (
     start && (
-      <audio ref={audioRef} autoPlay loop>
+      <audio ref={audioRef} autoPlay>
         <source src='BGM.mp3' type='audio/mpeg' />
       </audio>
     )
