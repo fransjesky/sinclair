@@ -101,6 +101,7 @@ export default function Navigation() {
           : 'none',
         opacity: showNavigation ? 1 : 0,
         zIndex: 999,
+        userSelect: 'none',
         transition: 'all 0.3s ease',
       }}
     >
@@ -139,14 +140,11 @@ export default function Navigation() {
                   },
                 }}
               >
-                <Link
-                  href={data.disabled ? '' : data.link}
-                  onClick={() => SmoothScroll(data.link)}
-                >
+                {data.disabled ? (
                   <Typography
                     sx={{
                       padding: '0.5rem',
-                      color: data.disabled ? '#616161' : '#ffffff',
+                      color: '#616161',
                       fontSize: '0.55rem',
                       fontWeight: 600,
                       textAlign: 'center',
@@ -154,16 +152,8 @@ export default function Navigation() {
                       letterSpacing: '0.125rem',
                       position: 'relative',
                       overflow: 'hidden',
-                      cursor: data.disabled ? 'default' : 'pointer',
+                      cursor: 'default',
                       transition: 'all 0.3s ease-in',
-                      '&:hover': {
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        backgroundImage: data.disabled
-                          ? 'linear-gradient(45deg, #616161, #616161)'
-                          : 'linear-gradient(45deg, #2196f3, #18ffff)',
-                      },
                     }}
                   >
                     {data.nav}
@@ -216,7 +206,85 @@ export default function Navigation() {
                       }}
                     />
                   </Typography>
-                </Link>
+                ) : (
+                  <Link
+                    href={data.link}
+                    onClick={() => SmoothScroll(data.link)}
+                  >
+                    <Typography
+                      sx={{
+                        padding: '0.5rem',
+                        color: '#ffffff',
+                        fontSize: '0.55rem',
+                        fontWeight: 600,
+                        textAlign: 'center',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.125rem',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease-in',
+                        '&:hover': {
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          backgroundImage:
+                            'linear-gradient(45deg, #2196f3, #18ffff)',
+                        },
+                      }}
+                    >
+                      {data.nav}
+                      <Box
+                        component='span'
+                        id={`topNeonBar-${index}`}
+                        sx={{
+                          position: 'absolute',
+                          display: 'block',
+                          animation: `animatedNeonLeft 0.75s ease infinite ${
+                            index / navData.length + 0.25
+                          }s`,
+                          '&:nth-child(1)': {
+                            top: 0,
+                            left: '-100%',
+                            width: '100%',
+                            height: '0.125rem',
+                            borderRadius: '10rem',
+                            background:
+                              'linear-gradient(90deg, transparent, #2196f3)',
+                          },
+                          '@keyframes animatedNeonLeft': {
+                            '0%': { left: '-100%' },
+                            '100%': { left: '100%' },
+                          },
+                        }}
+                      />
+                      <Box
+                        component='span'
+                        id={`topNeonBar-${index}`}
+                        sx={{
+                          position: 'absolute',
+                          display: 'block',
+                          animation: `animatedNeonRight 0.75s ease infinite ${
+                            index * (navData.length + 1) - 12
+                          }s`,
+                          '&:nth-child(2)': {
+                            bottom: 0,
+                            right: '-100%',
+                            width: '100%',
+                            height: '0.125rem',
+                            borderRadius: '10rem',
+                            background:
+                              'linear-gradient(270deg, transparent, #18ffff)',
+                          },
+                          '@keyframes animatedNeonRight': {
+                            '0%': { right: '-100%' },
+                            '100%': { right: '100%' },
+                          },
+                        }}
+                      />
+                    </Typography>
+                  </Link>
+                )}
               </Grid>
             );
           })}

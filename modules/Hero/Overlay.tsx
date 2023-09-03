@@ -42,7 +42,7 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         zIndex: 999,
       }}
     >
-      <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 30 }}>
+      <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 25 }}>
         <Grid
           container
           sx={{

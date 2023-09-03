@@ -102,6 +102,7 @@ function Logo(props: LogoType) {
               flexDirection: 'column',
               outline: 'none',
               userSelect: 'none',
+              position: 'relative',
               zIndex: props.opened ? 1000 : 'inherit',
             }}
           >

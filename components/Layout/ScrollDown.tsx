@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import useScroll from '@/hooks/useScroll';
+import { useLenis } from '@studio-freight/react-lenis';
 
 export default function ScrollDown() {
   const [hideScrollInfo, setHideScrollInfo] = useState(false);
   const scroll = useScroll();
+  const lenis = useLenis();
 
   useEffect(() => {
     const clientHeight = window.innerHeight;
@@ -19,6 +21,7 @@ export default function ScrollDown() {
   return (
     <Box
       component='div'
+      onClick={() => lenis.scrollTo('#profile')}
       sx={{
         position: 'absolute',
         bottom: 20,
@@ -28,6 +31,7 @@ export default function ScrollDown() {
         outline: 'none',
         opacity: hideScrollInfo ? 0 : 1,
         transition: 'all 0.3s ease',
+        cursor: 'pointer',
       }}
     >
       <Typography

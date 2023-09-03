@@ -5,6 +5,10 @@ const globalStyles = {
     margin: 0,
     padding: 0,
     boxSizing: 'border-box',
+    WebkitUserDrag: 'none',
+    KhtmlUserDrag: 'none',
+    MozUserDrag: 'none',
+    OUserDrag: 'none',
   },
   body: {
     maxWidth: '100vw',

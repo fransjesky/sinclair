@@ -27,6 +27,7 @@ export default function CardJob(props: CardJobType) {
         backgroundColor: '#111111',
         overflow: 'hidden',
         borderBottom: '0.25rem solid #2196f3',
+        position: 'relative',
       }}
     >
       <Box
