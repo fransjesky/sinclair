@@ -115,6 +115,7 @@ export default function Hobby() {
           keyboard={{
             enabled: true,
           }}
+          loop={mobileView ? true : false}
           slidesPerView={1}
           spaceBetween={50}
           modules={[Navigation, Keyboard, EffectCoverflow]}

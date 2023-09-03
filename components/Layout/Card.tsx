@@ -26,7 +26,6 @@ export default function Card(props: CardType) {
       const scrollHeight = e.target.scrollHeight - containerHeight;
 
       if (positionFromTop >= scrollHeight * 0.5) {
-        console.log(scrollHeight, positionFromTop);
         setShowScrollHighlight(true);
       } else {
         setShowScrollHighlight(false);

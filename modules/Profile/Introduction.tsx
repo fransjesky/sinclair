@@ -14,7 +14,12 @@ export default function Introduction() {
           sm: '2rem 0',
           md: '0',
         },
-        minHeight: '45vh',
+        minHeight: {
+          xs: '55vh',
+          sm: '55vh',
+          md: '55vh',
+          lg: '50vh',
+        },
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -60,16 +65,45 @@ export default function Introduction() {
                 alignItems: 'flex-start',
               }}
             >
-              <Typography
+              <Box
+                component='div'
                 sx={{
-                  marginBottom: '1rem',
-                  color: '#ffffff',
-                  fontSize: '1.5rem',
-                  fontWeight: 600,
+                  margin: '0.5rem 0',
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
                 }}
               >
-                Hi there!
-              </Typography>
+                <Typography
+                  sx={{
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    fontWeight: 600,
+                  }}
+                >
+                  Hi there!
+                </Typography>
+                <Box
+                  component='div'
+                  sx={{
+                    marginLeft: '1.5rem',
+                    animation: 'rotatingTriangle 3s linear infinite',
+                    '@keyframes rotatingTriangle': {
+                      '0%': { transform: 'rotate(0)' },
+                      '100%': { transform: 'rotate(360deg)' },
+                    },
+                  }}
+                >
+                  <Image
+                    src='/assets/SVG/triangle.svg'
+                    alt=''
+                    width={40}
+                    height={40}
+                    style={{ userSelect: 'none', objectFit: 'contain' }}
+                  />
+                </Box>
+              </Box>
               <Typography
                 sx={{
                   margin: '0.25rem 0',
@@ -79,7 +113,11 @@ export default function Introduction() {
                   fontWeight: 400,
                 }}
               >
-                My name is Frans Jesky, and i&apos;m a Frontend Developer.
+                My name is{' '}
+                <strong style={{ color: '#2196f3' }}>Frans Jesky</strong>, and
+                i&apos;m a{' '}
+                <strong style={{ color: '#2196f3' }}>Frontend Developer</strong>
+                .
                 <br />I blend artwork with cutting-edge technology, designing
                 immersive visual and functional user interfaces and experiences.
               </Typography>
@@ -93,8 +131,15 @@ export default function Introduction() {
                 }}
               >
                 Professionally, i have 3 years of experience in programming and
-                have specialized in React and Node. I&apos;m also a Threejs and
-                R3F (React Three Fiber) enthusiast.
+                have specialized in{' '}
+                <strong style={{ color: '#2196f3' }}>React</strong> and{' '}
+                <strong style={{ color: '#2196f3' }}>Node</strong>. I&apos;m
+                also a <strong style={{ color: '#2196f3' }}>Three.js</strong>{' '}
+                and{' '}
+                <strong style={{ color: '#2196f3' }}>
+                  R3F (React Three Fiber)
+                </strong>{' '}
+                enthusiast.
               </Typography>
               <Typography
                 sx={{

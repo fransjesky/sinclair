@@ -9,6 +9,9 @@ import ControlsGuide from '@/components/Layout/ControlsGuide';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
+// REDUX
+import { useAppSelector } from '@/redux/hooks';
+
 interface HeroOverlayTypes {
   muted: boolean;
   started: boolean;
@@ -16,6 +19,7 @@ interface HeroOverlayTypes {
 }
 
 export default function HeroOverlay(props: HeroOverlayTypes) {
+  const isMusicPlaying = useAppSelector((state) => state.global.isMusicPlaying);
   const [showOverlay, setShowOverlay] = useState(false);
 
   useEffect(() => {
@@ -35,10 +39,17 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         color: '#ffffff',
         opacity: showOverlay ? 1 : 0,
         transition: 'all 1s ease',
-        zIndex: 999,
+        zIndex: 2,
       }}
     >
-      <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 40 }}>
+      <Box
+        component='div'
+        sx={{
+          position: 'absolute',
+          bottom: { xs: 25, sm: 20 },
+          right: { xs: 20, sm: 25 },
+        }}
+      >
         <Grid
           container
           sx={{
@@ -52,7 +63,7 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
             <ControlsGuide />
           </Grid>
           <Grid item onClick={props.onClick}>
-            {props.muted ? (
+            {isMusicPlaying ? (
               <Box
                 component='div'
                 sx={{
@@ -62,7 +73,7 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
                   cursor: 'pointer',
                 }}
               >
-                <MusicOffIcon />
+                <MusicNoteIcon />
               </Box>
             ) : (
               <Box
@@ -74,7 +85,7 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
                   cursor: 'pointer',
                 }}
               >
-                <MusicNoteIcon />
+                <MusicOffIcon />
               </Box>
             )}
           </Grid>
