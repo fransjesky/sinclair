@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { comfortaa } from '@/theme/Typography';
 
@@ -10,6 +11,34 @@ interface CardType {
 }
 
 export default function Card(props: CardType) {
+  const listContainerRef = useRef<HTMLDivElement>(null!);
+  const [showScrollHighlight, setShowScrollHighlight] = useState(false);
+
+  useEffect(() => {
+    const container = listContainerRef.current;
+    const containerHeight = Math.floor(
+      // reduced by 2 from margin
+      container.getBoundingClientRect().height - 2
+    );
+
+    const handleScroll = (e: any) => {
+      const positionFromTop = e.target.scrollTop;
+      const scrollHeight = e.target.scrollHeight - containerHeight;
+
+      if (positionFromTop >= scrollHeight * 0.5) {
+        setShowScrollHighlight(true);
+      } else {
+        setShowScrollHighlight(false);
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <Box
       component='div'
@@ -68,23 +97,30 @@ export default function Card(props: CardType) {
         ) : null}
       </Box>
       <Box
+        data-lenis-prevent
+        ref={listContainerRef}
         component='div'
         sx={{
           margin: '0.5rem 0',
           height: '15rem',
           width: '100%',
           display: 'flex',
+          borderTop: showScrollHighlight
+            ? '1px solid transparent'
+            : '1px solid #d3bc90',
+          borderBottom: showScrollHighlight
+            ? '1px solid #d3bc90'
+            : '1px solid transparent',
           flexDirection: 'column',
           justifyContent: 'flex-start',
           alignItems: 'center',
           overflow: 'auto',
-          cursor: 'grab',
-          '&:active': {
-            cursor: 'grabbing',
-          },
+          cursor: 'ns-resize',
+          transition: 'all 0.5s ease',
           '&::-webkit-scrollbar': {
             display: 'none',
           },
+          overscrollBehavior: 'contain',
         }}
       >
         {props.list.map((item, index) => (
@@ -118,14 +154,17 @@ export default function Card(props: CardType) {
         ))}
       </Box>
       <Box
+        data-lenis-prevent
         component='div'
         sx={{
           height: '5rem',
           width: '100%',
           overflow: 'auto',
+          cursor: 'ns-resize',
           '&::-webkit-scrollbar': {
             display: 'none',
           },
+          overscrollBehavior: 'contain',
         }}
       >
         <Typography

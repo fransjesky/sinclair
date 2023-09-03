@@ -12,12 +12,15 @@ import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 export default function Hero() {
   const dispatch = useAppDispatch();
   const isStarted = useAppSelector((state) => state.global.isStarted);
+  const isMusicPlaying = useAppSelector((state) => state.global.isMusicPlaying);
   const [height, setHeight] = useState(0);
   const [muted, setMuted] = useState(false);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
     isStarted && setStarted(true);
+    isMusicPlaying ? setMuted(false) : setMuted(true);
+
     setHeight(window.innerHeight);
 
     // disable right click
@@ -39,7 +42,7 @@ export default function Hero() {
       window.removeEventListener('contextmenu', handleContextMenu);
       document.removeEventListener('keydown', preventSpaceScroll);
     };
-  }, [isStarted]);
+  }, [isStarted, isMusicPlaying]);
 
   const handleMute = () => {
     if (muted) {

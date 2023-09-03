@@ -22,13 +22,23 @@ export default function Music(props: MusicTypes) {
         dispatch(playMusic());
       }
 
-      start ? (audioRef.current.volume = 0.1) : (audioRef.current.volume = 0);
+      start ? (audioRef.current.volume = 0.025) : (audioRef.current.volume = 0);
     }
+
+    const checkPlayback = setInterval(() => {
+      if (audioRef && audioRef.current.ended) {
+        dispatch(stopMusic());
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(checkPlayback);
+    };
   }, [props.toggleMute, start, dispatch]);
 
   return (
     start && (
-      <audio ref={audioRef} autoPlay loop>
+      <audio ref={audioRef} autoPlay>
         <source src='BGM.mp3' type='audio/mpeg' />
       </audio>
     )

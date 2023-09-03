@@ -32,10 +32,6 @@ export default function Hobby() {
     window.addEventListener('resize', mobileControl);
   }, []);
 
-  const watchVideo = () => {
-    console.log('clicked');
-  };
-
   return (
     <Box
       component='div'
@@ -119,6 +115,7 @@ export default function Hobby() {
           keyboard={{
             enabled: true,
           }}
+          loop={mobileView ? true : false}
           slidesPerView={1}
           spaceBetween={50}
           modules={[Navigation, Keyboard, EffectCoverflow]}
@@ -163,13 +160,13 @@ export default function Hobby() {
                   }}
                 >
                   <iframe
+                    name='Sinclair channel'
                     width='100%'
                     height='100%'
                     src={data}
                     title='YouTube video player'
-                    allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;'
                     allowFullScreen
-                    onLoad={watchVideo}
                   />
                 </Box>
               </SwiperSlide>
