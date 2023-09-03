@@ -170,6 +170,7 @@ export default function Skills() {
               textTransform: 'uppercase',
               letterSpacing: '0.125rem',
               textAlign: 'center',
+              userSelect: 'none',
             }}
           >
             list of my skills set

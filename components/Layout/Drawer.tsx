@@ -19,6 +19,11 @@ export default function Drawer(props: DrawType) {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
+    // prevent user to scroll when opening drawer
+    props.opened
+      ? (document.body.style.overflow = 'hidden')
+      : (document.body.style.overflow = 'scroll');
+
     const getHeight = () => {
       setHeight(window.innerHeight);
     };
@@ -28,7 +33,7 @@ export default function Drawer(props: DrawType) {
     return () => {
       window.removeEventListener('resize', getHeight);
     };
-  }, [height]);
+  }, [props.opened, height]);
 
   return (
     <Box
