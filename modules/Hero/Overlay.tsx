@@ -39,10 +39,17 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
         color: '#ffffff',
         opacity: showOverlay ? 1 : 0,
         transition: 'all 1s ease',
-        zIndex: 999,
+        zIndex: 2,
       }}
     >
-      <Box component='div' sx={{ position: 'absolute', bottom: 20, right: 25 }}>
+      <Box
+        component='div'
+        sx={{
+          position: 'absolute',
+          bottom: { xs: 25, sm: 20 },
+          right: { xs: 20, sm: 25 },
+        }}
+      >
         <Grid
           container
           sx={{
@@ -58,16 +65,16 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
           <Grid item onClick={props.onClick}>
             {isMusicPlaying ? (
               <Box
-              component='div'
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                cursor: 'pointer',
-              }}
-            >
-              <MusicNoteIcon />
-            </Box>
+                component='div'
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  cursor: 'pointer',
+                }}
+              >
+                <MusicNoteIcon />
+              </Box>
             ) : (
               <Box
                 component='div'

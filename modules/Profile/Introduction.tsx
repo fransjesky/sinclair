@@ -14,7 +14,12 @@ export default function Introduction() {
           sm: '2rem 0',
           md: '0',
         },
-        minHeight: '45vh',
+        minHeight: {
+          xs: '55vh',
+          sm: '55vh',
+          md: '55vh',
+          lg: '50vh',
+        },
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -129,7 +134,8 @@ export default function Introduction() {
                 have specialized in{' '}
                 <strong style={{ color: '#2196f3' }}>React</strong> and{' '}
                 <strong style={{ color: '#2196f3' }}>Node</strong>. I&apos;m
-                also a <strong style={{ color: '#2196f3' }}>Three.js</strong> and{' '}
+                also a <strong style={{ color: '#2196f3' }}>Three.js</strong>{' '}
+                and{' '}
                 <strong style={{ color: '#2196f3' }}>
                   R3F (React Three Fiber)
                 </strong>{' '}
