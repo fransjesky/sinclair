@@ -7,5 +7,9 @@ export default function SmoothScroll({
 }: {
   children: React.ReactNode;
 }) {
-  return <ReactLenis root>{children}</ReactLenis>;
+  return (
+    <ReactLenis root options={{ smoothTouch: false }}>
+      {children}
+    </ReactLenis>
+  );
 }
