@@ -4,14 +4,7 @@ import { RigidBody, CuboidCollider } from '@react-three/rapier';
 export default function Floor() {
   return (
     <group>
-      <Sparkles
-        color='#90caf9'
-        count={200}
-        size={3}
-        speed={0.2}
-        scale={[10, 2, 25]}
-        position-y={1}
-      />
+      <Sparkles size={6} speed={0.2} scale={[10, 2, 25]} position-y={1} />
       <RigidBody type='fixed' friction={2}>
         <mesh
           position={[0, -1, 0]}
