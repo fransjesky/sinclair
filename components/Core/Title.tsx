@@ -17,8 +17,7 @@ export default function Title(props: TitleTypes) {
 
   useLoader(FileLoader, montserrat);
   useLoader(FileLoader, notoSansJP);
-  useLoader(FileLoader, 'Video.mp4');
-  useLoader(FileLoader, 'BGM.mp3');
+  useLoader(FileLoader, '/Video.mp4');
 
   const [video] = useState(() =>
     Object.assign(document.createElement('video'), {
