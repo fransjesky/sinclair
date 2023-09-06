@@ -104,15 +104,16 @@ export default function Robot(props: RobotPropTypes) {
 
     // set greeting based on current time
     if (!doGreet) {
+      console.log('clock: ', clock);
       setDoGreet(true);
       if (clock >= 5 && clock < 12) {
         setGreeting(`Good morning, have a nice day! 👋🏻`);
       } else if (clock >= 12 && clock < 18) {
+        setGreeting(`Good afternoon! Half your day is gone, keep it up!`);
+      } else if (clock >= 18 && clock <= 23) {
         setGreeting(
-          `Hi! How's your afternoon going? Half your day is gone, keep it up!`
+          `Good evening! What's your dinner for tonight? Pizza? Ramen? 😋`
         );
-      } else if (clock >= 18 && clock < 0) {
-        setGreeting(`Good evening! I hope you had a good and productive day`);
       } else if (clock >= 0 && clock < 5) {
         setGreeting(
           `Hi! Staying up late? Take care of your health and try to get some sleep 😴`
@@ -232,16 +233,16 @@ export default function Robot(props: RobotPropTypes) {
       let changeRotation = false;
 
       if (Sprint) {
-        MAX_VEL = 2;
+        MAX_VEL = 1.6;
       } else {
-        MAX_VEL = 1.2;
+        MAX_VEL = 1;
       }
 
       // uncontrolable animation
       if (enterance && robot.parent!.position.z < distance) {
         robot.parent!.position.z += delta * 0.5;
         walkAnimation();
-      } else if (enterance && robot.parent!.position.z >= distance) {
+      } else if (enterance) {
         !talk && doTalk();
         rigBody.setTranslation(
           {
@@ -350,6 +351,24 @@ export default function Robot(props: RobotPropTypes) {
         castShadow
         shadow-camera-near={0.1}
       />
+      <RigidBody
+        type='fixed'
+        scale={0.003}
+        position={controllable ? [-3.25, -1.05, -0.75] : [-3.25, -5, -0.75]}
+        rotation-y={-Math.PI * 0.5}
+        colliders='trimesh'
+      >
+        <Clone object={goalpost} castShadow receiveShadow />
+      </RigidBody>
+      <RigidBody
+        type='fixed'
+        scale={0.003}
+        position={controllable ? [3.25, -1.05, 0.75] : [3.25, -5, 0.75]}
+        rotation-y={Math.PI * 0.5}
+        colliders='trimesh'
+      >
+        <Clone object={goalpost} castShadow receiveShadow />
+      </RigidBody>
       {controllable && (
         <>
           <RigidBody
@@ -370,24 +389,6 @@ export default function Robot(props: RobotPropTypes) {
             }}
           >
             <Clone object={football.scene} castShadow receiveShadow />
-          </RigidBody>
-          <RigidBody
-            type='fixed'
-            scale={0.003}
-            position={[-3.25, -1.05, -0.75]}
-            rotation-y={-Math.PI * 0.5}
-            colliders='trimesh'
-          >
-            <Clone object={goalpost} castShadow receiveShadow />
-          </RigidBody>
-          <RigidBody
-            type='fixed'
-            scale={0.003}
-            position={[3.25, -1.05, 0.75]}
-            rotation-y={Math.PI * 0.5}
-            colliders='trimesh'
-          >
-            <Clone object={goalpost} castShadow receiveShadow />
           </RigidBody>
           <RigidBody colliders={false} type='fixed' name='goalA' sensor>
             <mesh position={[-3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>
@@ -420,7 +421,7 @@ export default function Robot(props: RobotPropTypes) {
       <RigidBody
         ref={rigBodyRef}
         scale={0.085}
-        position={debugMode ? [0, 0, 0] : [0, 0, -3]}
+        position={debugMode ? [0, 0, 0] : [0, 0, -2]}
         colliders={false}
         lockRotations
         onCollisionEnter={() => {

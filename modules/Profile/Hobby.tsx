@@ -20,8 +20,6 @@ export default function Hobby() {
     'https://www.youtube.com/embed/MvDN-xpedcE?si=aiMOAlOgeBbtacdL',
     'https://www.youtube.com/embed/miLpjEkTstE?si=HW66-Ez1iBc-JNuU',
     'https://www.youtube.com/embed/vTMfTWqdIL4?si=-RWN31RyLusyruYY',
-    'https://www.youtube.com/embed/5GH6WH8yynw?si=6kdHz6kn4vPCVyYD',
-    'https://www.youtube.com/embed/NdInqD5iXJ4?si=ZvmdUyXjUiHVw-_N',
   ];
 
   useEffect(() => {
