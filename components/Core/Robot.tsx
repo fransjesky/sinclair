@@ -421,7 +421,7 @@ export default function Robot(props: RobotPropTypes) {
       <RigidBody
         ref={rigBodyRef}
         scale={0.085}
-        position={debugMode ? [0, 0, 0] : [0, 0, -2]}
+        position={debugMode ? [0, 0, 0] : [0, 0, -3]}
         colliders={false}
         lockRotations
         onCollisionEnter={() => {

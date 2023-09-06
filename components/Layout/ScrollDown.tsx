@@ -25,7 +25,10 @@ export default function ScrollDown() {
       sx={{
         position: 'absolute',
         bottom: 20,
-        left: '50%',
+        left: {
+          xs: 50,
+          sm: '50%',
+        },
         transform: 'translate(-50%, 0)',
         userSelect: 'none',
         outline: 'none',
