@@ -1,11 +1,9 @@
-import { useEffect, useState, useMemo, Suspense } from 'react';
+import { useState, useMemo, Suspense } from 'react';
 import { Box } from '@mui/material';
 import { Vector3 } from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // components
 import Floor from '@/components/Core/Floor';
@@ -56,24 +54,8 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
     []
   );
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-  }, []);
-
-  gsap.to('.hero-canvas', {
-    opacity: 0,
-    yPercent: 25,
-    scrollTrigger: {
-      trigger: '.overlay-section',
-      start: 'top bottom',
-      end: 'top top',
-      scrub: true,
-    },
-  });
-
   return (
     <Box
-      className='hero-canvas'
       component='div'
       sx={{
         height: 'calc(100% + 10rem)',

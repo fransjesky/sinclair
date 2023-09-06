@@ -22,7 +22,7 @@ export default function Music(props: MusicTypes) {
         dispatch(playMusic());
       }
 
-      start ? (audioRef.current.volume = 0.025) : (audioRef.current.volume = 0);
+      start ? (audioRef.current.volume = 0.35) : (audioRef.current.volume = 0);
     }
 
     const checkPlayback = setInterval(() => {

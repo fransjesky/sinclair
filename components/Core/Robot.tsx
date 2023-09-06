@@ -232,9 +232,9 @@ export default function Robot(props: RobotPropTypes) {
       let changeRotation = false;
 
       if (Sprint) {
-        MAX_VEL = 2;
+        MAX_VEL = 1.6;
       } else {
-        MAX_VEL = 1.2;
+        MAX_VEL = 1;
       }
 
       // uncontrolable animation
@@ -350,6 +350,24 @@ export default function Robot(props: RobotPropTypes) {
         castShadow
         shadow-camera-near={0.1}
       />
+      <RigidBody
+        type='fixed'
+        scale={0.003}
+        position={controllable ? [-3.25, -1.05, -0.75] : [-3.25, -5.05, -0.75]}
+        rotation-y={-Math.PI * 0.5}
+        colliders='trimesh'
+      >
+        <Clone object={goalpost} castShadow receiveShadow />
+      </RigidBody>
+      <RigidBody
+        type='fixed'
+        scale={0.003}
+        position={controllable ? [3.25, -1.05, 0.75] : [3.25, -5.05, 0.75]}
+        rotation-y={Math.PI * 0.5}
+        colliders='trimesh'
+      >
+        <Clone object={goalpost} castShadow receiveShadow />
+      </RigidBody>
       {controllable && (
         <>
           <RigidBody
@@ -370,24 +388,6 @@ export default function Robot(props: RobotPropTypes) {
             }}
           >
             <Clone object={football.scene} castShadow receiveShadow />
-          </RigidBody>
-          <RigidBody
-            type='fixed'
-            scale={0.003}
-            position={[-3.25, -1.05, -0.75]}
-            rotation-y={-Math.PI * 0.5}
-            colliders='trimesh'
-          >
-            <Clone object={goalpost} castShadow receiveShadow />
-          </RigidBody>
-          <RigidBody
-            type='fixed'
-            scale={0.003}
-            position={[3.25, -1.05, 0.75]}
-            rotation-y={Math.PI * 0.5}
-            colliders='trimesh'
-          >
-            <Clone object={goalpost} castShadow receiveShadow />
           </RigidBody>
           <RigidBody colliders={false} type='fixed' name='goalA' sensor>
             <mesh position={[-3.25, -0.75, 0]} rotation-y={Math.PI * 0.5}>

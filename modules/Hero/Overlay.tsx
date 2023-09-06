@@ -31,7 +31,6 @@ export default function HeroOverlay(props: HeroOverlayTypes) {
 
   return (
     <Box
-      className='overlay-section'
       component='div'
       sx={{
         width: '100vw',
