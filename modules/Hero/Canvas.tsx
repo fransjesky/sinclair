@@ -74,7 +74,7 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
           linear
         >
           <color attach='background' args={['black']} />
-          <fog attach='fog' args={['black', 15, 22.5]} />
+          <fog attach='fog' args={['black', 15, 20]} />
           <ambientLight />
           <Suspense fallback={null}>
             {props.started && <Intro />}
