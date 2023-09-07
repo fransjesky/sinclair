@@ -31,7 +31,7 @@ function Intro() {
     if (state.camera.position.y < 1) {
       state.camera.position.y = 1;
     }
-    state.camera.lookAt(0, 0, 0);
+    state.camera.lookAt(0, -0.25, 0);
   });
 }
 
@@ -74,7 +74,7 @@ export default function HeroCanvas(props: HeroCanvasTypes) {
           linear
         >
           <color attach='background' args={['black']} />
-          <fog attach='fog' args={['black', 17.5, 20]} />
+          <fog attach='fog' args={['black', 15, 22.5]} />
           <ambientLight />
           <Suspense fallback={null}>
             {props.started && <Intro />}

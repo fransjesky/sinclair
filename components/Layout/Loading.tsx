@@ -6,10 +6,11 @@ import { useProgress } from '@react-three/drei';
 import Image from 'next/image';
 import ProgressBar from './ProgressBar';
 import GlyphText from './GlyphText';
+import { comfortaa } from '@/theme/Typography';
 
 // REDUX
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { start, mobileViewport } from '@/redux/features/global';
+import { start, stopMusic, mobileViewport } from '@/redux/features/global';
 
 export default function LoadingOverlay() {
   const started = useAppSelector((state) => state.global.isStarted);
@@ -36,6 +37,13 @@ export default function LoadingOverlay() {
     dispatch(start());
   };
 
+  const handleStartNoAudio = () => {
+    dispatch(start());
+    setTimeout(() => {
+      dispatch(stopMusic());
+    }, 500);
+  };
+
   return (
     <Box
       component='div'
@@ -56,6 +64,27 @@ export default function LoadingOverlay() {
         zIndex: 999,
       }}
     >
+      <Box
+        component='div'
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%',
+          zIndex: -1,
+          filter: 'blur(2rem)',
+          WebkitFilter: 'blur(2rem)',
+        }}
+      >
+        <Image
+          priority
+          src='/assets/background.jpg'
+          alt=''
+          fill
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+        />
+      </Box>
       <Image
         priority
         src='/Loader.gif'
@@ -144,6 +173,27 @@ export default function LoadingOverlay() {
             />
           )}
         </Button>
+      </Box>
+      <Box component='div' sx={{ marginTop: '1rem' }}>
+        <Typography
+          onClick={handleStartNoAudio}
+          sx={{
+            color: '#ffffff',
+            fontSize: '0.65rem',
+            fontFamily: comfortaa.style.fontFamily,
+            textTransform: 'uppercase',
+            letterSpacing: '0.065rem',
+            userSelect: 'none',
+            cursor: 'pointer',
+            opacity: enableStart ? 0.5 : 0,
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              opacity: 1,
+            },
+          }}
+        >
+          start without audio
+        </Typography>
       </Box>
     </Box>
   );
