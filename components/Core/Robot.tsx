@@ -242,7 +242,7 @@ export default function Robot(props: RobotPropTypes) {
       if (enterance && robot.parent!.position.z < distance) {
         robot.parent!.position.z += delta * 0.5;
         walkAnimation();
-      } else if (enterance) {
+      } else if (enterance && robot.parent!.position.z >= distance) {
         !talk && doTalk();
         rigBody.setTranslation(
           {
