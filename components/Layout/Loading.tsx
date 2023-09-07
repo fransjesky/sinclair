@@ -54,6 +54,7 @@ export default function LoadingOverlay() {
         bottom: 0,
         right: 0,
         height: '100%',
+        maxHeight: '100vh',
         width: '100%',
         display: started ? 'none' : 'flex',
         flexDirection: 'column',
@@ -61,6 +62,7 @@ export default function LoadingOverlay() {
         alignItems: 'center',
         backgroundColor: '#000000',
         transition: 'all 0.3s ease',
+        overflow: 'hidden',
         zIndex: 999,
       }}
     >
@@ -73,8 +75,19 @@ export default function LoadingOverlay() {
           height: '100%',
           width: '100%',
           zIndex: -1,
-          filter: 'blur(2rem)',
-          WebkitFilter: 'blur(2rem)',
+          '@keyframes loadingBG': {
+            '0%': {
+              transform: 'rotate(0) scale(2) translateX(0) translateY(25%)',
+            },
+            '50%': {
+              transform:
+                'rotate(180deg) scale(5) translateX(25%) translateY(0)',
+            },
+            '100%': {
+              transform:
+                'rotate(360deg) scale(2) translateX(0%) translateY(25%)',
+            },
+          },
         }}
       >
         <Image
@@ -82,7 +95,13 @@ export default function LoadingOverlay() {
           src='/assets/background.jpg'
           alt=''
           fill
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          style={{
+            filter: 'blur(2rem)',
+            WebkitFilter: 'blur(2rem)',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            animation: 'loadingBG 30s ease-in-out infinite',
+          }}
         />
       </Box>
       <Image
