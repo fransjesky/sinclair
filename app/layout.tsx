@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import ThemeRegistry from '@/theme/ThemeRegistry';
-import SmoothScroll from '@/hooks/useSmooth';
-import { Providers } from '@/redux/providers';
-import Navigation from '@/components/Layout/Navigation';
-import Footer from '@/components/Layout/Footer';
+import { Header, Footer } from '@/components';
+import { SmoothScroll } from '@/hooks';
+import { Providers } from '@/redux';
 
 export const metadata: Metadata = {
   icons: {
@@ -45,7 +44,7 @@ export default function RootLayout({
         <Providers>
           <ThemeRegistry>
             <SmoothScroll>
-              <Navigation />
+              <Header />
               {children}
               <Footer />
             </SmoothScroll>

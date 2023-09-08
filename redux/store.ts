@@ -1,6 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-// reducers
 import globalReducer from './features/global';
 
 export const store = configureStore({

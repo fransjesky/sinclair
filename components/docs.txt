@@ -1,0 +1,6 @@
+--- READ ME FIRST ---
+
+All the components inside this folder are reusable. It is divided into three parts based on their purpose. Those parts are animations, interfaces, and layouts.
+More detailed documentation regarding how to use the reusable components is documented inside the storybook.
+
+A modular component, which is a component that is bound to a module or feature and is not reusable, should be put inside a component folder inside the module folder itself.

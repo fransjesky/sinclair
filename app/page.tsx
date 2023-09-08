@@ -1,19 +1,31 @@
 'use client';
 
-import Hero from '@/modules/Hero';
-import Profile from '@/modules/Profile';
-import LoadingOverlay from '@/components/Layout/Loading';
-
-// REDUX
-import { useAppSelector } from '@/redux/hooks';
+import { useState, useEffect } from 'react';
+import { Box } from '@mui/material';
+import { Hero, Profile } from '@/modules';
+import { LoadingOverlay } from '@/components';
+import { useAppSelector } from '@/redux';
 
 export default function Home() {
+  const [showPage, setShowPage] = useState(false);
   const started = useAppSelector((state) => state.global.isStarted);
+
+  useEffect(() => {
+    started &&
+      setTimeout(() => {
+        setShowPage(true);
+      }, 3500);
+  }, [started]);
 
   return started ? (
     <>
       <Hero />
-      <Profile />
+      <Box
+        component='div'
+        sx={{ opacity: showPage ? 1 : 0, transition: 'opacity 0.3s ease' }}
+      >
+        <Profile />
+      </Box>
     </>
   ) : (
     <LoadingOverlay />
