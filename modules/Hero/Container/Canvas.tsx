@@ -66,7 +66,7 @@ export const HeroCanvas = (props: HeroCanvasTypes) => {
         <Canvas
           dpr={1}
           shadows
-          gl={{ alpha: false }}
+          gl={{ antialias: true, alpha: false }}
           camera={{ position: [0, 1000, 1000], fov: 16 }}
           linear
         >
