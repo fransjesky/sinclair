@@ -1,9 +1,7 @@
-'use client';
-
 import { useEffect, useState, useRef } from 'react';
 import { useSpring } from 'framer-motion';
 import { Typography } from '@mui/material';
-import { delay } from '@/hooks/useDelay';
+import { delay } from '@/hooks';
 
 // prettier-ignore
 const glyphs = [

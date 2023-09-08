@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import useScroll from '@/hooks/useScroll';
+import { useScroll } from '@/hooks';
 import { useLenis } from '@studio-freight/react-lenis';
 
 export const ScrollDown = () => {

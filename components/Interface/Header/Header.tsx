@@ -1,9 +1,7 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Box, Grid, Typography } from '@mui/material';
-import useScroll from '@/hooks/useScroll';
+import { useScroll } from '@/hooks';
 import Drawer from './Drawer';
 import DrawerButton from './DrawerButton';
 import { useLenis } from '@studio-freight/react-lenis';

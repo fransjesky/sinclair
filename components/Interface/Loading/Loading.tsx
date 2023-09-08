@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import { useProgress } from '@react-three/drei';
