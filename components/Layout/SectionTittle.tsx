@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
+import { useAppSelector } from '@/redux';
 import { GlyphText } from '..';
-
-// REDUX
-import * as hooks from '@/redux/hooks';
 
 interface SectionTitleType {
   title: string;
@@ -13,7 +11,7 @@ interface SectionTitleType {
 }
 
 export const SectionTitle = (props: SectionTitleType) => {
-  const mobile = hooks.useAppSelector((state) => state.global.isMobile);
+  const mobile = useAppSelector((state) => state.global.isMobile);
   const [mobileView, setMobileView] = useState(mobile);
 
   useEffect(() => {

@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Hero, Profile } from '@/modules';
 import { LoadingOverlay } from '@/components';
-
-// REDUX
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux';
 
 export default function Home() {
   const [showPage, setShowPage] = useState(false);

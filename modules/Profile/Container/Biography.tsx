@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
-import { Describer, GlyphText } from '@/components';
 import { comfortaa } from '@/theme/Typography';
-
-// REDUX
-import { useAppSelector } from '@/redux/hooks';
+import { Describer, GlyphText } from '@/components';
+import { useAppSelector } from '@/redux';
 
 export const Biography = () => {
   const mobile = useAppSelector((state) => state.global.isMobile);

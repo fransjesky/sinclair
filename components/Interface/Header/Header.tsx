@@ -1,19 +1,17 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Box, Grid, Typography } from '@mui/material';
+import { useLenis } from '@studio-freight/react-lenis';
 import { useScroll } from '@/hooks';
+import { useAppSelector } from '@/redux';
 import Drawer from './Drawer';
 import DrawerButton from './DrawerButton';
-import { useLenis } from '@studio-freight/react-lenis';
 
 // ICON
 import Logo from './Logo';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
-
-// REDUX
-import { useAppSelector } from '@/redux/hooks';
 
 export const Header = () => {
   const scroll = useScroll();

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import ThemeRegistry from '@/theme/ThemeRegistry';
-import { SmoothScroll } from '@/hooks';
-import { Providers } from '@/redux/providers';
 import { Header, Footer } from '@/components';
+import { SmoothScroll } from '@/hooks';
+import { Providers } from '@/redux';
 
 export const metadata: Metadata = {
   icons: {

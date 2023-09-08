@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useMemo } from 'react';
 import { DoubleSide, Group, Vector3 } from 'three';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { useFrame, useLoader } from '@react-three/fiber';
 import {
   useGLTF,
@@ -7,7 +8,6 @@ import {
   useKeyboardControls,
   Clone,
 } from '@react-three/drei';
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import {
   RigidBody,
   RapierRigidBody,
@@ -15,11 +15,8 @@ import {
   CuboidCollider,
 } from '@react-three/rapier';
 import { Controls } from '@/modules/Hero/Container';
+import { useAppDispatch, useAppSelector, takeControl } from '@/redux';
 import { Annotation } from '.';
-
-// REDUX
-import { takeControl } from '@/redux/features/global';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 interface RobotPropTypes {
   started: boolean;
@@ -111,7 +108,7 @@ export const Robot = (props: RobotPropTypes) => {
         setGreeting(`Good afternoon! Half your day is gone, keep it up!`);
       } else if (clock >= 18 && clock <= 23) {
         setGreeting(
-          `Good evening! What's your dinner for tonight? Pizza? Ramen? 😋`
+          `Good evening! What's your dinner for tonight? Home cook? 😋`
         );
       } else if (clock >= 0 && clock < 5) {
         setGreeting(
