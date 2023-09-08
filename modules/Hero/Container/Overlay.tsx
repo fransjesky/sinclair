@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, Grid } from '@mui/material';
 
 // components
-import { ControlsGuide, ScrollDown } from '@/components';
+import { ControlsGuide, ScrollDown } from '../Components';
 
 // icons
 import MusicOffIcon from '@mui/icons-material/MusicOff';

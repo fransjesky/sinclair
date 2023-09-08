@@ -6,7 +6,7 @@ import { KeyboardControls } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
 
 // components
-import { Floor, Music, Robot, Title } from '@/components';
+import { Floor, Music, Robot, Title } from '../Components';
 
 export const Controls = {
   forward: 'forward',

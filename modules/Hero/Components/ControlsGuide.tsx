@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import { Modal } from '../Interface';
+import { Modal } from '@/components';
 
 // REDUX
 import { useAppSelector } from '@/redux/hooks';

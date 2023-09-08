@@ -86,14 +86,21 @@ export const LoadingOverlay = () => {
           zIndex: -1,
           '@keyframes loadingBG': {
             '0%': {
-              transform: 'rotate(0) scale(4) translate(0, 20%) skew(0);',
+              transform: 'rotate(0) scale(2) translate(0, 20%) skew(0);',
+            },
+            '25%': {
+              transform:
+                'rotate(180deg) scale(10) translate(50%, -25%) skew(40deg);',
             },
             '50%': {
+              transform: 'rotate(360deg) scale(2) translate(0, 20%) skew(0);',
+            },
+            '75%': {
               transform:
-                'rotate(180deg) scale(10) translate(50%, -20%) skew(30deg);',
+                'rotate(-180deg) scale(10) translate(-50%, 50%) skew(-30deg);',
             },
             '100%': {
-              transform: 'rotate(360deg) scale(4) translate(0, 20%) skew(0);',
+              transform: 'rotate(-360deg) scale(2) translate(0, 20%) skew(0);',
             },
           },
         }}
@@ -104,11 +111,11 @@ export const LoadingOverlay = () => {
           alt=''
           fill
           style={{
-            filter: 'blur(3rem)',
-            WebkitFilter: 'blur(3rem)',
+            filter: 'blur(5rem)',
+            WebkitFilter: 'blur(5rem)',
             objectFit: 'cover',
             objectPosition: 'center',
-            animation: 'loadingBG 40s ease-in-out infinite',
+            animation: 'loadingBG 120s ease-in-out infinite',
           }}
         />
       </Box>

@@ -57,13 +57,9 @@ export const Header = () => {
     }
 
     if (started) {
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         setShowNavigation(true);
       }, 3500);
-
-      return () => {
-        clearTimeout(timer);
-      };
     }
   }, [started, scroll]);
 
