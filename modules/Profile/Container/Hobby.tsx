@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Box, Container, Typography } from '@mui/material';
+import { comfortaa } from '@/theme/Typography';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Navigation, Keyboard } from 'swiper/modules';
 import { SliderButton } from '@/components';
-import { comfortaa } from '@/theme/Typography';
-
-// REDUX
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux';
 
 // swiper styles
 import 'swiper/css';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { Card, GlyphText } from '@/components';
 import {
   SiAdobe as Adobe,
   SiAmazonaws as AWS,
@@ -36,9 +35,8 @@ import {
   SiVisualstudiocode as VScode,
   SiXcode as Xcode,
 } from 'react-icons/si';
-
-// REDUX
-import { useAppSelector } from '@/redux/hooks';
+import { Card, GlyphText } from '@/components';
+import { useAppSelector } from '@/redux';
 
 export const Skills = () => {
   const mobile = useAppSelector((state) => state.global.isMobile);

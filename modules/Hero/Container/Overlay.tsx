@@ -1,15 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Box, Grid } from '@mui/material';
-
-// components
-import { ControlsGuide, ScrollDown } from '../Components';
-
-// icons
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
-
-// REDUX
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux';
+import { ControlsGuide, ScrollDown } from '../Components';
 
 interface HeroOverlayTypes {
   muted: boolean;

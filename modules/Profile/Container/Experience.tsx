@@ -1,8 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { CardJob, GlyphText } from '@/components';
-
-// REDUX
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux';
 
 export const Experience = () => {
   const mobile = useAppSelector((state) => state.global.isMobile);

@@ -38,6 +38,7 @@ export const Header = () => {
               width: '100%',
               height: '10rem',
               backgroundColor: '#2196f3',
+              userSelect: 'none',
               clipPath:
                 'polygon(100% 0%, 100% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%)',
             }}

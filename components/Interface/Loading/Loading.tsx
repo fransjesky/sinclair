@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Button, CircularProgress } from '@mui/material';
-import { useProgress } from '@react-three/drei';
 import Image from 'next/image';
-import ProgressBar from './ProgressBar';
-import { GlyphText } from '@/components';
+import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import { comfortaa } from '@/theme/Typography';
-
-// REDUX
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { start, stopMusic, mobileViewport } from '@/redux/features/global';
+import { useProgress } from '@react-three/drei';
+import { GlyphText } from '@/components';
+import {
+  useAppDispatch,
+  useAppSelector,
+  start,
+  stopMusic,
+  mobileViewport,
+} from '@/redux';
+import ProgressBar from './ProgressBar';
 
 export const LoadingOverlay = () => {
   const started = useAppSelector((state) => state.global.isStarted);
