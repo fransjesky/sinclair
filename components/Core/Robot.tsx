@@ -14,8 +14,8 @@ import {
   CapsuleCollider,
   CuboidCollider,
 } from '@react-three/rapier';
-import { Controls } from '@/modules/Hero/Canvas';
-import Annotation from './Annotation';
+import { Controls } from '@/modules/Hero/Container';
+import { Annotation } from '.';
 
 // REDUX
 import { takeControl } from '@/redux/features/global';
@@ -41,7 +41,7 @@ const areaLight = (reverse: boolean) => {
   );
 };
 
-export default function Robot(props: RobotPropTypes) {
+export const Robot = (props: RobotPropTypes) => {
   // variables init
   const clock = new Date().getHours();
   const dispatch = useAppDispatch();
@@ -104,7 +104,6 @@ export default function Robot(props: RobotPropTypes) {
 
     // set greeting based on current time
     if (!doGreet) {
-      console.log('clock: ', clock);
       setDoGreet(true);
       if (clock >= 5 && clock < 12) {
         setGreeting(`Good morning, have a nice day! 👋🏻`);
@@ -485,4 +484,4 @@ export default function Robot(props: RobotPropTypes) {
       </RigidBody>
     </>
   );
-}
+};

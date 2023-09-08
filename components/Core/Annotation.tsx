@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Html } from '@react-three/drei';
 
-export default function Annotation(props: any) {
+export const Annotation = (props: any) => {
   const [responsiveWidth, setResponsiveWidth] = useState('');
 
   useEffect(() => {
@@ -56,4 +56,4 @@ export default function Annotation(props: any) {
       </Html>
     )
   );
-}
+};

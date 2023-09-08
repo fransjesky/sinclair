@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import GlyphText from './GlyphText';
+import { GlyphText } from '..';
 
 // REDUX
-import { useAppSelector } from '@/redux/hooks';
+import * as hooks from '@/redux/hooks';
 
 interface SectionTitleType {
   title: string;
@@ -12,8 +12,8 @@ interface SectionTitleType {
   delay?: number;
 }
 
-export default function SectionTitle(props: SectionTitleType) {
-  const mobile = useAppSelector((state) => state.global.isMobile);
+export const SectionTitle = (props: SectionTitleType) => {
+  const mobile = hooks.useAppSelector((state) => state.global.isMobile);
   const [mobileView, setMobileView] = useState(mobile);
 
   useEffect(() => {
@@ -87,4 +87,4 @@ export default function SectionTitle(props: SectionTitleType) {
       </Typography>
     </Box>
   );
-}
+};

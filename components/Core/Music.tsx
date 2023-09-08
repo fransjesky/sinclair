@@ -7,7 +7,7 @@ interface MusicTypes {
   toggleMute: boolean;
 }
 
-export default function Music(props: MusicTypes) {
+export const Music = (props: MusicTypes) => {
   const dispatch = useAppDispatch();
   const audioRef = useRef<HTMLAudioElement>(null!);
   const start = useAppSelector((state) => state.global.isStarted);
@@ -43,4 +43,4 @@ export default function Music(props: MusicTypes) {
       </audio>
     )
   );
-}
+};

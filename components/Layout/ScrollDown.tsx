@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import useScroll from '@/hooks/useScroll';
 import { useLenis } from '@studio-freight/react-lenis';
 
-export default function ScrollDown() {
+export const ScrollDown = () => {
   const [hideScrollInfo, setHideScrollInfo] = useState(false);
   const scroll = useScroll();
   const lenis = useLenis();
@@ -84,4 +84,4 @@ export default function ScrollDown() {
       />
     </Box>
   );
-}
+};

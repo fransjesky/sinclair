@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import Modal from './Modal';
+import { Modal } from '../Interface';
 
 // REDUX
 import { useAppSelector } from '@/redux/hooks';
@@ -31,7 +31,7 @@ const KeyCapIcon = (key: any) => {
   );
 };
 
-export default function ControlsGuide() {
+export const ControlsGuide = () => {
   const [open, setOpen] = useState(false);
   const [showControl, setShowControl] = useState(false);
   const controllable = useAppSelector((state) => state.global.isControllable);
@@ -184,4 +184,4 @@ export default function ControlsGuide() {
       </Modal>
     </>
   );
-}
+};

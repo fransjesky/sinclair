@@ -1,10 +1,16 @@
 import { Sparkles } from '@react-three/drei';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
 
-export default function Floor() {
+export const Floor = () => {
   return (
     <group>
-      <Sparkles color='#bbdefb' size={6} speed={0.2} scale={[10, 2, 25]} position-y={1} />
+      <Sparkles
+        color='#bbdefb'
+        size={6}
+        speed={0.2}
+        scale={[10, 2, 25]}
+        position-y={1}
+      />
       <RigidBody type='fixed' friction={2}>
         <mesh
           position={[0, -1, 0]}
@@ -24,4 +30,4 @@ export default function Floor() {
       </RigidBody>
     </group>
   );
-}
+};

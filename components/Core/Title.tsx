@@ -7,7 +7,7 @@ interface TitleTypes {
   started: boolean;
 }
 
-export default function Title(props: TitleTypes) {
+export const Title = (props: TitleTypes) => {
   const { viewport } = useThree();
   const aspect = viewport.aspect;
   const [showTitle, setShowTitle] = useState(false);
@@ -61,4 +61,4 @@ export default function Title(props: TitleTypes) {
       </group>
     )
   );
-}
+};

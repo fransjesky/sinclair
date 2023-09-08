@@ -1,8 +1,7 @@
 'use client';
 
-import Hero from '@/modules/Hero';
-import Profile from '@/modules/Profile';
-import LoadingOverlay from '@/components/Layout/Loading';
+import { Hero, Profile } from '@/modules';
+import { LoadingOverlay } from '@/components';
 
 // REDUX
 import { useAppSelector } from '@/redux/hooks';
