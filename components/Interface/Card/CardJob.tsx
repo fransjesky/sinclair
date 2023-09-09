@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { Box, Typography } from '@mui/material';
+import Link from 'next/link';
+import { Box, Button, Typography } from '@mui/material';
 import { comfortaa } from '@/theme/Typography';
 
 interface CardJobType {
@@ -8,6 +9,7 @@ interface CardJobType {
   periode: string;
   role: string;
   job: string;
+  website: string;
 }
 
 export const CardJob = (props: CardJobType) => {
@@ -15,7 +17,7 @@ export const CardJob = (props: CardJobType) => {
     <Box
       component='div'
       sx={{
-        height: '25rem',
+        height: '27.5rem',
         width: {
           xs: '100%',
           sm: '20rem',
@@ -145,6 +147,39 @@ export const CardJob = (props: CardJobType) => {
         >
           {props.job}
         </Typography>
+      </Box>
+      <Box
+        component='div'
+        sx={{
+          height: '2.5rem',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          aligItems: 'center',
+        }}
+      >
+        <Link passHref href={props.website}>
+          <Button
+            sx={{
+              padding: '0.5rem 1rem',
+              border: '0.125rem solid #2196f3',
+              borderRadius: '0.5rem',
+              fontSize: '0.55rem',
+              fontWeight: 700,
+              color: '#ffffff',
+              backgroundColor: '#2196f3',
+              cursor: 'pointer',
+              position: 'relative',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                padding: '0.5rem 2rem',
+                backgroundColor: '#2196f3',
+              },
+            }}
+          >
+            Company Website
+          </Button>
+        </Link>
       </Box>
     </Box>
   );
