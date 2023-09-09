@@ -13,6 +13,7 @@ export const Experience = () => {
       role: 'frontend developer',
       jobDesk:
         'Woohoo! My first full-time job! 🎉 \nDevelop and implement UI with UI/UX designers and integrate APIs from back-end developers to create web apps, dashboards, and mobile applications. Maintaining and fixing bugs in existing projects.',
+      website: 'https://xcidic.com/',
     },
   ];
 
@@ -63,6 +64,7 @@ export const Experience = () => {
                     periode={data.periode}
                     role={data.role}
                     job={data.jobDesk}
+                    website={data.website}
                   />
                 </Grid>
               );

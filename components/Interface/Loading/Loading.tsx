@@ -227,7 +227,7 @@ export const LoadingOverlay = () => {
             },
           }}
         >
-          start without audio
+          start without music
         </Typography>
       </Box>
     </Box>
