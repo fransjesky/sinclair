@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { Hero, Profile } from '@/modules';
+import { Hero, Profile, Projects } from '@/modules';
 import { LoadingOverlay } from '@/components';
 import { useAppSelector } from '@/redux';
 
@@ -25,6 +25,7 @@ export default function Home() {
         sx={{ opacity: showPage ? 1 : 0, transition: 'opacity 0.3s ease' }}
       >
         <Profile />
+        <Projects />
       </Box>
     </>
   ) : (
