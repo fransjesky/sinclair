@@ -32,7 +32,7 @@ interface GlyphTextType {
   delay?: number;
   english: string;
   japanese: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'extraLarge';
   animate?: boolean;
   dark?: boolean;
 }
@@ -126,6 +126,8 @@ export const GlyphText = ({
             ? '1.5rem'
             : size === 'large'
             ? '2rem'
+            : size === 'extraLarge'
+            ? '3rem'
             : '1rem',
         textTransform: 'uppercase',
         letterSpacing: `${'inherit'} : ${'0.25rem'}`,

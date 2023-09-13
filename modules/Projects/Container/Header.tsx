@@ -6,6 +6,7 @@ export const Header = () => {
     <Box
       component='div'
       sx={{
+        marginBottom: '2.5rem',
         minHeight: '25vh',
         width: '100%',
         display: 'flex',
