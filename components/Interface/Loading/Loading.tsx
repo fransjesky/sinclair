@@ -148,11 +148,7 @@ export const LoadingOverlay = () => {
           alignItems: 'center',
         }}
       >
-        <GlyphText
-          english='loading status'
-          japanese='読み込みステータス'
-          delay={300}
-        />
+        <GlyphText english='loading status' japanese='読み込みステータス' />
         <Typography
           variant='h1'
           sx={{

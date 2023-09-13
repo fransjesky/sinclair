@@ -7,7 +7,6 @@ interface SectionTitleType {
   title: string;
   english: string;
   japanese: string;
-  delay?: number;
 }
 
 export const SectionTitle = (props: SectionTitleType) => {
@@ -53,7 +52,6 @@ export const SectionTitle = (props: SectionTitleType) => {
         <GlyphText
           english={props.english}
           japanese={props.japanese}
-          delay={props.delay || 300}
           size={mobileView ? 'small' : 'medium'}
           animate={false}
         />

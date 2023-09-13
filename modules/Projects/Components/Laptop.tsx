@@ -1,10 +1,10 @@
 import { useRef, useEffect, useState } from 'react';
-import { DoubleSide, Group, MathUtils, TextureLoader } from 'three';
-import { useFrame } from '@react-three/fiber';
+import { DoubleSide, Group, TextureLoader } from 'three';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
+  image: string;
   nodes: {
     Cube008: THREE.Mesh;
     Cube008_1: THREE.Mesh;
@@ -24,7 +24,7 @@ type GLTFResult = GLTF & {
   };
 };
 
-function Model(props: any) {
+export const Laptop = (props: any) => {
   const [projectScreen, setProjectScreen] = useState<any>(null!);
   const group = useRef<Group>(null!);
 
@@ -33,39 +33,14 @@ function Model(props: any) {
 
   useEffect(() => {
     const loader = new TextureLoader();
-    loader.load('/assets/oootopia.png', (texture) => {
+    loader.load(`/assets/${props.image}`, (texture) => {
       setProjectScreen(texture);
     });
-  }, []);
-
-  // Make it float
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
-    group.current.rotation.x = MathUtils.lerp(
-      group.current.rotation.x,
-      Math.cos(t / 2) / 20 + 0.25,
-      0.1
-    );
-    group.current.rotation.y = MathUtils.lerp(
-      group.current.rotation.y,
-      Math.sin(t / 4) / 20,
-      0.1
-    );
-    group.current.rotation.z = MathUtils.lerp(
-      group.current.rotation.z,
-      Math.sin(t / 8) / 20,
-      0.1
-    );
-    group.current.position.y = MathUtils.lerp(
-      group.current.position.y,
-      (-2 + Math.sin(t / 2)) / 2,
-      0.1
-    );
-  });
+  }, [props.image]);
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <group rotation-x={-0.425} position={[0, -0.04, 0.41]}>
+      <group rotation-x={-0.225} position={[0, -0.04, 0.41]}>
         <group position={[0, 2.96, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
           <mesh
             material={materials.aluminium}
@@ -77,7 +52,7 @@ function Model(props: any) {
           />
           <mesh
             geometry={nodes['Cube008_2'].geometry}
-            position={[0, 0.1, -0.1]}
+            position={[0, 0.075, -0.175]}
             rotation={[0, -Math.PI, -Math.PI]}
           >
             {projectScreen && (
@@ -108,6 +83,4 @@ function Model(props: any) {
       />
     </group>
   );
-}
-
-export default Model;
+};

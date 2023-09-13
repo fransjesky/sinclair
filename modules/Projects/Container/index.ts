@@ -1,2 +1,3 @@
 export * from './Header';
-export * from './ProjectPreview';
+export * from './Oootopia';
+export * from './Fitcells';
