@@ -35,27 +35,27 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
   } = props;
 
   return (
-    <Container maxWidth='xl'>
+    <Container maxWidth='lg'>
       <Grid
         container
         direction={reverse ? 'row-reverse' : 'row'}
+        columnSpacing={10}
+        rowSpacing={6}
         sx={{
+          marginBottom: '2rem',
           height: '75vh',
           width: '100%',
           display: 'flex',
           alignItems: 'center',
-          backgroundImage: `url('/assets/${link}')`,
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
+          overflow: 'hidden',
         }}
       >
         <Grid
           item
-          xl={8}
+          xs={6}
           sx={{
-            height: 'inherit',
-            width: 'inherit',
+            height: '100%',
+            width: '100%',
             cursor: 'grab',
             '&:active': {
               cursor: 'grabbing',
@@ -66,7 +66,7 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
             <Canvas>
               <pointLight position={[3, 3, 3]} intensity={1.5} />
               <Suspense fallback={null}>
-                <group position={[0, -0.5, 0]} scale={0.45}>
+                <group position={[0, -0.5, 0]} scale={0.4}>
                   <Laptop image={image} />
                 </group>
               </Suspense>
@@ -83,7 +83,7 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
             </Canvas>
           </Box>
         </Grid>
-        <Grid item xl={4}>
+        <Grid item xs={6}>
           <Box
             component='div'
             sx={{

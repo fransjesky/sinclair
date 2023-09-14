@@ -24,6 +24,8 @@ type GLTFResult = GLTF & {
   };
 };
 
+useGLTF.preload('Models/mac-draco.glb');
+
 export const Laptop = (props: any) => {
   const [projectScreen, setProjectScreen] = useState<any>(null!);
   const group = useRef<Group>(null!);

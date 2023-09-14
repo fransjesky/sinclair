@@ -18,6 +18,7 @@ export const Protoslabs = () => {
   return (
     <Box component='div' sx={{ margin: '1rem 0' }}>
       <ProjectPreview
+        reverse
         link={data.link}
         image={data.image}
         enText={data.enText}
