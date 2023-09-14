@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import Link from 'next/link';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -8,6 +9,7 @@ import { Laptop } from '.';
 
 interface ProjectPreviewProps {
   reverse?: boolean;
+  link: string;
   image: string;
   enText: string;
   jpText: string;
@@ -19,8 +21,18 @@ interface ProjectPreviewProps {
 }
 
 export const ProjectPreview = (props: ProjectPreviewProps) => {
-  const { reverse, image, enText, jpText, year, region, about, role, work } =
-    props;
+  const {
+    link,
+    reverse,
+    image,
+    enText,
+    jpText,
+    year,
+    region,
+    about,
+    role,
+    work,
+  } = props;
 
   return (
     <Container maxWidth='xl'>
@@ -32,6 +44,10 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
           width: '100%',
           display: 'flex',
           alignItems: 'center',
+          backgroundImage: `url('/assets/${link}')`,
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
         }}
       >
         <Grid
@@ -50,7 +66,7 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
             <Canvas>
               <pointLight position={[3, 3, 3]} intensity={1.5} />
               <Suspense fallback={null}>
-                <group position={[0, -0.5, 0]} scale={0.5}>
+                <group position={[0, -0.5, 0]} scale={0.45}>
                   <Laptop image={image} />
                 </group>
               </Suspense>
@@ -160,26 +176,28 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
                 aligItems: 'center',
               }}
             >
-              <Button
-                sx={{
-                  padding: '0.5rem 1rem',
-                  border: '0.125rem solid #ff4655',
-                  borderRadius: '0.5rem',
-                  fontSize: '0.55rem',
-                  fontWeight: 700,
-                  color: '#ffffff',
-                  backgroundColor: '#ff4655',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    padding: '0.5rem 2rem',
+              <Link passHref href={link}>
+                <Button
+                  sx={{
+                    padding: '0.5rem 1rem',
+                    border: '0.125rem solid #ff4655',
+                    borderRadius: '0.5rem',
+                    fontSize: '0.55rem',
+                    fontWeight: 700,
+                    color: '#ffffff',
                     backgroundColor: '#ff4655',
-                  },
-                }}
-              >
-                View Project&apos;s Website
-              </Button>
+                    cursor: 'pointer',
+                    position: 'relative',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      padding: '0.5rem 2rem',
+                      backgroundColor: '#ff4655',
+                    },
+                  }}
+                >
+                  View Project&apos;s Website
+                </Button>
+              </Link>
             </Box>
           </Box>
         </Grid>

@@ -1,18 +1,17 @@
 import { Box } from '@mui/material';
 import { ProjectPreview } from '../Components/ProjectPreview';
 
-export const Fitcells = () => {
+export const Xcidic = () => {
   const data = {
-    link: 'https://www.fitcells.com',
-    image: 'fitcells.png',
-    enText: 'fitcells',
-    jpText: 'フィツェルズ',
-    year: '2021',
+    link: 'https://xcidic.com',
+    image: 'xcidic.png',
+    enText: 'xcidic',
+    jpText: 'X・シディック',
+    year: '2022',
     region: 'Singapore',
-    about:
-      'Fitness listing platform that connects people with the workout venues',
-    role: 'Frontend Developer, Mobile Developer',
-    work: 'Involved in early development until initial public release of Fitcells, created the mobile app and CMS (content management system) dashboard',
+    about: 'A company profile of Xcidic, a startup IT company based in Singapore',
+    role: 'Frontend Developer',
+    work: 'Involved in internal project revamped and re-created from scratch a company profile responsive website of Xcidic and its CMS (content management system) dashboard',
   };
 
   return (

@@ -40,7 +40,7 @@ export const Laptop = (props: any) => {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <group rotation-x={-0.225} position={[0, -0.04, 0.41]}>
+      <group rotation-x={-0.125} position={[0, -0.04, 0.41]}>
         <group position={[0, 2.96, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
           <mesh
             material={materials.aluminium}

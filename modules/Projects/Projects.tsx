@@ -1,6 +1,13 @@
 import { Box } from '@mui/material';
 import { ScrollView } from '@/components';
-import { Header, Oootopia, Fitcells } from './Container';
+import {
+  Header,
+  Oootopia,
+  Fitcells,
+  Kbri,
+  Xcidic,
+  Protoslabs,
+} from './Container';
 
 export const Projects = () => {
   return (
@@ -9,6 +16,9 @@ export const Projects = () => {
       <Header />
       <Oootopia />
       <Fitcells />
+      <Kbri />
+      <Xcidic />
+      <Protoslabs />
     </Box>
   );
 };
