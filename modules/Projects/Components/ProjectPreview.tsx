@@ -9,6 +9,7 @@ import { useAppSelector } from '@/redux';
 import { Laptop } from '.';
 
 interface ProjectPreviewProps {
+  offline?: boolean;
   reverse?: boolean;
   link: string;
   image: string;
@@ -24,6 +25,7 @@ interface ProjectPreviewProps {
 export const ProjectPreview = (props: ProjectPreviewProps) => {
   const mobile = useAppSelector((state) => state.global.isMobile);
   const {
+    offline,
     link,
     reverse,
     image,
@@ -193,28 +195,52 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
                 aligItems: 'center',
               }}
             >
-              <Link passHref href={link}>
+              {offline ? (
                 <Button
                   sx={{
                     padding: '0.5rem 1rem',
-                    border: '0.125rem solid #ff4655',
+                    border: '0.125rem solid #121212',
                     borderRadius: '0.5rem',
                     fontSize: '0.55rem',
                     fontWeight: 700,
                     color: '#ffffff',
-                    backgroundColor: '#ff4655',
+                    backgroundColor: '#121212',
                     cursor: 'pointer',
                     position: 'relative',
+                    letterSpacing: '0.125rem',
+                    textTransform: 'uppercase',
                     transition: 'all 0.3s ease',
                     '&:hover': {
-                      padding: '0.5rem 2rem',
-                      backgroundColor: '#ff4655',
+                      backgroundColor: '#121212',
                     },
                   }}
                 >
-                  View Project&apos;s Website
+                  ⛔ this project is offline 🚧
                 </Button>
-              </Link>
+              ) : (
+                <Link passHref href={link}>
+                  <Button
+                    sx={{
+                      padding: '0.5rem 1rem',
+                      border: '0.125rem solid #ff4655',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.55rem',
+                      fontWeight: 700,
+                      color: '#ffffff',
+                      backgroundColor: '#ff4655',
+                      cursor: 'pointer',
+                      position: 'relative',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        padding: '0.5rem 2rem',
+                        backgroundColor: '#ff4655',
+                      },
+                    }}
+                  >
+                    View Project&apos;s Website
+                  </Button>
+                </Link>
+              )}
             </Box>
           </Box>
         </Grid>

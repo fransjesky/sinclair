@@ -17,6 +17,7 @@ export const Tupan = () => {
   return (
     <Box component='div' sx={{ margin: '1rem 0' }}>
       <ProjectPreview
+        offline
         reverse
         link={data.link}
         image={data.image}
