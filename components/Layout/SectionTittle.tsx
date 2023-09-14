@@ -60,7 +60,7 @@ export const SectionTitle = (props: SectionTitleType) => {
         sx={{
           color: '#ffffff',
           fontSize: {
-            xs: '4rem',
+            xs: '3.25rem',
             sm: '5rem',
             md: '6.5rem',
             lg: '8.5rem',

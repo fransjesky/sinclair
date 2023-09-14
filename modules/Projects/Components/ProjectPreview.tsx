@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { GlyphText } from '@/components';
 import { comfortaa } from '@/theme/Typography';
+import { useAppSelector } from '@/redux';
 import { Laptop } from '.';
 
 interface ProjectPreviewProps {
@@ -21,6 +22,7 @@ interface ProjectPreviewProps {
 }
 
 export const ProjectPreview = (props: ProjectPreviewProps) => {
+  const mobile = useAppSelector((state) => state.global.isMobile);
   const {
     link,
     reverse,
@@ -39,20 +41,19 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
       <Grid
         container
         direction={reverse ? 'row-reverse' : 'row'}
-        columnSpacing={10}
-        rowSpacing={6}
+        columnSpacing={{ xs: 0, md: 10 }}
         sx={{
           marginBottom: '2rem',
-          height: '75vh',
+          minHeight: '75vh',
           width: '100%',
           display: 'flex',
           alignItems: 'center',
-          overflow: 'hidden',
         }}
       >
         <Grid
           item
-          xs={6}
+          xs={12}
+          sm={6}
           sx={{
             height: '100%',
             width: '100%',
@@ -62,7 +63,13 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
             },
           }}
         >
-          <Box component='div' sx={{ height: '100%', width: '100%' }}>
+          <Box
+            component='div'
+            sx={{
+              height: { xs: '20rem', sm: '20rem', md: '62.5vh', lg: '75vh' },
+              width: '100%',
+            }}
+          >
             <Canvas>
               <pointLight position={[3, 3, 3]} intensity={1.5} />
               <Suspense fallback={null}>
@@ -83,16 +90,21 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
             </Canvas>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <Box
             component='div'
             sx={{
+              width: '100%',
               paddingTop: '1rem',
               paddingBottom: '1rem',
               userSelect: 'none',
             }}
           >
-            <GlyphText english={enText} japanese={jpText} size='extraLarge' />
+            <GlyphText
+              english={enText}
+              japanese={jpText}
+              size={mobile ? 'large' : 'extraLarge'}
+            />
             <Typography
               sx={{
                 color: '#ffffff',
@@ -108,7 +120,12 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
               sx={{
                 margin: '1rem 0',
                 color: '#ffffff',
-                fontSize: '1.5rem',
+                fontSize: {
+                  xs: '1rem',
+                  sm: '1.1rem',
+                  md: '1.25rem',
+                  lg: '1.5rem',
+                },
                 fontFamily: comfortaa.style.fontFamily,
                 textAlign: 'left',
                 fontWeight: 500,

@@ -216,7 +216,7 @@ export const LoadingOverlay = () => {
             letterSpacing: '0.065rem',
             userSelect: 'none',
             cursor: 'pointer',
-            opacity: enableStart ? 0.5 : 0,
+            opacity: enableStart ? 0.75 : 0,
             transition: 'all 0.3s ease',
             '&:hover': {
               opacity: 1,

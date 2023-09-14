@@ -14,10 +14,13 @@ export const Header = () => {
         overflowX: 'hidden',
       }}
     >
-      <Grid container>
+      <Grid container rowSpacing={{ xs: 2, sm: 0 }}>
         <Grid
           item
-          xs={2}
+          xs={12}
+          sm={3}
+          md={3}
+          lg={2}
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -27,15 +30,21 @@ export const Header = () => {
           <Box
             component='div'
             sx={{
-              width: '12.5rem',
-              height: '12.5rem',
+              width: {
+                xs: '8rem',
+                sm: '10rem',
+              },
+              height: {
+                xs: '8rem',
+                sm: '10rem',
+              },
               borderRadius: '50%',
               backgroundColor: '#ff4655',
               userSelect: 'none',
             }}
           />
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={12} sm={9} md={9} lg={10}>
           <Box
             component='div'
             sx={{
