@@ -40,7 +40,6 @@ const areaLight = (reverse: boolean) => {
 
 export const Robot = (props: RobotPropTypes) => {
   // variables init
-  const clock = new Date().getHours();
   const dispatch = useAppDispatch();
   const isMobile = useAppSelector((state) => state.global.isMobile);
   const robotRef = useRef<Group>(null!);
@@ -56,7 +55,7 @@ export const Robot = (props: RobotPropTypes) => {
   // state init
   const [doGreet, setDoGreet] = useState(false);
   const [greeting, setGreeting] = useState(
-    `Hey there! I'm glad you are here 👋🏻`
+    `Hey there! I'm happy you are here 👋🏻`
   );
   const [lightPosition, setLightPosition] = useState<Vector3>(
     new Vector3(0, -100, 0)
@@ -92,6 +91,8 @@ export const Robot = (props: RobotPropTypes) => {
   const [annotationData, setAnnotationData] = useState<string>('');
 
   useEffect(() => {
+    const clock = new Date().getHours();
+
     window.innerWidth <= 600 ? setDistance(-0.25) : setDistance(-0.5);
     props.started && !debugMode ? setEnterance(true) : setEnterance(false);
 
@@ -116,7 +117,7 @@ export const Robot = (props: RobotPropTypes) => {
         );
       }
     }
-  }, [props.started, debugMode, clock, doGreet]);
+  }, [props.started, debugMode, doGreet]);
 
   // animation functions
   const idleAnimation = () => {

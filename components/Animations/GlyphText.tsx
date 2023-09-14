@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSpring } from 'framer-motion';
 import { Typography } from '@mui/material';
-import { delay } from '@/hooks';
 
 // prettier-ignore
 const glyphs = [
@@ -29,10 +28,9 @@ const CharType = {
 
 interface GlyphTextType {
   start?: boolean;
-  delay?: number;
   english: string;
   japanese: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'extraLarge';
   animate?: boolean;
   dark?: boolean;
 }
@@ -60,7 +58,6 @@ export const GlyphText = ({
   english,
   japanese,
   start = true,
-  delay: startDelay = 0,
   size = 'small',
   animate = true,
   dark = false,
@@ -84,8 +81,7 @@ export const GlyphText = ({
       setGlyph(characterMap.join(''));
     };
 
-    const startSpring = async () => {
-      await delay(startDelay);
+    const startSpring = () => {
       decoderSpring.set(content.length);
       decoderSpring.on('change', (value) => {
         output.current = shuffle(content, output.current, value);
@@ -112,7 +108,7 @@ export const GlyphText = ({
       decoderSpring.stop();
       clearInterval(glyphInterval);
     };
-  }, [startGlyph, startDelay, decoderSpring, isJapanese, jpText, enText]);
+  }, [startGlyph, decoderSpring, isJapanese, jpText, enText]);
 
   return (
     <Typography
@@ -126,6 +122,8 @@ export const GlyphText = ({
             ? '1.5rem'
             : size === 'large'
             ? '2rem'
+            : size === 'extraLarge'
+            ? '3rem'
             : '1rem',
         textTransform: 'uppercase',
         letterSpacing: `${'inherit'} : ${'0.25rem'}`,

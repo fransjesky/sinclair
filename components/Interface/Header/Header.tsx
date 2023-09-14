@@ -29,7 +29,7 @@ export const Header = () => {
     {
       link: '#projects',
       nav: 'projects',
-      disabled: true,
+      disabled: false,
     },
     {
       link: '#contact',
@@ -89,7 +89,10 @@ export const Header = () => {
         outline: 'none',
         backgroundColor: solidBackground ? '#111111' : 'none',
         boxShadow: solidBackground
-          ? '0 0.0625rem 0.5rem 0 rgba(0,0,0,.05), 0 0.0625rem 0.3125rem 0 rgba(0,0,0,.05)'
+          ? '0 0.0625rem 0.5rem 0 rgba(0,0,0,.04), 0 0.0625rem 0.3125rem 0 rgba(0,0,0,.04)'
+          : 'none',
+        WebkitBoxShadow: solidBackground
+          ? '0 0.0625rem 0.5rem 0 rgba(0,0,0,.04), 0 0.0625rem 0.3125rem 0 rgba(0,0,0,.04)'
           : 'none',
         opacity: showNavigation ? 1 : 0,
         zIndex: 999,
