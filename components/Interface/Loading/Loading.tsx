@@ -148,11 +148,7 @@ export const LoadingOverlay = () => {
           alignItems: 'center',
         }}
       >
-        <GlyphText
-          english='loading status'
-          japanese='読み込みステータス'
-          delay={300}
-        />
+        <GlyphText english='loading status' japanese='読み込みステータス' />
         <Typography
           variant='h1'
           sx={{
@@ -220,7 +216,7 @@ export const LoadingOverlay = () => {
             letterSpacing: '0.065rem',
             userSelect: 'none',
             cursor: 'pointer',
-            opacity: enableStart ? 0.5 : 0,
+            opacity: enableStart ? 0.75 : 0,
             transition: 'all 0.3s ease',
             '&:hover': {
               opacity: 1,

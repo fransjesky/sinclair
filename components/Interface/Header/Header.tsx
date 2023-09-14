@@ -29,7 +29,7 @@ export const Header = () => {
     {
       link: '#projects',
       nav: 'projects',
-      disabled: true,
+      disabled: false,
     },
     {
       link: '#contact',
