@@ -1,12 +1,9 @@
-import { Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import { GlyphText } from '@/components';
 import { comfortaa } from '@/theme/Typography';
 import { useAppSelector } from '@/redux';
-import { Laptop } from '.';
 
 interface ProjectPreviewProps {
   offline?: boolean;
@@ -42,8 +39,8 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
     <Container maxWidth='lg'>
       <Grid
         container
-        direction={reverse ? 'row-reverse' : 'row'}
-        columnSpacing={{ xs: 0, md: 10 }}
+        direction={reverse ? 'row-reverse' : 'row'
+        columnSpacing={{ xs: 0, sm: 4, lg: 6 }}
         sx={{
           marginBottom: '2rem',
           minHeight: '75vh',
@@ -68,28 +65,20 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
           <Box
             component='div'
             sx={{
-              height: { xs: '20rem', sm: '20rem', md: '62.5vh', lg: '75vh' },
+              height: { xs: '12.5rem', sm: '20rem', md: '62.5vh', lg: '75vh' },
               width: '100%',
+              position: 'relative',
             }}
           >
-            <Canvas>
-              <pointLight position={[3, 3, 3]} intensity={1.5} />
-              <Suspense fallback={null}>
-                <group position={[0, -0.5, 0]} scale={0.4}>
-                  <Laptop image={image} />
-                </group>
-              </Suspense>
-              <ambientLight />
-              <directionalLight position={[-6, 2, 2]} />
-              <directionalLight position={[0.5, 0, 0.866]} />
-              <directionalLight intensity={0.1} position={[0, 0, -5]} />
-              <OrbitControls
-                enablePan={false}
-                enableZoom={false}
-                minPolarAngle={Math.PI / 2.2}
-                maxPolarAngle={Math.PI / 2.2}
-              />
-            </Canvas>
+            <Image
+              fill
+              priority
+              quality={100}
+              alt={enText}
+              src={`/assets/${image}`}
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 100%, 100%'
+              style={{ objectFit: 'contain' }}
+            />
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
