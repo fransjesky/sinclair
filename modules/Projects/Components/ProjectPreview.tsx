@@ -1,9 +1,21 @@
+<<<<<<< HEAD
 import Link from 'next/link';
 import Image from 'next/image';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { GlyphText } from '@/components';
 import { comfortaa } from '@/theme/Typography';
 import { useAppSelector } from '@/redux';
+=======
+import { Suspense } from 'react';
+import Link from 'next/link';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import { GlyphText } from '@/components';
+import { comfortaa } from '@/theme/Typography';
+import { useAppSelector } from '@/redux';
+import { Laptop } from '.';
+>>>>>>> 8179602 (Upgraded to version 0.2 (#75))
 
 interface ProjectPreviewProps {
   offline?: boolean;
