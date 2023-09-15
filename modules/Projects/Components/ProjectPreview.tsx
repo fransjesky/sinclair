@@ -39,7 +39,7 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
     <Container maxWidth='lg'>
       <Grid
         container
-        direction={reverse ? 'row-reverse' : 'row'}
+        direction={reverse ? 'row-reverse' : 'row'
         columnSpacing={{ xs: 0, sm: 4, lg: 6 }}
         sx={{
           marginBottom: '2rem',
