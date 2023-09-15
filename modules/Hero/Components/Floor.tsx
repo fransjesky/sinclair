@@ -6,9 +6,9 @@ export const Floor = () => {
     <group>
       <Sparkles
         color='#bbdefb'
-        size={10}
+        size={3}
         speed={0.2}
-        scale={[10, 3, 25]}
+        scale={[10, 5, 25]}
         position-y={1}
       />
       <RigidBody type='fixed' friction={2}>
