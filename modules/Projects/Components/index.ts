@@ -1,1 +1,1 @@
-export * from './Laptop';
+export * from './ProjectPreview';
