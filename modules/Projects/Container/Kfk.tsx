@@ -11,7 +11,7 @@ export const Kfk = () => {
     region: 'Jakarta, Indonesia',
     about: 'An online food order platform for a Kungfu Kebab franchise',
     role: 'Frontend Developer, Backend Developer',
-    work: 'Freelance project and collaboration with friends. Created official website, CMS (content management system) dashboard and server as well the database. This project is already handovered to its owner and now being maintained by other developer',
+    work: 'A freelance project and collaboration with friends. Created the official website, CMS (content management system) dashboard, and server. This project has already been handed over to its owner and is now being maintained by another developer',
   };
 
   return (

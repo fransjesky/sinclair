@@ -10,9 +10,9 @@ export const Protoslabs = () => {
     year: '2023',
     region: 'Singapore',
     about:
-      'A cybersecurity solution and risk management, orchestration platform',
+      'A cybersecurity solution and cyber risk management orchestration platform',
     role: 'Frontend Developer',
-    work: 'Involved as a part of small outsource team in developing a cyber security and risk analytics, solution and management dashboard system',
+    work: 'Involved as a part of a small outsource team in developing a cyber security and risk analytics, solution, and management dashboard system',
   };
 
   return (

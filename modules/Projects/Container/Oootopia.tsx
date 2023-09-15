@@ -9,9 +9,9 @@ export const Oootopia = () => {
     jpText: 'ウートピア',
     year: '2020 - 2021',
     region: 'Hong Kong, China',
-    about: 'Hong Kong inovative serviced apartment integrated with IoT',
+    about: `Hong Kong's innovative serviced apartment integrated with IoT`,
     role: 'Frontend Developer, Mobile Developer',
-    work: 'Monitoring, maintaining and bug-fixing the resident mobile app and PMS (property management system) dashboard while creating new features. Prepare monthly reports such as app production status, app security and performance statistics, and existing and fixed issues',
+    work: 'Monitoring, maintaining, and bug-fixing the resident mobile app and PMS (property management system) dashboard while creating new features and a monthly app status report and analytics',
   };
 
   return (
