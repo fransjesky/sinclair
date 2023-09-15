@@ -8,7 +8,7 @@ export const Kfk = () => {
     enText: 'Kungfu Kebab',
     jpText: 'カンフー・ケバブ',
     year: '2022',
-    region: 'Indonesia',
+    region: 'Jakarta, Indonesia',
     about: 'An online food order platform for a Kungfu Kebab franchise',
     role: 'Frontend Developer, Backend Developer',
     work: 'Freelance project and collaboration with friends. Created official website, CMS (content management system) dashboard and server as well the database. This project is already handovered to its owner and now being maintained by other developer',
