@@ -9,9 +9,10 @@ export const Xcidic = () => {
     jpText: 'X・シディック',
     year: '2022',
     region: 'Singapore',
-    about: 'A company profile of Xcidic, a startup IT company based in Singapore',
+    about:
+      'A company profile of Xcidic, a startup IT company based in Singapore',
     role: 'Frontend Developer',
-    work: 'Involved in internal project revamped and re-created from scratch a company profile responsive website of Xcidic and its CMS (content management system) dashboard',
+    work: 'Involved in an internal project that revamped and recreated from scratch a company profile responsive website of Xcidic and its CMS (content management system) dashboard',
   };
 
   return (

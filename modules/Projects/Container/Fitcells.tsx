@@ -9,10 +9,9 @@ export const Fitcells = () => {
     jpText: 'フィツェルズ',
     year: '2021',
     region: 'Singapore',
-    about:
-      'Fitness listing platform that connects people with the workout venues',
+    about: 'Fitness listing platform that connects people with workout venues',
     role: 'Frontend Developer, Mobile Developer',
-    work: 'Involved in early development until initial public release of Fitcells, created the mobile app and CMS (content management system) dashboard',
+    work: 'Involved in early development until the initial official public release of Fitcells, created the mobile app and CMS (content management system) dashboard',
   };
 
   return (

@@ -9,9 +9,9 @@ export const Kbri = () => {
     jpText: 'KBRI リマ',
     year: '2021 - 2022',
     region: 'Lima, Peru',
-    about: 'Official website of Indonesian Embassy located in Lima, Peru',
+    about: 'Official website of the Indonesian Embassy located in Lima, Peru',
     role: 'Frontend Developer',
-    work: 'First official government project, revamped and re-created from scratch a responsive website and CMS (content management system) dashboard for Indonesian Embassy at Lima, Peru',
+    work: 'First official government project. Revamped and recreated from scratch a responsive website and CMS (content management system) dashboard for the Indonesian Embassy in Lima, Peru',
   };
 
   return (

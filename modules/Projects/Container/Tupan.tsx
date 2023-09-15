@@ -9,9 +9,9 @@ export const Tupan = () => {
     jpText: 'トゥーパン',
     year: '2019',
     region: 'Jakarta, Indonesia',
-    about: 'Online reserve platform for multiple branches of restaurant',
+    about: 'Online reservation platform for multiple branches of restaurants',
     role: 'Frontend Developer, Backend Developer',
-    work: 'My first paid freelance project, created everything from scratch including the official website, CMS (content management system) dashboard and server as well the database',
+    work: 'My first paid freelance project involved creating everything from scratch, including the official website, CMS (content management system) dashboard and server, as well as the database',
   };
 
   return (
