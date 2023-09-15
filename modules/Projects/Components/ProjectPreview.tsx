@@ -43,7 +43,7 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
         columnSpacing={{ xs: 0, sm: 4, lg: 6 }}
         sx={{
           marginBottom: '2rem',
-          minHeight: '75vh',
+          minHeight: '55vh',
           width: '100%',
           display: 'flex',
           alignItems: 'center',
@@ -53,7 +53,7 @@ export const ProjectPreview = (props: ProjectPreviewProps) => {
           <Box
             component='div'
             sx={{
-              height: { xs: '12.5rem', sm: '20rem', md: '62.5vh', lg: '75vh' },
+              height: { xs: '12.5rem', sm: '20rem', md: '55vh' },
               width: '100%',
               position: 'relative',
             }}
