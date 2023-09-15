@@ -109,7 +109,7 @@ export const Robot = (props: RobotPropTypes) => {
         setGreeting(`Good afternoon! Half your day is gone, keep it up!`);
       } else if (clock >= 18 && clock <= 23) {
         setGreeting(
-          `Good evening! What's your dinner for tonight? Home cook? 😋`
+          `Good evening! What's your dinner for tonight? 😋`
         );
       } else if (clock >= 0 && clock < 5) {
         setGreeting(
