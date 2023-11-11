@@ -10,6 +10,7 @@ interface CardJobType {
   role: string;
   job: string;
   website: string;
+  color: string;
 }
 
 export const CardJob = (props: CardJobType) => {
@@ -28,7 +29,7 @@ export const CardJob = (props: CardJobType) => {
         borderRadius: '1rem',
         backgroundColor: '#111111',
         overflow: 'hidden',
-        borderBottom: '0.25rem solid #2196f3',
+        borderBottom: `0.25rem solid ${props.color}`,
         position: 'relative',
       }}
     >
@@ -48,7 +49,7 @@ export const CardJob = (props: CardJobType) => {
             position: 'absolute',
             top: 0,
             left: 0,
-            backgroundColor: '#2196f3',
+            backgroundColor: props.color,
             transform: 'rotate(90deg) translateY(-2.5rem) translateX(-5rem)',
             clipPath: 'polygon(75% 0%, 50% 50%, 75% 100%, 0 100%, 0% 50%, 0 0)',
           }}
@@ -118,7 +119,7 @@ export const CardJob = (props: CardJobType) => {
       >
         <Typography
           sx={{
-            color: '#2196f3',
+            color: props.color,
             fontSize: '0.75rem',
             fontWeight: 700,
             textTransform: 'uppercase',
@@ -162,18 +163,18 @@ export const CardJob = (props: CardJobType) => {
           <Button
             sx={{
               padding: '0.5rem 1rem',
-              border: '0.125rem solid #2196f3',
+              border: `0.125rem solid ${props.color}`,
               borderRadius: '0.5rem',
               fontSize: '0.55rem',
               fontWeight: 700,
               color: '#ffffff',
-              backgroundColor: '#2196f3',
+              backgroundColor: props.color,
               cursor: 'pointer',
               position: 'relative',
               transition: 'all 0.3s ease',
               '&:hover': {
                 padding: '0.5rem 2rem',
-                backgroundColor: '#2196f3',
+                backgroundColor: props.color,
               },
             }}
           >
