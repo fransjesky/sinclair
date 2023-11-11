@@ -9,11 +9,22 @@ export const Experience = () => {
     {
       imageUrl: '/assets/SVG/xcidic.svg',
       companyName: 'xcidic',
-      periode: '2020 - on going',
+      periode: 'Oct 2023 - present',
+      role: 'head of information technology',
+      jobDesk:
+        "In October 2023, i got promoted to Head of IT role. My main responsibility is to innovate and improve company's current technology. Involve in project's planning, SoW, development and production. Review other developer codes and do assessment interview.",
+      website: 'https://xcidic.com/',
+      color: '#ff6937',
+    },
+    {
+      imageUrl: '/assets/SVG/xcidic.svg',
+      companyName: 'xcidic',
+      periode: 'Nov 2020 - Nov 2023',
       role: 'frontend developer',
       jobDesk:
         'Woohoo! My first full-time job! 🎉 \nDevelop and implement UI with UI/UX designers and integrate APIs from back-end developers to create web apps, dashboards, and mobile applications. Maintaining and fixing bugs in existing projects.',
       website: 'https://xcidic.com/',
+      color: '#2196f3',
     },
   ];
 
@@ -52,7 +63,7 @@ export const Experience = () => {
         <Container maxWidth='lg'>
           <Grid
             container
-            spacing={2}
+            spacing={6}
             sx={{ display: 'flex', justifyContent: 'center' }}
           >
             {expData.map((data, index) => {
@@ -65,6 +76,7 @@ export const Experience = () => {
                     role={data.role}
                     job={data.jobDesk}
                     website={data.website}
+                    color={data.color}
                   />
                 </Grid>
               );
